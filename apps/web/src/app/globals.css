@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== REMOVE BLUE FOCUS SAFELY ===== */
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ===== CUSTOM FOCUS (PURPLE THEME) ===== */
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #7c3aed !important;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.25);
+}
+
+/* ===== REMOVE BLUE LINK COLOR ===== */
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== SELECT DROPDOWN FIX ===== */
+
+select {
+  appearance: none;
+  background-color: white;
+}
+
+/* ===== SCROLLBAR CLEAN ===== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c4a89a;
+  border-radius: 10px;
+}

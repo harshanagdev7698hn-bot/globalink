@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --primary: #123b7a;
+  --primary-2: #2563eb;
+  --navy: #0b1f3a;
+  --success: #16a34a;
+  --warning: #d97706;
+  --danger: #dc2626;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.page-container {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.glass-panel {
+  @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+}
+
+.gov-hero {
+  background: linear-gradient(135deg, #0b1f3a 0%, #123b7a 55%, #2563eb 100%);
+}
+
+.section-title {
+  @apply text-2xl font-bold tracking-tight text-slate-900;
+}
+
+.section-subtitle {
+  @apply mt-1 text-sm text-slate-500;
+}
+
+.soft-hover {
+  @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-md;
+}
+
+.status-approved {
+  @apply rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700;
+}
+
+.status-pending {
+  @apply rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-700;
+}
+
+.status-open {
+  @apply rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700;
+}
