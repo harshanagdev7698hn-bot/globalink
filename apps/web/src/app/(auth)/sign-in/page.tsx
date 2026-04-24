@@ -3,69 +3,61 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
+type Role = "buyer" | "consultant" | "lab" | "seller";
+
 export default function SignInPage() {
   const router = useRouter();
-
+  const [role, setRole] = useState<Role>("buyer");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function handleLogin() {
-    try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
 
-      if (!res.ok) {
-        alert("Login failed");
-        return;
-      }
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password, role }),
+    });
 
+    if (res.ok) {
       router.push("/dashboard");
-    } catch (error) {
-      alert("Something went wrong");
+    } else {
+      alert("Login failed");
     }
   }
 
   return (
-    <main className="min-h-screen bg-[#FBE4D8] px-8 py-8">
-      <div className="mx-auto max-w-md rounded-[28px] border border-[#dfb6b2] bg-white p-7 shadow-sm">
-        <h1 className="text-3xl font-bold text-[#190019]">Login</h1>
-        <p className="mt-2 text-sm text-[#854F6C]">
-          Login to your Globalink account.
-        </p>
+    <div className="p-10">
+      <h1 className="text-2xl font-bold mb-5">Login</h1>
 
-        <div className="mt-6 space-y-4">
-          <input
-            placeholder="Email"
-            className="h-12 w-full rounded-xl border border-[#dfb6b2] px-4"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+      <form onSubmit={handleLogin} className="space-y-4">
+        <input
+          className="border p-2 w-full"
+          placeholder="Email"
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-          <input
-            type="password"
-            placeholder="Password"
-            className="h-12 w-full rounded-xl border border-[#dfb6b2] px-4"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+        <input
+          className="border p-2 w-full"
+          placeholder="Password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-          <button
-            onClick={handleLogin}
-            className="w-full rounded-xl px-5 py-3 text-sm font-bold text-white"
-            style={{
-              background:
-                "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
-            }}
-          >
-            Login
-          </button>
-        </div>
-      </div>
-    </main>
+        <select
+          className="border p-2 w-full"
+          onChange={(e) => setRole(e.target.value as Role)}
+        >
+          <option value="buyer">Buyer</option>
+          <option value="consultant">Consultant</option>
+          <option value="lab">Lab</option>
+          <option value="seller">Seller</option>
+        </select>
+
+        <button className="bg-blue-500 text-white px-4 py-2">
+          Login
+        </button>
+      </form>
+    </div>
   );
 }
