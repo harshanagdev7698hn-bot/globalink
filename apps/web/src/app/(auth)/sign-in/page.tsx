@@ -9,49 +9,63 @@ export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = async () => {
+  async function handleLogin() {
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ email, password }),
       });
 
-      if (res.ok) {
-        router.push("/dashboard");
-      } else {
+      if (!res.ok) {
         alert("Login failed");
+        return;
       }
-    } catch (err) {
-      console.error(err);
-      alert("Error");
+
+      router.push("/dashboard");
+    } catch (error) {
+      alert("Something went wrong");
     }
-  };
+  }
 
   return (
-    <div className="p-10 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Login</h1>
+    <main className="min-h-screen bg-[#FBE4D8] px-8 py-8">
+      <div className="mx-auto max-w-md rounded-[28px] border border-[#dfb6b2] bg-white p-7 shadow-sm">
+        <h1 className="text-3xl font-bold text-[#190019]">Login</h1>
+        <p className="mt-2 text-sm text-[#854F6C]">
+          Login to your Globalink account.
+        </p>
 
-      <input
-        placeholder="Email"
-        className="border p-2 w-full mb-3"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <div className="mt-6 space-y-4">
+          <input
+            placeholder="Email"
+            className="h-12 w-full rounded-xl border border-[#dfb6b2] px-4"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-      <input
-        placeholder="Password"
-        type="password"
-        className="border p-2 w-full mb-3"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+          <input
+            type="password"
+            placeholder="Password"
+            className="h-12 w-full rounded-xl border border-[#dfb6b2] px-4"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-      <button
-        onClick={handleLogin}
-        className="bg-black text-white px-4 py-2 rounded w-full"
-      >
-        Login
-      </button>
-    </div>
+          <button
+            onClick={handleLogin}
+            className="w-full rounded-xl px-5 py-3 text-sm font-bold text-white"
+            style={{
+              background:
+                "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
+            }}
+          >
+            Login
+          </button>
+        </div>
+      </div>
+    </main>
   );
 }
