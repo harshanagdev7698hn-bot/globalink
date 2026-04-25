@@ -1,31 +1,34 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, password, role } = body;
 
-    if (!name || !email || !password || !role) {
+    const name = body.name;
+    const email = body.email;
+    const password = body.password;
+    const role = body.role || "BUYER";
+
+    if (!name || !email || !password) {
       return NextResponse.json(
         { success: false, message: "All fields are required" },
         { status: 400 }
       );
     }
 
-    const existingUser = await prisma.user.findUnique({
+    const existing = await prisma.user.findUnique({
       where: { email },
     });
 
-    if (existingUser) {
+    if (existing) {
       return NextResponse.json(
         { success: false, message: "Email already exists" },
         { status: 409 }
       );
     }
 
-    // 🔐 HASH PASSWORD
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
@@ -39,8 +42,13 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      message: "User created successfully",
-      user,
+      message: "Account created",
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
     });
   } catch (error) {
     return NextResponse.json(

@@ -1,18 +1,28 @@
 import { NextResponse } from "next/server";
 
 export async function POST() {
-  const response = NextResponse.json({
+  const res = NextResponse.json({
     success: true,
-    message: "Logout successful",
+    message: "Logged out",
   });
 
-  response.cookies.set("globalink_token", "", {
+  res.cookies.set("globalink_token", "", {
     httpOnly: true,
-    sameSite: "lax",
-    secure: false,
     path: "/",
     maxAge: 0,
   });
 
-  return response;
+  return res;
+}
+
+export async function GET() {
+  const res = NextResponse.redirect(new URL("/", "http://localhost:3000"));
+
+  res.cookies.set("globalink_token", "", {
+    httpOnly: true,
+    path: "/",
+    maxAge: 0,
+  });
+
+  return res;
 }
