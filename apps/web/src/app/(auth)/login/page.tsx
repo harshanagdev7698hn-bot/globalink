@@ -1,60 +1,66 @@
-import MainLayout from "@/components/MainLayout";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("BUYER");
+
+  function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+
+    const user = {
+      id: Date.now(),
+      name: email.split("@")[0] || "User",
+      email,
+      role,
+    };
+
+    localStorage.setItem("globalink_user", JSON.stringify(user));
+    localStorage.setItem("globalink_logged_in", "true");
+
+    alert("Login successful");
+    router.push("/dashboard");
+  }
+
   return (
-    <MainLayout>
-      {/* Hero */}
-      <section className="rounded-[28px] border border-[#dfb6b2] bg-white p-3 shadow-sm">
-        <div
-          className="rounded-[24px] px-7 py-10 text-white"
-          style={{
-            background:
-              "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
-          }}
-        >
-          <p className="text-sm uppercase tracking-[0.25em] text-[#FBE4D8]">
-            Welcome Back
-          </p>
-          <h1 className="mt-3 text-4xl font-bold">Login to Globalink</h1>
-          <p className="mt-3 text-sm text-[#FBE4D8]">
-            Access your dashboard and manage your profile.
-          </p>
-        </div>
-      </section>
+    <main className="min-h-screen bg-[#FBE4D8] p-6">
+      <div className="mx-auto max-w-xl rounded-3xl bg-white p-8 shadow">
+        <h1 className="text-3xl font-bold text-[#190019]">Login</h1>
+        <p className="mt-2 text-[#854F6C]">Continue to your Globalink account.</p>
 
-      {/* Form */}
-      <section className="rounded-[28px] border border-[#dfb6b2] bg-white p-7 shadow-sm">
-        <h2 className="text-2xl font-bold text-[#190019]">Login</h2>
-
-        <div className="mt-6 grid gap-4">
+        <form onSubmit={handleLogin} className="mt-6 space-y-4">
           <input
+            required
+            type="email"
             placeholder="Email"
-            className="h-12 rounded-xl border border-[#dfb6b2] px-4"
+            className="w-full rounded-xl border border-[#dfb6b2] p-3"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder="Password"
-            className="h-12 rounded-xl border border-[#dfb6b2] px-4"
-          />
-        </div>
 
-        <button
-          className="mt-6 rounded-xl px-6 py-3 text-white"
-          style={{
-            background:
-              "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
-          }}
-        >
-          Login
-        </button>
+          <select
+            className="w-full rounded-xl border border-[#dfb6b2] p-3"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="BUYER">Buyer</option>
+            <option value="CONSULTANT">Consultant</option>
+            <option value="LAB">Lab</option>
+            <option value="SELLER">Seller</option>
+          </select>
 
-        <p className="mt-4 text-sm text-gray-500">
-          Don’t have an account?{" "}
-          <a href="/join" className="text-[#2B124C] font-semibold">
-            Join now
-          </a>
-        </p>
-      </section>
-    </MainLayout>
+          <button
+            type="submit"
+            className="w-full rounded-xl bg-[#2B124C] py-3 font-bold text-white"
+          >
+            Login
+          </button>
+        </form>
+      </div>
+    </main>
   );
 }
