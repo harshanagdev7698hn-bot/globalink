@@ -1,156 +1,17 @@
-const stats = [
-  {
-    title: "Active Tests",
-    value: "128",
-    desc: "Ongoing lab test requests",
-  },
-  {
-    title: "Pending Reports",
-    value: "36",
-    desc: "Reports awaiting submission",
-  },
-  {
-    title: "Certifications",
-    value: "214",
-    desc: "Completed compliance certifications",
-  },
-  {
-    title: "Revenue",
-    value: "₹12.6L",
-    desc: "Current billing cycle",
-  },
-];
+import RoleGuard from "@/components/RoleGuard";
 
-const recent = [
-  {
-    id: "LAB-1001",
-    type: "Product Test",
-    owner: "ABC Equipments",
-    status: "Open",
-  },
-  {
-    id: "LAB-204",
-    type: "Report",
-    owner: "Global Lab Services",
-    status: "Pending",
-  },
-  {
-    id: "LAB-450",
-    type: "Sample",
-    owner: "Buyer Group A",
-    status: "In Progress",
-  },
-  {
-    id: "LAB-090",
-    type: "Compliance",
-    owner: "BIS Vendor",
-    status: "Approved",
-  },
-];
-
-const notifications = [
-  "5 lab reports awaiting upload",
-  "2 test samples require assignment",
-  "1 certification test deadline near",
-  "3 labs waiting for verification",
-];
-
-export default function LabsPage() {
+export default function LabDashboardPage() {
   return (
-    <div className="space-y-8">
-      <section className="rounded-[28px] border border-[#dfb6b2] bg-white p-3 shadow-sm">
-        <div
-          className="rounded-[24px] px-7 py-10 text-white shadow-md"
-          style={{
-            background:
-              "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
-          }}
-        >
-          <p className="text-sm uppercase tracking-[0.25em] text-[#FBE4D8]">
-            Labs Dashboard
-          </p>
-          <h1 className="mt-3 text-4xl font-bold">Lab Testing & Reports</h1>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-[#FBE4D8]">
-            Track test requests, certifications, compliance checks, lab reports
-            and performance from one professional workspace.
-          </p>
-        </div>
-      </section>
-
-      <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {stats.map((item) => (
-          <div
-            key={item.title}
-            className="rounded-[24px] border border-[#dfb6b2] bg-white p-6 shadow-sm"
-          >
-            <p className="text-sm font-medium text-[#854F6C]">{item.title}</p>
-            <h2 className="mt-3 text-3xl font-bold text-[#190019]">
-              {item.value}
-            </h2>
-            <p className="mt-3 text-sm leading-6 text-[#522B5B]">
-              {item.desc}
-            </p>
-          </div>
-        ))}
-      </section>
-
-      <section className="grid gap-6 xl:grid-cols-[2fr_1fr]">
-        <div className="rounded-[28px] border border-[#dfb6b2] bg-white p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-[#190019]">
-            Recent Lab Activity
-          </h2>
-          <p className="mt-1 text-sm text-[#854F6C]">
-            Latest test and report workflows across the platform
-          </p>
-
-          <div className="mt-6 overflow-hidden rounded-2xl border border-[#dfb6b2]">
-            <table className="w-full text-left text-sm">
-              <thead className="bg-[#fff8f7] text-[#854F6C]">
-                <tr>
-                  <th className="p-4">ID</th>
-                  <th className="p-4">Type</th>
-                  <th className="p-4">Owner</th>
-                  <th className="p-4">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recent.map((item) => (
-                  <tr key={item.id} className="border-t border-[#f1d3c8]">
-                    <td className="p-4 font-semibold text-[#190019]">
-                      {item.id}
-                    </td>
-                    <td className="p-4 text-[#522B5B]">{item.type}</td>
-                    <td className="p-4 text-[#522B5B]">{item.owner}</td>
-                    <td className="p-4">
-                      <span className="rounded-full bg-[#FBE4D8] px-3 py-1 text-xs font-bold text-[#190019]">
-                        {item.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className="rounded-[28px] border border-[#dfb6b2] bg-white p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-[#190019]">Notifications</h2>
-          <p className="mt-1 text-sm text-[#854F6C]">
-            Priority lab alerts and platform notices
-          </p>
-
-          <div className="mt-6 space-y-3">
-            {notifications.map((note) => (
-              <div
-                key={note}
-                className="rounded-2xl border border-[#dfb6b2] bg-[#fff8f7] p-4 text-sm font-medium text-[#522B5B]"
-              >
-                {note}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-    </div>
+    <RoleGuard
+      allowed={["LAB", "ADMIN"]}
+      message="Only labs can manage lab profile and testing services."
+    >
+      <div className="rounded-3xl bg-white p-8 shadow">
+        <h1 className="text-3xl font-bold text-[#190019]">Lab Dashboard</h1>
+        <p className="mt-2 text-[#854F6C]">
+          Manage lab profile, testing services and reports.
+        </p>
+      </div>
+    </RoleGuard>
   );
 }
