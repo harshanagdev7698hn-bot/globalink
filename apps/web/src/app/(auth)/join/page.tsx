@@ -1,60 +1,78 @@
-import MainLayout from "@/components/MainLayout";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function JoinPage() {
+  const router = useRouter();
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    role: "BUYER",
+    country: "",
+  });
+
+  function handleSubmit(e: any) {
+    e.preventDefault();
+
+    localStorage.setItem("user", JSON.stringify(form));
+
+    alert("Account created ✅");
+    router.push("/dashboard");
+  }
+
   return (
-    <MainLayout>
-      <section className="rounded-[28px] border border-[#dfb6b2] bg-white p-3 shadow-sm">
-        <div
-          className="rounded-[24px] px-7 py-10 text-white"
-          style={{
-            background:
-              "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
-          }}
-        >
-          <p className="text-sm uppercase tracking-[0.25em] text-[#FBE4D8]">
-            Join Globalink
-          </p>
-          <h1 className="mt-3 text-4xl font-bold">Create an account</h1>
-          <p className="mt-3 text-sm text-[#FBE4D8]">
-            Join as consultant, lab, seller or buyer.
-          </p>
-        </div>
-      </section>
+    <div className="min-h-screen bg-[#FBE4D8] p-6">
+      <div className="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow">
 
-      <section className="rounded-[28px] border border-[#dfb6b2] bg-white p-7 shadow-sm">
-        <h2 className="text-2xl font-bold text-[#190019]">
-          Registration Form
-        </h2>
+        <h1 className="text-3xl font-bold mb-6">Create Account</h1>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
+        <form onSubmit={handleSubmit} className="space-y-4">
+
           <input
             placeholder="Full Name"
-            className="h-12 rounded-xl border border-[#dfb6b2] px-4"
+            className="w-full p-3 border rounded-xl"
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
+
           <input
             placeholder="Email"
-            className="h-12 rounded-xl border border-[#dfb6b2] px-4"
+            className="w-full p-3 border rounded-xl"
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
+
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full p-3 border rounded-xl"
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+          />
+
+          {/* 🔥 ROLE DROPDOWN */}
+          <select
+            className="w-full p-3 border rounded-xl"
+            onChange={(e) => setForm({ ...form, role: e.target.value })}
+          >
+            <option value="BUYER">Buyer</option>
+            <option value="CONSULTANT">Consultant</option>
+            <option value="LAB">Lab</option>
+            <option value="SELLER">Seller</option>
+          </select>
+
           <input
             placeholder="Country"
-            className="h-12 rounded-xl border border-[#dfb6b2] px-4"
+            className="w-full p-3 border rounded-xl"
+            onChange={(e) => setForm({ ...form, country: e.target.value })}
           />
-          <input
-            placeholder="Headline"
-            className="h-12 rounded-xl border border-[#dfb6b2] px-4"
-          />
-        </div>
 
-        <button
-          className="mt-6 rounded-xl px-6 py-3 text-white"
-          style={{
-            background:
-              "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
-          }}
-        >
-          Create Account
-        </button>
-      </section>
-    </MainLayout>
+          <button className="w-full bg-black text-white py-3 rounded-xl">
+            Create Account
+          </button>
+
+        </form>
+      </div>
+    </div>
   );
 }
