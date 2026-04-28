@@ -14,65 +14,48 @@ export default function JoinPage() {
     country: "",
   });
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    localStorage.setItem("user", JSON.stringify(form));
+    const user = {
+      id: Date.now(),
+      name: form.name,
+      email: form.email,
+      role: form.role,
+      country: form.country,
+    };
 
-    alert("Account created ✅");
+    localStorage.setItem("globalink_user", JSON.stringify(user));
+    localStorage.setItem("globalink_logged_in", "true");
+
+    alert("Account created successfully");
     router.push("/dashboard");
   }
 
   return (
-    <div className="min-h-screen bg-[#FBE4D8] p-6">
-      <div className="max-w-xl mx-auto bg-white p-8 rounded-2xl shadow">
+    <main className="min-h-screen bg-[#FBE4D8] p-6">
+      <div className="mx-auto max-w-xl rounded-3xl bg-white p-8 shadow">
+        <h1 className="text-3xl font-bold">Create Account</h1>
 
-        <h1 className="text-3xl font-bold mb-6">Create Account</h1>
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+          <input required placeholder="Full Name" className="w-full rounded-xl border p-3" onChange={(e) => setForm({ ...form, name: e.target.value })} />
+          <input required type="email" placeholder="Email" className="w-full rounded-xl border p-3" onChange={(e) => setForm({ ...form, email: e.target.value })} />
+          <input required type="password" placeholder="Password" className="w-full rounded-xl border p-3" onChange={(e) => setForm({ ...form, password: e.target.value })} />
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-
-          <input
-            placeholder="Full Name"
-            className="w-full p-3 border rounded-xl"
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
-          />
-
-          <input
-            placeholder="Email"
-            className="w-full p-3 border rounded-xl"
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-          />
-
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full p-3 border rounded-xl"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-          />
-
-          {/* 🔥 ROLE DROPDOWN */}
-          <select
-            className="w-full p-3 border rounded-xl"
-            onChange={(e) => setForm({ ...form, role: e.target.value })}
-          >
+          <select className="w-full rounded-xl border p-3" onChange={(e) => setForm({ ...form, role: e.target.value })}>
             <option value="BUYER">Buyer</option>
             <option value="CONSULTANT">Consultant</option>
             <option value="LAB">Lab</option>
             <option value="SELLER">Seller</option>
           </select>
 
-          <input
-            placeholder="Country"
-            className="w-full p-3 border rounded-xl"
-            onChange={(e) => setForm({ ...form, country: e.target.value })}
-          />
+          <input placeholder="Country" className="w-full rounded-xl border p-3" onChange={(e) => setForm({ ...form, country: e.target.value })} />
 
-          <button className="w-full bg-black text-white py-3 rounded-xl">
+          <button className="w-full rounded-xl bg-[#2B124C] py-3 font-bold text-white">
             Create Account
           </button>
-
         </form>
       </div>
-    </div>
+    </main>
   );
 }
