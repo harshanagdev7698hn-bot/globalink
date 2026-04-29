@@ -13,6 +13,10 @@ type ConsultantProfile = {
   hourlyRate: string;
   languages: string;
   about: string;
+  gstNumber: string;
+  msmeNumber: string;
+  gstFileUrl: string;
+  msmeFileUrl: string;
 };
 
 export default function ConsultantDashboardPage() {
@@ -26,9 +30,16 @@ export default function ConsultantDashboardPage() {
     hourlyRate: "",
     languages: "",
     about: "",
+    gstNumber: "",
+    msmeNumber: "",
+    gstFileUrl: "",
+    msmeFileUrl: "",
   });
 
+  const [gstFile, setGstFile] = useState<File | null>(null);
+  const [msmeFile, setMsmeFile] = useState<File | null>(null);
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const user = localStorage.getItem("globalink_user");
@@ -59,16 +70,60 @@ export default function ConsultantDashboardPage() {
     });
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function uploadFile(file: File) {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data.error || "Upload failed");
+    }
+
+    return data.fileUrl;
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    localStorage.setItem(
-      "globalink_consultant_profile",
-      JSON.stringify(profile)
-    );
+    try {
+      setLoading(true);
 
-    setSaved(true);
-    alert("Consultant profile saved successfully");
+      let gstFileUrl = profile.gstFileUrl;
+      let msmeFileUrl = profile.msmeFileUrl;
+
+      if (gstFile) {
+        gstFileUrl = await uploadFile(gstFile);
+      }
+
+      if (msmeFile) {
+        msmeFileUrl = await uploadFile(msmeFile);
+      }
+
+      const finalProfile = {
+        ...profile,
+        gstFileUrl,
+        msmeFileUrl,
+      };
+
+      localStorage.setItem(
+        "globalink_consultant_profile",
+        JSON.stringify(finalProfile)
+      );
+
+      setProfile(finalProfile);
+      setSaved(true);
+      alert("Consultant profile and documents saved successfully");
+    } catch (error) {
+      alert("Document upload failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -83,18 +138,13 @@ export default function ConsultantDashboardPage() {
             Create & Manage Your Consultant Profile
           </h1>
           <p className="mt-3 text-white/80">
-            Add your expertise, experience, location and consulting details.
+            Add expertise, GST/MSME details and upload verification documents.
           </p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-2">
-          <form
-            onSubmit={handleSubmit}
-            className="rounded-3xl bg-white p-8 shadow"
-          >
-            <h2 className="text-2xl font-bold text-[#190019]">
-              Profile Details
-            </h2>
+          <form onSubmit={handleSubmit} className="rounded-3xl bg-white p-8 shadow">
+            <h2 className="text-2xl font-bold text-[#190019]">Profile Details</h2>
 
             <div className="mt-6 grid gap-4">
               <input
@@ -182,13 +232,50 @@ export default function ConsultantDashboardPage() {
                 value={profile.about}
                 onChange={handleChange}
                 placeholder="About your consulting services"
-                rows={5}
+                rows={4}
                 required
                 className="rounded-xl border border-[#dfb6b2] p-3"
               />
 
-              <button className="rounded-xl bg-[#2B124C] px-5 py-3 font-bold text-white">
-                Save Consultant Profile
+              <h3 className="pt-4 text-xl font-bold text-[#190019]">
+                Verification Documents
+              </h3>
+
+              <input
+                name="gstNumber"
+                value={profile.gstNumber}
+                onChange={handleChange}
+                placeholder="GST Number"
+                className="rounded-xl border border-[#dfb6b2] p-3"
+              />
+
+              <input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,.webp"
+                onChange={(e) => setGstFile(e.target.files?.[0] || null)}
+                className="rounded-xl border border-[#dfb6b2] p-3"
+              />
+
+              <input
+                name="msmeNumber"
+                value={profile.msmeNumber}
+                onChange={handleChange}
+                placeholder="MSME / Udyam Number"
+                className="rounded-xl border border-[#dfb6b2] p-3"
+              />
+
+              <input
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,.webp"
+                onChange={(e) => setMsmeFile(e.target.files?.[0] || null)}
+                className="rounded-xl border border-[#dfb6b2] p-3"
+              />
+
+              <button
+                disabled={loading}
+                className="rounded-xl bg-gradient-to-r from-[#2B124C] to-[#522B5B] px-5 py-3 font-bold text-white"
+              >
+                {loading ? "Saving..." : "Save Consultant Profile"}
               </button>
 
               {saved && (
@@ -200,9 +287,7 @@ export default function ConsultantDashboardPage() {
           </form>
 
           <div className="rounded-3xl bg-white p-8 shadow">
-            <h2 className="text-2xl font-bold text-[#190019]">
-              Profile Preview
-            </h2>
+            <h2 className="text-2xl font-bold text-[#190019]">Profile Preview</h2>
 
             <div className="mt-6 rounded-3xl border border-[#dfb6b2] p-6">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#2B124C] text-2xl font-bold text-white">
@@ -213,26 +298,27 @@ export default function ConsultantDashboardPage() {
                 {profile.fullName || "Consultant Name"}
               </h3>
 
-              <p className="mt-1 text-[#854F6C]">
-                {profile.expertise || "Expertise"}
-              </p>
+              <p className="mt-1 text-[#854F6C]">{profile.expertise}</p>
 
               <div className="mt-5 space-y-2 text-sm text-[#522B5B]">
-                <p>
-                  <b>Email:</b> {profile.email || "-"}
+                <p><b>Email:</b> {profile.email || "-"}</p>
+                <p><b>Experience:</b> {profile.experience || "-"}</p>
+                <p><b>Location:</b> {profile.city || "-"}, {profile.country || "-"}</p>
+                <p><b>Rate:</b> {profile.hourlyRate || "-"}</p>
+                <p><b>Languages:</b> {profile.languages || "-"}</p>
+                <p><b>GST:</b> {profile.gstNumber || "Not added"}</p>
+                <p><b>MSME:</b> {profile.msmeNumber || "Not added"}</p>
+              </div>
+
+              <div className="mt-5 space-y-2">
+                <p className="font-bold text-[#190019]">Document Status</p>
+
+                <p className={profile.gstFileUrl ? "text-green-700" : "text-red-600"}>
+                  {profile.gstFileUrl ? "GST document uploaded" : "GST document not uploaded"}
                 </p>
-                <p>
-                  <b>Experience:</b> {profile.experience || "-"}
-                </p>
-                <p>
-                  <b>Location:</b> {profile.city || "-"},{" "}
-                  {profile.country || "-"}
-                </p>
-                <p>
-                  <b>Rate:</b> {profile.hourlyRate || "-"}
-                </p>
-                <p>
-                  <b>Languages:</b> {profile.languages || "-"}
+
+                <p className={profile.msmeFileUrl ? "text-green-700" : "text-red-600"}>
+                  {profile.msmeFileUrl ? "MSME document uploaded" : "MSME document not uploaded"}
                 </p>
               </div>
 

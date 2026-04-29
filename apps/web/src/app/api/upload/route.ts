@@ -1,45 +1,39 @@
-import { NextResponse } from "next/server";
-import { mkdir, writeFile } from "fs/promises";
+import { NextRequest, NextResponse } from "next/server";
+import fs from "fs";
 import path from "path";
 
-export const runtime = "nodejs";
-
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
-    const file = formData.get("file") as File | null;
+    const file = formData.get("file") as File;
 
     if (!file) {
-      return NextResponse.json(
-        { success: false, message: "No file selected" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadsDir, { recursive: true });
+    // uploads folder path
+    const uploadDir = path.join(process.cwd(), "public/uploads");
 
-    const safeName = file.name.replace(/\s+/g, "-").replace(/[^a-zA-Z0-9._-]/g, "");
-    const fileName = `${Date.now()}-${safeName}`;
-    const filePath = path.join(uploadsDir, fileName);
+    // create folder if not exists
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true });
+    }
 
-    await writeFile(filePath, buffer);
+    // unique file name
+    const fileName = ${Date.now()}-${file.name};
+    const filePath = path.join(uploadDir, fileName);
+
+    fs.writeFileSync(filePath, buffer);
 
     return NextResponse.json({
       success: true,
-      fileUrl: `/uploads/${fileName}`,
+      fileUrl: /uploads/${fileName},
     });
   } catch (error) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "Upload failed",
-        error: String(error),
-      },
-      { status: 500 }
-    );
+    console.error(error);
+    return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
 }
