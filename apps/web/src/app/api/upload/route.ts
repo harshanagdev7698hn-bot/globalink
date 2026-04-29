@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { put } from "@vercel/blob";
 
 export async function POST(req: NextRequest) {
   try {
@@ -6,15 +7,20 @@ export async function POST(req: NextRequest) {
     const file = formData.get("file") as File;
 
     if (!file) {
-      return NextResponse.json({ error: "No file" }, { status: 400 });
+      return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
     }
 
-    // temporary URL (for now)
+    // upload to Vercel Blob
+    const blob = await put(file.name, file, {
+      access: "public",
+    });
+
     return NextResponse.json({
       success: true,
-      fileUrl: URL.createObjectURL(file),
+      fileUrl: blob.url,
     });
-  } catch (err) {
+  } catch (error) {
+    console.error("Upload error:", error);
     return NextResponse.json({ error: "Upload failed" }, { status: 500 });
   }
 }
