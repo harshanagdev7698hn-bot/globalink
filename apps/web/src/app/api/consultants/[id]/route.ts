@@ -1,32 +1,25 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 export async function GET(
   req: Request,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const consultant = await prisma.consultantProfile.findUnique({
+    const consultant = await prisma.user.findFirst({
       where: {
-        id: context.params.id,
+        id: params.id,
+        role: "CONSULTANT",
+        status: "VERIFIED",
       },
       include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-          },
-        },
+        consultantProfile: true,
       },
     });
 
     if (!consultant) {
       return NextResponse.json(
-        {
-          success: false,
-          message: "Consultant not found",
-        },
+        { success: false, message: "Consultant not found" },
         { status: 404 }
       );
     }
@@ -36,10 +29,12 @@ export async function GET(
       consultant,
     });
   } catch (error) {
+    console.error("CONSULTANT_DETAIL_ERROR", error);
+
     return NextResponse.json(
       {
         success: false,
-        message: "Failed to fetch consultant",
+        message: "Failed to load consultant",
         error: String(error),
       },
       { status: 500 }

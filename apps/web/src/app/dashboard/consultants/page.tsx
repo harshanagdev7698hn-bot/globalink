@@ -1,334 +1,279 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import RoleGuard from "@/components/RoleGuard";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 
-type ConsultantProfile = {
-  fullName: string;
+type ConsultantItem = {
+  id: string;
+  name: string;
   email: string;
-  expertise: string;
-  experience: string;
-  city: string;
-  country: string;
-  hourlyRate: string;
-  languages: string;
-  about: string;
-  gstNumber: string;
-  msmeNumber: string;
-  gstFileUrl: string;
-  msmeFileUrl: string;
+  city?: string | null;
+  country?: string | null;
+  company?: string | null;
+  phone?: string | null;
+  whatsapp?: string | null;
+  gstNumber?: string | null;
+  status: string;
+  consultantProfile?: {
+    services?: string | null;
+    experience?: string | null;
+    pricing?: string | null;
+    msmeNumber?: string | null;
+    shortBio?: string | null;
+  } | null;
 };
 
-export default function ConsultantDashboardPage() {
-  const [profile, setProfile] = useState<ConsultantProfile>({
-    fullName: "",
-    email: "",
-    expertise: "BIS",
-    experience: "",
-    city: "",
-    country: "",
-    hourlyRate: "",
-    languages: "",
-    about: "",
-    gstNumber: "",
-    msmeNumber: "",
-    gstFileUrl: "",
-    msmeFileUrl: "",
-  });
+export default function ConsultantsPage() {
+  const [consultants, setConsultants] = useState<ConsultantItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [service, setService] = useState("All");
 
-  const [gstFile, setGstFile] = useState<File | null>(null);
-  const [msmeFile, setMsmeFile] = useState<File | null>(null);
-  const [saved, setSaved] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const user = localStorage.getItem("globalink_user");
-    const oldProfile = localStorage.getItem("globalink_consultant_profile");
-
-    if (oldProfile) {
-      setProfile(JSON.parse(oldProfile));
-      return;
-    }
-
-    if (user) {
-      const parsedUser = JSON.parse(user);
-      setProfile((prev) => ({
-        ...prev,
-        fullName: parsedUser.name || "",
-        email: parsedUser.email || "",
-        country: parsedUser.country || "",
-      }));
-    }
-  }, []);
-
-  function handleChange(
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) {
-    setProfile({
-      ...profile,
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  async function uploadFile(file: File) {
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      throw new Error(data.error || "Upload failed");
-    }
-
-    return data.fileUrl;
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-
+  async function loadConsultants() {
     try {
-      setLoading(true);
+      const res = await fetch("/api/consultants", { cache: "no-store" });
+      const data = await res.json();
 
-      let gstFileUrl = profile.gstFileUrl;
-      let msmeFileUrl = profile.msmeFileUrl;
-
-      if (gstFile) {
-        gstFileUrl = await uploadFile(gstFile);
+      if (res.ok) {
+        setConsultants(data.consultants || []);
       }
-
-      if (msmeFile) {
-        msmeFileUrl = await uploadFile(msmeFile);
-      }
-
-      const finalProfile = {
-        ...profile,
-        gstFileUrl,
-        msmeFileUrl,
-      };
-
-      localStorage.setItem(
-        "globalink_consultant_profile",
-        JSON.stringify(finalProfile)
-      );
-
-      setProfile(finalProfile);
-      setSaved(true);
-      alert("Consultant profile and documents saved successfully");
     } catch (error) {
-      alert("Document upload failed. Please try again.");
+      console.error(error);
     } finally {
       setLoading(false);
     }
   }
 
+  useEffect(() => {
+    loadConsultants();
+  }, []);
+
+  const filteredConsultants = useMemo(() => {
+    return consultants.filter((consultant) => {
+      const profile = consultant.consultantProfile;
+
+      const searchText = `
+        ${consultant.name}
+        ${consultant.company || ""}
+        ${consultant.city || ""}
+        ${consultant.country || ""}
+        ${profile?.services || ""}
+      `.toLowerCase();
+
+      const matchesSearch = searchText.includes(search.toLowerCase());
+
+      const matchesService =
+        service === "All" ||
+        (profile?.services || "").toLowerCase().includes(service.toLowerCase());
+
+      return matchesSearch && matchesService;
+    });
+  }, [consultants, search, service]);
+
   return (
-    <RoleGuard
-      allowed={["CONSULTANT", "ADMIN"]}
-      message="Only consultants can create or edit consultant profile."
-    >
-      <div className="space-y-8">
-        <div className="rounded-3xl bg-gradient-to-r from-[#190019] to-[#522B5B] p-8 text-white shadow">
-          <p className="tracking-[0.3em] text-sm">CONSULTANT PROFILE</p>
-          <h1 className="mt-3 text-4xl font-bold">
-            Create & Manage Your Consultant Profile
-          </h1>
-          <p className="mt-3 text-white/80">
-            Add expertise, GST/MSME details and upload verification documents.
+    <div className="space-y-8">
+      <section className="rounded-[32px] border border-purple-100 bg-gradient-to-r from-[#2b064f] via-[#51245f] to-[#7b3f75] p-8 text-white shadow-2xl">
+        <p className="text-sm font-semibold text-purple-100">
+          Globalink Trusted Discovery
+        </p>
+
+        <h1 className="mt-3 text-3xl font-extrabold md:text-4xl">
+          Find Verified Consultants
+        </h1>
+
+        <p className="mt-3 max-w-3xl text-sm leading-6 text-purple-100">
+          Only admin-verified consultants are visible here. Compare trusted BIS,
+          ISO, FDA and FSSAI consultants before you connect.
+        </p>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <TrustBox title="Verified Experts" value="Admin approved profiles" />
+          <TrustBox title="GST Checked" value="Business identity verified" />
+          <TrustBox title="Direct Contact" value="No confusion, no fraud" />
+        </div>
+      </section>
+
+      <section className="rounded-[28px] border border-purple-100 bg-white/90 p-5 shadow-xl">
+        <div className="grid gap-4 md:grid-cols-[1fr_220px]">
+          <input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search consultant, service or location..."
+            className="inputBox"
+          />
+
+          <select
+            value={service}
+            onChange={(e) => setService(e.target.value)}
+            className="inputBox"
+          >
+            <option>All</option>
+            <option>BIS</option>
+            <option>ISO</option>
+            <option>FDA</option>
+            <option>FSSAI</option>
+            <option>ISI</option>
+          </select>
+        </div>
+      </section>
+
+      {loading ? (
+        <div className="rounded-[28px] bg-white p-10 text-center text-sm font-bold text-slate-500 shadow-xl">
+          Loading verified consultants...
+        </div>
+      ) : filteredConsultants.length === 0 ? (
+        <div className="rounded-[28px] border border-dashed border-purple-200 bg-white p-10 text-center shadow-lg">
+          <h3 className="text-lg font-extrabold text-slate-950">
+            No verified consultants found
+          </h3>
+          <p className="mt-2 text-sm text-slate-600">
+            Approve consultant from admin panel or try another search.
           </p>
         </div>
+      ) : (
+        <section className="grid gap-6 xl:grid-cols-2">
+          {filteredConsultants.map((consultant) => {
+            const profile = consultant.consultantProfile;
 
-        <div className="grid gap-6 lg:grid-cols-2">
-          <form onSubmit={handleSubmit} className="rounded-3xl bg-white p-8 shadow">
-            <h2 className="text-2xl font-bold text-[#190019]">Profile Details</h2>
+            const location =
+              [consultant.city, consultant.country].filter(Boolean).join(", ") ||
+              "Location not added";
 
-            <div className="mt-6 grid gap-4">
-              <input
-                name="fullName"
-                value={profile.fullName}
-                onChange={handleChange}
-                placeholder="Full Name"
-                required
-                className="rounded-xl border border-[#dfb6b2] p-3"
-              />
+            const services =
+              profile?.services || "BIS / ISO / Compliance Support";
+            const experience =
+              profile?.experience || "Experienced Consultant";
+            const pricing = profile?.pricing || "Contact for pricing";
+            const bio =
+              profile?.shortBio ||
+              "This consultant is verified by Globalink and available for professional certification and compliance support.";
 
-              <input
-                name="email"
-                value={profile.email}
-                onChange={handleChange}
-                placeholder="Email"
-                type="email"
-                required
-                className="rounded-xl border border-[#dfb6b2] p-3"
-              />
-
-              <select
-                name="expertise"
-                value={profile.expertise}
-                onChange={handleChange}
-                className="rounded-xl border border-[#dfb6b2] p-3"
+            return (
+              <div
+                key={consultant.id}
+                className="group overflow-hidden rounded-[32px] border border-purple-100 bg-white shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
               >
-                <option value="BIS">BIS Consultant</option>
-                <option value="ISO">ISO Consultant</option>
-                <option value="GeM">GeM Consultant</option>
-                <option value="Food">Food Certification</option>
-                <option value="Medical">Medical Compliance</option>
-                <option value="Export">Export / Import</option>
-              </select>
+                <div className="h-2 bg-gradient-to-r from-[#2b064f] via-[#7b3f75] to-[#d9a7c7]" />
 
-              <input
-                name="experience"
-                value={profile.experience}
-                onChange={handleChange}
-                placeholder="Experience e.g. 5 years"
-                required
-                className="rounded-xl border border-[#dfb6b2] p-3"
-              />
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex gap-4">
+                      <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-3xl bg-gradient-to-br from-[#2b064f] to-[#7b3f75] text-2xl font-extrabold text-white shadow-lg">
+                        {consultant.name.charAt(0).toUpperCase()}
+                      </div>
 
-              <div className="grid gap-4 md:grid-cols-2">
-                <input
-                  name="city"
-                  value={profile.city}
-                  onChange={handleChange}
-                  placeholder="City"
-                  required
-                  className="rounded-xl border border-[#dfb6b2] p-3"
-                />
+                      <div>
+                        <h2 className="text-xl font-extrabold text-slate-950">
+                          {consultant.name}
+                        </h2>
 
-                <input
-                  name="country"
-                  value={profile.country}
-                  onChange={handleChange}
-                  placeholder="Country"
-                  required
-                  className="rounded-xl border border-[#dfb6b2] p-3"
-                />
+                        <p className="mt-1 text-sm font-bold text-purple-700">
+                          {services}
+                        </p>
+
+                        <p className="mt-1 text-xs font-medium text-slate-500">
+                          {consultant.company || "Independent Consultant"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl bg-amber-50 px-3 py-2 text-sm font-extrabold text-amber-700">
+                      ⭐ 4.8
+                    </div>
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {consultant.gstNumber && <Badge text="GST Verified" />}
+                    {profile?.msmeNumber && <Badge text="MSME Verified" />}
+                    <Badge text="Admin Verified" />
+                    <span className="rounded-full bg-purple-50 px-3 py-1 text-xs font-extrabold text-purple-700">
+                      Trusted Expert
+                    </span>
+                  </div>
+
+                  <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                    <Info label="Experience" value={experience} />
+                    <Info label="Starting Price" value={pricing} />
+                    <Info label="Location" value={location} />
+                  </div>
+
+                  <div className="mt-5 rounded-2xl bg-slate-50 p-4">
+                    <p className="text-xs font-extrabold uppercase tracking-wide text-slate-500">
+                      About
+                    </p>
+                    <p className="mt-2 line-clamp-3 text-sm leading-6 text-slate-600">
+                      {bio}
+                    </p>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Link
+                      href={`/dashboard/consultants/${consultant.id}`}
+                      className="rounded-2xl bg-gradient-to-r from-[#2b064f] to-[#7b3f75] px-5 py-3 text-sm font-bold text-white shadow-lg transition hover:scale-[1.02]"
+                    >
+                      View Profile
+                    </Link>
+
+                    {consultant.whatsapp && (
+                      <a
+                        href={`https://wa.me/${consultant.whatsapp}`}
+                        target="_blank"
+                        className="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-3 text-sm font-bold text-emerald-700 transition hover:bg-emerald-100"
+                      >
+                        WhatsApp
+                      </a>
+                    )}
+
+                    {consultant.phone && (
+                      <a
+                        href={`tel:${consultant.phone}`}
+                        className="rounded-2xl border border-purple-200 bg-white px-5 py-3 text-sm font-bold text-purple-900 transition hover:bg-purple-50"
+                      >
+                        Call
+                      </a>
+                    )}
+
+                    <a
+                      href={`mailto:${consultant.email}`}
+                      className="rounded-2xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-700 transition hover:bg-slate-50"
+                    >
+                      Email
+                    </a>
+                  </div>
+                </div>
               </div>
+            );
+          })}
+        </section>
+      )}
+    </div>
+  );
+}
 
-              <div className="grid gap-4 md:grid-cols-2">
-                <input
-                  name="hourlyRate"
-                  value={profile.hourlyRate}
-                  onChange={handleChange}
-                  placeholder="Hourly Rate e.g. ₹1500/hr"
-                  className="rounded-xl border border-[#dfb6b2] p-3"
-                />
+function TrustBox({ title, value }: { title: string; value: string }) {
+  return (
+    <div className="rounded-2xl border border-white/15 bg-white/10 p-4 backdrop-blur">
+      <p className="text-sm font-extrabold text-white">{title}</p>
+      <p className="mt-1 text-xs text-purple-100">{value}</p>
+    </div>
+  );
+}
 
-                <input
-                  name="languages"
-                  value={profile.languages}
-                  onChange={handleChange}
-                  placeholder="Languages e.g. English, Hindi"
-                  className="rounded-xl border border-[#dfb6b2] p-3"
-                />
-              </div>
+function Badge({ text }: { text: string }) {
+  return (
+    <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-extrabold text-emerald-700">
+      ✓ {text}
+    </span>
+  );
+}
 
-              <textarea
-                name="about"
-                value={profile.about}
-                onChange={handleChange}
-                placeholder="About your consulting services"
-                rows={4}
-                required
-                className="rounded-xl border border-[#dfb6b2] p-3"
-              />
-
-              <h3 className="pt-4 text-xl font-bold text-[#190019]">
-                Verification Documents
-              </h3>
-
-              <input
-                name="gstNumber"
-                value={profile.gstNumber}
-                onChange={handleChange}
-                placeholder="GST Number"
-                className="rounded-xl border border-[#dfb6b2] p-3"
-              />
-
-              <input
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png,.webp"
-                onChange={(e) => setGstFile(e.target.files?.[0] || null)}
-                className="rounded-xl border border-[#dfb6b2] p-3"
-              />
-
-              <input
-                name="msmeNumber"
-                value={profile.msmeNumber}
-                onChange={handleChange}
-                placeholder="MSME / Udyam Number"
-                className="rounded-xl border border-[#dfb6b2] p-3"
-              />
-
-              <input
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png,.webp"
-                onChange={(e) => setMsmeFile(e.target.files?.[0] || null)}
-                className="rounded-xl border border-[#dfb6b2] p-3"
-              />
-
-              <button
-                disabled={loading}
-                className="rounded-xl bg-gradient-to-r from-[#2B124C] to-[#522B5B] px-5 py-3 font-bold text-white"
-              >
-                {loading ? "Saving..." : "Save Consultant Profile"}
-              </button>
-
-              {saved && (
-                <p className="rounded-xl bg-green-50 p-3 text-green-700">
-                  Profile saved successfully.
-                </p>
-              )}
-            </div>
-          </form>
-
-          <div className="rounded-3xl bg-white p-8 shadow">
-            <h2 className="text-2xl font-bold text-[#190019]">Profile Preview</h2>
-
-            <div className="mt-6 rounded-3xl border border-[#dfb6b2] p-6">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#2B124C] text-2xl font-bold text-white">
-                {profile.fullName ? profile.fullName.charAt(0).toUpperCase() : "C"}
-              </div>
-
-              <h3 className="mt-4 text-2xl font-bold text-[#190019]">
-                {profile.fullName || "Consultant Name"}
-              </h3>
-
-              <p className="mt-1 text-[#854F6C]">{profile.expertise}</p>
-
-              <div className="mt-5 space-y-2 text-sm text-[#522B5B]">
-                <p><b>Email:</b> {profile.email || "-"}</p>
-                <p><b>Experience:</b> {profile.experience || "-"}</p>
-                <p><b>Location:</b> {profile.city || "-"}, {profile.country || "-"}</p>
-                <p><b>Rate:</b> {profile.hourlyRate || "-"}</p>
-                <p><b>Languages:</b> {profile.languages || "-"}</p>
-                <p><b>GST:</b> {profile.gstNumber || "Not added"}</p>
-                <p><b>MSME:</b> {profile.msmeNumber || "Not added"}</p>
-              </div>
-
-              <div className="mt-5 space-y-2">
-                <p className="font-bold text-[#190019]">Document Status</p>
-
-                <p className={profile.gstFileUrl ? "text-green-700" : "text-red-600"}>
-                  {profile.gstFileUrl ? "GST document uploaded" : "GST document not uploaded"}
-                </p>
-
-                <p className={profile.msmeFileUrl ? "text-green-700" : "text-red-600"}>
-                  {profile.msmeFileUrl ? "MSME document uploaded" : "MSME document not uploaded"}
-                </p>
-              </div>
-
-              <p className="mt-5 text-[#190019]">
-                {profile.about || "Your about section will appear here."}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </RoleGuard>
+function Info({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+      <p className="text-[11px] font-extrabold uppercase tracking-wide text-slate-500">
+        {label}
+      </p>
+      <p className="mt-1 text-sm font-extrabold text-slate-950">{value}</p>
+    </div>
   );
 }

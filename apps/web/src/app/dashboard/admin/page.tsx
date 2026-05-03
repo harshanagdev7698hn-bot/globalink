@@ -2,303 +2,260 @@
 
 import { useEffect, useState } from "react";
 
-type Consultant = {
+type UserItem = {
   id: string;
-  company?: string | null;
-  expertise: string;
-  country: string;
+  name: string;
+  email: string;
+  role: string;
   city?: string | null;
-  services: string;
-  experienceYears: number;
-  pricing?: string | null;
+  country?: string | null;
+  company?: string | null;
   phone?: string | null;
   whatsapp?: string | null;
   gstNumber?: string | null;
-  msmeNumber?: string | null;
-  gstFile?: string | null;
-  msmeFile?: string | null;
-  verificationStatus?: string | null;
-  isVerified?: boolean;
-  averageRating?: number;
-  totalReviews?: number;
-  user?: {
-    name?: string | null;
-    email?: string | null;
-    role?: string | null;
-  };
+  status: "PENDING" | "VERIFIED" | "REJECTED";
+  createdAt: string;
 };
 
 export default function AdminPage() {
-  const [consultants, setConsultants] = useState<Consultant[]>([]);
+  const [users, setUsers] = useState<UserItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState("");
 
-  const loadConsultants = async () => {
+  async function loadUsers() {
     try {
-      setLoading(true);
-
-      const res = await fetch("/api/admin/consultants", {
+      const res = await fetch("/api/admin/users", {
         cache: "no-store",
       });
 
       const data = await res.json();
-      setConsultants(data.consultants || []);
+
+      if (res.ok) {
+        setUsers(data.users || []);
+      }
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
-  };
+  }
 
-  useEffect(() => {
-    loadConsultants();
-  }, []);
+  async function updateStatus(
+    userId: string,
+    status: "VERIFIED" | "REJECTED" | "PENDING"
+  ) {
+    setUpdatingId(userId);
 
-  const updateStatus = async (id: string, status: "APPROVED" | "REJECTED" | "PENDING") => {
     try {
-      setUpdatingId(id);
-
-      const res = await fetch(`/api/admin/consultants/${id}/verify`, {
+      const res = await fetch("/api/admin/verify", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ status }),
+        body: JSON.stringify({
+          userId,
+          status,
+        }),
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        alert(data.message || "Status update failed");
-        return;
+      if (res.ok) {
+        await loadUsers();
       }
-
-      alert(data.message);
-      loadConsultants();
+    } catch (error) {
+      console.error(error);
     } finally {
       setUpdatingId("");
     }
-  };
+  }
 
-  const statusClass = (status?: string | null) => {
-    if (status === "APPROVED") {
-      return "bg-green-100 text-green-700";
-    }
+  useEffect(() => {
+    loadUsers();
+  }, []);
 
-    if (status === "REJECTED") {
-      return "bg-red-100 text-red-700";
-    }
+  const pendingCount = users.filter((user) => user.status === "PENDING").length;
+  const verifiedCount = users.filter(
+    (user) => user.status === "VERIFIED"
+  ).length;
+  const rejectedCount = users.filter(
+    (user) => user.status === "REJECTED"
+  ).length;
 
-    return "bg-yellow-100 text-yellow-800";
-  };
+  return (
+    <div className="space-y-8">
+      <section className="rounded-[32px] border border-purple-100 bg-gradient-to-r from-[#2b064f] via-[#51245f] to-[#7b3f75] p-8 text-white shadow-2xl">
+        <p className="text-sm font-semibold text-purple-100">
+          Globalink Trust Control
+        </p>
 
-  if (loading) {
+        <h1 className="mt-2 text-3xl font-extrabold">
+          Admin Verification Panel
+        </h1>
+
+        <p className="mt-2 max-w-3xl text-sm leading-6 text-purple-100">
+          Review registered consultants, labs, sellers and buyers before they
+          become visible in the trusted marketplace.
+        </p>
+
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <StatCard title="Pending Review" value={pendingCount} />
+          <StatCard title="Verified Users" value={verifiedCount} />
+          <StatCard title="Rejected Users" value={rejectedCount} />
+        </div>
+      </section>
+
+      <section className="rounded-[30px] border border-purple-100 bg-white p-6 shadow-xl">
+        <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+          <div>
+            <h2 className="text-xl font-extrabold text-slate-950">
+              Registered Users
+            </h2>
+            <p className="mt-1 text-sm text-slate-500">
+              Approve only genuine and document-verified users.
+            </p>
+          </div>
+
+          <button
+            onClick={loadUsers}
+            className="rounded-2xl border border-purple-200 bg-white px-4 py-2 text-sm font-bold text-purple-900 hover:bg-purple-50"
+          >
+            Refresh
+          </button>
+        </div>
+
+        {loading ? (
+          <div className="rounded-2xl bg-slate-50 p-6 text-center text-sm font-semibold text-slate-500">
+            Loading users...
+          </div>
+        ) : users.length === 0 ? (
+          <div className="rounded-2xl bg-slate-50 p-6 text-center text-sm font-semibold text-slate-500">
+            No users found.
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full min-w-[900px] border-separate border-spacing-y-3">
+              <thead>
+                <tr className="text-left text-xs font-extrabold uppercase tracking-wide text-slate-500">
+                  <th className="px-4">User</th>
+                  <th className="px-4">Role</th>
+                  <th className="px-4">Business Details</th>
+                  <th className="px-4">GST</th>
+                  <th className="px-4">Status</th>
+                  <th className="px-4 text-right">Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {users.map((user) => (
+                  <tr key={user.id} className="bg-slate-50">
+                    <td className="rounded-l-2xl px-4 py-4">
+                      <p className="font-extrabold text-slate-950">
+                        {user.name}
+                      </p>
+                      <p className="text-xs text-slate-500">{user.email}</p>
+                      <p className="mt-1 text-xs text-slate-500">
+                        {user.phone || "No phone"}
+                      </p>
+                    </td>
+
+                    <td className="px-4 py-4">
+                      <span className="rounded-full bg-purple-50 px-3 py-1 text-xs font-extrabold text-purple-800">
+                        {user.role}
+                      </span>
+                    </td>
+
+                    <td className="px-4 py-4">
+                      <p className="text-sm font-bold text-slate-800">
+                        {user.company || "No company"}
+                      </p>
+                      <p className="text-xs text-slate-500">
+                        {[user.city, user.country].filter(Boolean).join(", ") ||
+                          "No location"}
+                      </p>
+                    </td>
+
+                    <td className="px-4 py-4">
+                      {user.gstNumber ? (
+                        <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-extrabold text-emerald-700">
+                          {user.gstNumber}
+                        </span>
+                      ) : (
+                        <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-500">
+                          Not Provided
+                        </span>
+                      )}
+                    </td>
+
+                    <td className="px-4 py-4">
+                      <StatusBadge status={user.status} />
+                    </td>
+
+                    <td className="rounded-r-2xl px-4 py-4">
+                      <div className="flex justify-end gap-2">
+                        <button
+                          disabled={updatingId === user.id}
+                          onClick={() => updateStatus(user.id, "VERIFIED")}
+                          className="rounded-xl bg-emerald-600 px-3 py-2 text-xs font-extrabold text-white hover:bg-emerald-700 disabled:opacity-50"
+                        >
+                          Approve
+                        </button>
+
+                        <button
+                          disabled={updatingId === user.id}
+                          onClick={() => updateStatus(user.id, "REJECTED")}
+                          className="rounded-xl bg-red-600 px-3 py-2 text-xs font-extrabold text-white hover:bg-red-700 disabled:opacity-50"
+                        >
+                          Reject
+                        </button>
+
+                        <button
+                          disabled={updatingId === user.id}
+                          onClick={() => updateStatus(user.id, "PENDING")}
+                          className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-extrabold text-slate-700 hover:bg-slate-100 disabled:opacity-50"
+                        >
+                          Pending
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+    </div>
+  );
+}
+
+function StatCard({ title, value }: { title: string; value: number }) {
+  return (
+    <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur">
+      <p className="text-sm font-bold text-purple-100">{title}</p>
+      <p className="mt-2 text-3xl font-extrabold text-white">{value}</p>
+    </div>
+  );
+}
+
+function StatusBadge({ status }: { status: string }) {
+  if (status === "VERIFIED") {
     return (
-      <div className="rounded-[28px] border border-[#dfb6b2] bg-white p-7 shadow-sm">
-        Loading consultants...
-      </div>
+      <span className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-extrabold text-emerald-700">
+        VERIFIED
+      </span>
+    );
+  }
+
+  if (status === "REJECTED") {
+    return (
+      <span className="rounded-full bg-red-50 px-3 py-1 text-xs font-extrabold text-red-700">
+        REJECTED
+      </span>
     );
   }
 
   return (
-    <div className="space-y-8">
-      <section className="rounded-[28px] border border-[#dfb6b2] bg-white p-3 shadow-sm">
-        <div
-          className="rounded-[24px] px-7 py-10 text-white shadow-md"
-          style={{
-            background:
-              "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
-          }}
-        >
-          <p className="text-sm uppercase tracking-[0.25em] text-[#FBE4D8]">
-            Admin Verification
-          </p>
-
-          <h1 className="mt-3 text-4xl font-bold">
-            Consultant Approval System
-          </h1>
-
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-[#FBE4D8]">
-            Review consultant profiles, GST/MSME details and approve or reject
-            verification requests.
-          </p>
-        </div>
-      </section>
-
-      <section className="grid gap-5 md:grid-cols-3">
-        <div className="rounded-[24px] border border-[#dfb6b2] bg-white p-6 shadow-sm">
-          <p className="text-sm text-[#854F6C]">Total Consultants</p>
-          <h2 className="mt-3 text-3xl font-bold text-[#190019]">
-            {consultants.length}
-          </h2>
-        </div>
-
-        <div className="rounded-[24px] border border-[#dfb6b2] bg-white p-6 shadow-sm">
-          <p className="text-sm text-[#854F6C]">Pending</p>
-          <h2 className="mt-3 text-3xl font-bold text-yellow-700">
-            {
-              consultants.filter(
-                (c) => (c.verificationStatus || "PENDING") === "PENDING"
-              ).length
-            }
-          </h2>
-        </div>
-
-        <div className="rounded-[24px] border border-[#dfb6b2] bg-white p-6 shadow-sm">
-          <p className="text-sm text-[#854F6C]">Approved</p>
-          <h2 className="mt-3 text-3xl font-bold text-green-700">
-            {consultants.filter((c) => c.verificationStatus === "APPROVED").length}
-          </h2>
-        </div>
-      </section>
-
-      <section className="rounded-[28px] border border-[#dfb6b2] bg-white p-7 shadow-sm">
-        <h2 className="text-2xl font-bold text-[#190019]">
-          Consultant Verification Requests
-        </h2>
-
-        <p className="mt-2 text-sm text-[#854F6C]">
-          Approve only after checking GST/MSME details and profile quality.
-        </p>
-
-        <div className="mt-7 space-y-5">
-          {consultants.length === 0 ? (
-            <div className="rounded-2xl border border-[#dfb6b2] bg-[#fff8f7] p-6 text-center font-semibold text-[#522B5B]">
-              No consultants found.
-            </div>
-          ) : (
-            consultants.map((c) => (
-              <div
-                key={c.id}
-                className="rounded-[24px] border border-[#dfb6b2] bg-[#fff8f7] p-6 shadow-sm"
-              >
-                <div className="flex flex-col gap-5 xl:flex-row xl:items-start xl:justify-between">
-                  <div>
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="text-2xl font-bold text-[#190019]">
-                        {c.user?.name || c.company || "Consultant"}
-                      </h3>
-
-                      <span
-                        className={`rounded-full px-3 py-1 text-xs font-bold ${statusClass(
-                          c.verificationStatus
-                        )}`}
-                      >
-                        {c.verificationStatus || "PENDING"}
-                      </span>
-                    </div>
-
-                    <p className="mt-2 text-sm text-[#522B5B]">
-                      {c.expertise || "Expert Consultant"}
-                    </p>
-
-                    <p className="mt-1 text-sm text-[#854F6C]">
-                      {c.city ? `${c.city}, ` : ""}
-                      {c.country || "India"}
-                    </p>
-
-                    <p className="mt-1 text-sm text-[#854F6C]">
-                      {c.user?.email || "No email"}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      onClick={() => updateStatus(c.id, "APPROVED")}
-                      disabled={updatingId === c.id}
-                      className="rounded-xl bg-green-600 px-4 py-2 text-sm font-bold text-white"
-                    >
-                      Approve
-                    </button>
-
-                    <button
-                      onClick={() => updateStatus(c.id, "REJECTED")}
-                      disabled={updatingId === c.id}
-                      className="rounded-xl bg-red-600 px-4 py-2 text-sm font-bold text-white"
-                    >
-                      Reject
-                    </button>
-
-                    <button
-                      onClick={() => updateStatus(c.id, "PENDING")}
-                      disabled={updatingId === c.id}
-                      className="rounded-xl bg-yellow-500 px-4 py-2 text-sm font-bold text-white"
-                    >
-                      Pending
-                    </button>
-                  </div>
-                </div>
-
-                <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                  <div className="rounded-2xl border border-[#dfb6b2] bg-white p-4">
-                    <p className="text-sm text-[#854F6C]">Experience</p>
-                    <p className="mt-1 font-bold text-[#190019]">
-                      {c.experienceYears || 0} years
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-[#dfb6b2] bg-white p-4">
-                    <p className="text-sm text-[#854F6C]">Pricing</p>
-                    <p className="mt-1 font-bold text-[#190019]">
-                      {c.pricing || "Not added"}
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-[#dfb6b2] bg-white p-4">
-                    <p className="text-sm text-[#854F6C]">GST Number</p>
-                    <p className="mt-1 font-bold text-[#190019]">
-                      {c.gstNumber || "Not added"}
-                    </p>
-                  </div>
-
-                  <div className="rounded-2xl border border-[#dfb6b2] bg-white p-4">
-                    <p className="text-sm text-[#854F6C]">MSME Number</p>
-                    <p className="mt-1 font-bold text-[#190019]">
-                      {c.msmeNumber || "Not added"}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-5 flex flex-wrap gap-3">
-                  {c.gstFile ? (
-                    <a
-                      href={c.gstFile}
-                      target="_blank"
-                      className="rounded-xl border border-[#dfb6b2] bg-white px-4 py-2 text-sm font-bold text-[#190019]"
-                    >
-                      View GST File
-                    </a>
-                  ) : (
-                    <span className="rounded-xl border border-[#dfb6b2] bg-white px-4 py-2 text-sm font-bold text-[#854F6C]">
-                      GST File Not Uploaded
-                    </span>
-                  )}
-
-                  {c.msmeFile ? (
-                    <a
-                      href={c.msmeFile}
-                      target="_blank"
-                      className="rounded-xl border border-[#dfb6b2] bg-white px-4 py-2 text-sm font-bold text-[#190019]"
-                    >
-                      View MSME File
-                    </a>
-                  ) : (
-                    <span className="rounded-xl border border-[#dfb6b2] bg-white px-4 py-2 text-sm font-bold text-[#854F6C]">
-                      MSME File Not Uploaded
-                    </span>
-                  )}
-
-                  <a
-                    href={`/consultants/${c.id}`}
-                    target="_blank"
-                    className="rounded-xl bg-[#2B124C] px-4 py-2 text-sm font-bold text-white"
-                  >
-                    Public Profile
-                  </a>
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </section>
-    </div>
+    <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-700">
+      PENDING
+    </span>
   );
 }

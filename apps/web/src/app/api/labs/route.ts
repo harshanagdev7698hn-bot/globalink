@@ -3,32 +3,29 @@ import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const consultants = await prisma.user.findMany({
+    const labs = await prisma.user.findMany({
       where: {
-        role: "CONSULTANT",
+        role: "LAB",
         status: "VERIFIED",
       },
       orderBy: {
         createdAt: "desc",
       },
       include: {
-        consultantProfile: true,
+        labProfile: true,
       },
     });
 
     return NextResponse.json({
       success: true,
-      consultants,
+      labs,
     });
   } catch (error) {
-    console.error("CONSULTANTS_API_ERROR", error);
-
     return NextResponse.json(
       {
         success: false,
-        consultants: [],
-        message: "Failed to load verified consultants.",
-        error: String(error),
+        labs: [],
+        error: "Failed to load labs",
       },
       { status: 500 }
     );
