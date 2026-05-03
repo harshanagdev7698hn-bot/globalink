@@ -1,20 +1,12 @@
 {
   "name": "globalink",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "scripts": {
-    "dev": "concurrently -k \"pnpm --filter web dev\" \"pnpm --filter api start:dev\"",
-    "dev:web": "pnpm --filter web dev",
-    "dev:api": "pnpm --filter api start:dev",
-    "build": "pnpm -r build",
-    "lint": "pnpm -r lint",
-    "format": "prettier --write ."
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0",
-    "prettier": "^3.3.0"
+    "concurrently": "^9.1.0"
   }
 }
