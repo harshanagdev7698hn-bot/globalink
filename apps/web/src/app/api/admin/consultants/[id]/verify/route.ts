@@ -1,44 +1,42 @@
-import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
 
 export async function PATCH(
-  req: NextRequest,
+  req: Request,
   { params }: { params: { id: string } }
 ) {
   try {
     const body = await req.json();
-
     const status = body.status;
 
-    if (!["PENDING", "APPROVED", "REJECTED"].includes(status)) {
+    if (!["PENDING", "VERIFIED", "REJECTED"].includes(status)) {
       return NextResponse.json(
-        { success: false, message: "Invalid status" },
+        { success: false, error: "Invalid status" },
         { status: 400 }
       );
     }
 
-    const updated = await prisma.consultantProfile.update({
+    const user = await prisma.user.update({
       where: {
         id: params.id,
       },
       data: {
-        verificationStatus: status,
-        isVerified: status === "APPROVED",
-        verified: status === "APPROVED",
+        status,
       },
     });
 
     return NextResponse.json({
       success: true,
-      message: `Consultant ${status.toLowerCase()} successfully`,
-      consultant: updated,
+      message: "Verification status updated",
+      user,
     });
   } catch (error) {
+    console.error("CONSULTANT_VERIFY_ERROR", error);
+
     return NextResponse.json(
       {
         success: false,
-        message: "Verification update failed",
-        error: String(error),
+        error: "Failed to update verification status",
       },
       { status: 500 }
     );
