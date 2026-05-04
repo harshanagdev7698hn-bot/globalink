@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 import { verifyAuthToken } from "@/lib/auth";
 
 export async function GET() {
@@ -70,7 +70,10 @@ export async function POST(req: NextRequest) {
 
     if (!name || !authority || !category || !country) {
       return NextResponse.json(
-        { success: false, message: "Name, authority, category and country are required" },
+        {
+          success: false,
+          message: "Name, authority, category and country are required",
+        },
         { status: 400 }
       );
     }

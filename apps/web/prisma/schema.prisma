@@ -35,32 +35,33 @@ model User {
   gstNumber String?
   gstFile   String?
 
-  status    VerificationStatus @default(PENDING)
+  status VerificationStatus @default(PENDING)
 
   consultantProfile ConsultantProfile?
   labProfile        LabProfile?
   sellerProfile     SellerProfile?
+  certifications    Certification[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model ConsultantProfile {
-  id          String @id @default(cuid())
-  userId      String @unique
-  services    String?
-  experience  String?
-  pricing     String?
-  msmeNumber  String?
-  msmeFile    String?
-  shortBio    String?
+  id         String  @id @default(cuid())
+  userId     String  @unique
+  services   String?
+  experience String?
+  pricing    String?
+  msmeNumber String?
+  msmeFile   String?
+  shortBio   String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model LabProfile {
-  id                String @id @default(cuid())
-  userId            String @unique
+  id                String  @id @default(cuid())
+  userId            String  @unique
   nablFile          String?
   bisApprovalFile   String?
   labScope          String?
@@ -71,8 +72,8 @@ model LabProfile {
 }
 
 model SellerProfile {
-  id              String @id @default(cuid())
-  userId          String @unique
+  id              String  @id @default(cuid())
+  userId          String  @unique
   bisLicenceNo    String?
   bisLicenceFile  String?
   productCategory String?
@@ -80,4 +81,30 @@ model SellerProfile {
   factoryAddress  String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Certification {
+  id                String    @id @default(cuid())
+  name              String
+  authority         String
+  category          String
+  country           String
+  documentUrl       String?
+  validTill         DateTime?
+  licenseNumber     String?
+  certificationBody String?
+  scope             String?
+  isNumber          String?
+  productType       String?
+  factoryLocation   String?
+  foodCategory      String?
+  state             String?
+  approvalType      String?
+  productClass      String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
