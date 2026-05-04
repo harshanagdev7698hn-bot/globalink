@@ -1,19 +1,17 @@
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/prisma";
 
 export async function GET() {
   try {
-    const consultants = await prisma.consultantProfile.findMany({
-      orderBy: { updatedAt: "desc" },
+    const consultants = await prisma.user.findMany({
+      where: {
+        role: "CONSULTANT",
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            role: true,
-          },
-        },
+        consultantProfile: true,
       },
     });
 
@@ -22,12 +20,13 @@ export async function GET() {
       consultants,
     });
   } catch (error) {
+    console.error("ADMIN_CONSULTANTS_ERROR", error);
+
     return NextResponse.json(
       {
         success: false,
         consultants: [],
-        message: "Failed to load consultants",
-        error: String(error),
+        error: "Failed to load consultants",
       },
       { status: 500 }
     );
