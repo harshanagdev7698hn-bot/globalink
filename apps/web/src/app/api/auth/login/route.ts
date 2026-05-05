@@ -3,6 +3,8 @@ import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { createAuthToken } from "@/lib/auth";
 
+export const dynamic = "force-dynamic"; // ✅ IMPORTANT FIX
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
@@ -56,7 +58,7 @@ export async function POST(req: Request) {
     response.cookies.set("globalink_token", token, {
       httpOnly: true,
       sameSite: "lax",
-      secure: false,
+      secure: true, // ✅ production fix
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
