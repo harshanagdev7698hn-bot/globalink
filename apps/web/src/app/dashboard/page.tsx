@@ -3,116 +3,107 @@ import Link from "next/link";
 const modules = [
   {
     title: "Admin Overview",
-    desc: "Monitor users, approvals, revenue and platform operations.",
-    href: "/dashboard/admin",
     tag: "Governance",
+    desc: "Monitor users, approvals, verification and platform operations.",
+    href: "/dashboard/admin",
   },
   {
     title: "Consultants",
-    desc: "Manage expert profiles, GST/MSME verification and visibility.",
-    href: "/dashboard/consultants",
     tag: "Experts",
+    desc: "Manage verified consultants, services, GST/MSME and visibility.",
+    href: "/dashboard/consultant",
   },
   {
     title: "Buyer Workspace",
-    desc: "Raise RFQs, review proposals and track procurement decisions.",
-    href: "/dashboard/buyer",
     tag: "RFQ",
+    desc: "Raise requests, review proposals and track compliance decisions.",
+    href: "/dashboard/buyer",
   },
   {
     title: "Labs",
-    desc: "Handle lab requests, certification support and compliance workflows.",
-    href: "/dashboard/labs",
     tag: "Testing",
-  },
-  {
-    title: "Marketplace",
-    desc: "Manage products, enquiries, sellers and buyer discovery.",
-    href: "/dashboard/marketplace",
-    tag: "Trade",
-  },
-  {
-    title: "Requests",
-    desc: "Track RFQs, orders and operational actions in one workflow.",
-    href: "/dashboard/requests",
-    tag: "Workflow",
-  },
-  {
-    title: "Certifications",
-    desc: "Manage BIS, ISO, FDA, FSSAI and global certification records.",
-    href: "/dashboard/certifications",
-    tag: "Compliance",
-  },
-  {
-    title: "Settings",
-    desc: "Update profile, account preferences and platform configuration.",
-    href: "/dashboard/settings",
-    tag: "Account",
+    desc: "Manage labs, NABL approvals, testing categories and documents.",
+    href: "/dashboard/lab",
   },
 ];
 
 export default function DashboardPage() {
   return (
-    <div className="space-y-8">
-      <section className="rounded-[28px] border border-[#dfb6b2] bg-white p-3 shadow-sm">
-        <div
-          className="rounded-[24px] px-7 py-10 text-white shadow-md"
-          style={{
-            background:
-              "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
-          }}
-        >
-          <p className="text-sm uppercase tracking-[0.25em] text-[#FBE4D8]">
+    <main className="min-h-screen bg-[#F8FAFC] px-6 py-8 text-[#1F2937]">
+      <section className="mx-auto max-w-7xl">
+        <div className="rounded-[24px] border border-[#E5E7EB] bg-white p-8 shadow-sm">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-[#2563EB]">
             Globalink Dashboard
           </p>
-          <h1 className="mt-3 text-4xl font-bold">
-            Government-grade dashboard
+
+          <h1 className="mt-4 text-4xl font-bold tracking-tight text-[#10243E]">
+            Government-grade compliance command center
           </h1>
-          <p className="mt-3 max-w-3xl text-sm leading-6 text-[#FBE4D8]">
-            Access all major modules from one premium operations layer built for
-            buyers, consultants, labs, sellers and administrators.
+
+          <p className="mt-4 max-w-3xl text-base leading-7 text-[#6B7280]">
+            Manage verified consultants, labs, buyers, marketplace listings,
+            approvals and compliance workflows from one trusted enterprise
+            dashboard.
           </p>
+
+          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+            <div className="rounded-2xl border border-[#E5E7EB] bg-[#F8FAFC] p-5">
+              <p className="text-sm font-semibold text-[#6B7280]">
+                Trust Status
+              </p>
+              <p className="mt-2 text-3xl font-bold text-[#10243E]">
+                Verified-first
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-[#E5E7EB] bg-[#F8FAFC] p-5">
+              <p className="text-sm font-semibold text-[#6B7280]">
+                Platform Mode
+              </p>
+              <p className="mt-2 text-3xl font-bold text-[#10243E]">
+                Marketplace
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-[#E5E7EB] bg-[#F8FAFC] p-5">
+              <p className="text-sm font-semibold text-[#6B7280]">
+                Core Focus
+              </p>
+              <p className="mt-2 text-3xl font-bold text-[#10243E]">
+                Compliance
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {modules.map((item) => (
+            <div
+              key={item.title}
+              className="rounded-[22px] border border-[#E5E7EB] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+            >
+              <span className="rounded-full bg-[#EFF6FF] px-3 py-1 text-xs font-semibold text-[#2563EB]">
+                {item.tag}
+              </span>
+
+              <h2 className="mt-5 text-2xl font-bold text-[#10243E]">
+                {item.title}
+              </h2>
+
+              <p className="mt-3 min-h-[72px] text-sm leading-6 text-[#6B7280]">
+                {item.desc}
+              </p>
+
+              <Link
+                href={item.href}
+                className="mt-6 inline-flex rounded-xl bg-[#10243E] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#173252]"
+              >
+                Open Module
+              </Link>
+            </div>
+          ))}
         </div>
       </section>
-
-      <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {modules.map((item) => (
-          <Link
-            key={item.title}
-            href={item.href}
-            className="group rounded-[24px] border border-[#dfb6b2] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <span className="rounded-full bg-[#FBE4D8] px-3 py-1 text-xs font-bold text-[#854F6C]">
-                  {item.tag}
-                </span>
-                <h2 className="mt-4 text-2xl font-bold text-[#190019]">
-                  {item.title}
-                </h2>
-              </div>
-
-              <div
-                className="flex h-11 w-11 items-center justify-center rounded-2xl text-white"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #190019 0%, #2B124C 55%, #854F6C 100%)",
-                }}
-              >
-                →
-              </div>
-            </div>
-
-            <p className="mt-4 min-h-[52px] text-sm leading-6 text-[#522B5B]">
-              {item.desc}
-            </p>
-
-            <div className="mt-6 inline-flex rounded-xl border border-[#dfb6b2] bg-[#fff8f7] px-4 py-2 text-sm font-bold text-[#190019]">
-              Open Module
-            </div>
-          </Link>
-        ))}
-      </section>
-    </div>
+    </main>
   );
 }
