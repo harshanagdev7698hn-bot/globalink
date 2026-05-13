@@ -1,78 +1,90 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Link from "next/link";
 
+const consultants = [
+  {
+    name: "RK Compliance Solutions",
+    category: "BIS Certification",
+    location: "Ahmedabad, India",
+    experience: "8+ Years",
+  },
+  {
+    name: "Global Regulatory Experts",
+    category: "CDSCO Consulting",
+    location: "Delhi, India",
+    experience: "12+ Years",
+  },
+  {
+    name: "EPR Green Consultants",
+    category: "EPR Registration",
+    location: "Mumbai, India",
+    experience: "6+ Years",
+  },
+];
+
 export default function ConsultantsPage() {
-  const [consultants, setConsultants] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/consultants")
-      .then((res) => res.json())
-      .then((data) => {
-        setConsultants(data.consultants || []);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
-    return <div className="p-10">Loading...</div>;
-  }
-
   return (
-    <div className="p-8 bg-[#f4e4d8] min-h-screen">
-      
-      {/* HEADER */}
-      <div className="bg-gradient-to-r from-[#2a0845] to-[#6441a5] text-white p-6 rounded-xl mb-6">
-        <h1 className="text-2xl font-bold">
-          Verified Global Consultants
-        </h1>
-        <p className="text-sm opacity-80">
-          Explore experts across procurement, compliance & certification
-        </p>
-      </div>
+    <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
+      <div className="mx-auto max-w-7xl px-5 py-10">
+        <section className="rounded-[36px] bg-[#000F22] px-8 py-14 text-white shadow-2xl md:px-14">
+          <p className="text-sm font-bold uppercase tracking-[0.35em] text-[#C0E6FD]">
+            Verified Consultant Network
+          </p>
 
-      {/* NO DATA */}
-      {consultants.length === 0 && (
-        <div className="bg-white p-6 rounded-lg text-center">
-          No consultants found
-        </div>
-      )}
+          <h1 className="mt-6 max-w-4xl text-5xl font-black leading-tight">
+            Find trusted compliance consultants
+          </h1>
 
-      {/* LIST */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {consultants.map((c: any) => (
-          <div
-            key={c.id}
-            className="bg-white rounded-xl p-5 shadow border"
-          >
-            <div className="flex justify-between">
-              <h2 className="font-bold text-lg">
-                {c.user?.name || "No Name"}
+          <p className="mt-6 max-w-3xl text-lg leading-9 text-[#DCEBFA]">
+            Connect with verified BIS, ISO, EPR, CDSCO and global certification
+            consultants through one trusted enterprise platform.
+          </p>
+        </section>
+
+        <section className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {consultants.map((item) => (
+            <div
+              key={item.name}
+              className="rounded-[30px] border border-[#D6E2F0] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+            >
+              <div className="flex items-center justify-between">
+                <span className="rounded-full bg-[#EEF7FF] px-4 py-2 text-xs font-extrabold text-[#1B3554]">
+                  {item.category}
+                </span>
+
+                <span className="rounded-full bg-[#DCFCE7] px-4 py-2 text-xs font-extrabold text-[#166534]">
+                  VERIFIED
+                </span>
+              </div>
+
+              <h2 className="mt-6 text-3xl font-black text-[#000F22]">
+                {item.name}
               </h2>
 
-              <span className="text-sm bg-yellow-200 px-2 py-1 rounded">
-                ⭐ {c.averageRating || 0}
-              </span>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <div className="rounded-full bg-[#F3F8FD] px-4 py-2 text-sm font-bold text-[#1B3554]">
+                  {item.location}
+                </div>
+
+                <div className="rounded-full bg-[#F3F8FD] px-4 py-2 text-sm font-bold text-[#1B3554]">
+                  {item.experience}
+                </div>
+              </div>
+
+              <p className="mt-6 text-sm leading-8 text-[#6B7280]">
+                Enterprise-grade consulting support for certification,
+                compliance and approval workflows.
+              </p>
+
+              <Link
+                href="/join"
+                className="mt-8 inline-flex rounded-2xl bg-[#1B3554] px-6 py-4 text-sm font-extrabold text-white transition hover:bg-[#000F22]"
+              >
+                Send Inquiry
+              </Link>
             </div>
-
-            <p className="text-sm text-gray-600 mt-1">
-              {c.city}, {c.country}
-            </p>
-
-            <p className="mt-2 text-sm">
-              Experience: {c.experienceYears} yrs
-            </p>
-
-            <Link href={`/consultants/${c.id}`}>
-              <button className="mt-4 bg-purple-700 text-white px-4 py-2 rounded">
-                View Profile
-              </button>
-            </Link>
-          </div>
-        ))}
+          ))}
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
