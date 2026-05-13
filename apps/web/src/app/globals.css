@@ -2,48 +2,214 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --background: #f8fafc;
+  --foreground: #1f2937;
+
+  --card: #ffffff;
+  --card-foreground: #111827;
+
+  --primary: #10243e;
+  --primary-hover: #173252;
+
+  --secondary: #eef2f7;
+
+  --border: #e5e7eb;
+
+  --accent: #2563eb;
+
+  --success: #16a34a;
+
+  --muted: #6b7280;
+
+  --radius: 18px;
+
+  --shadow-sm: 0 1px 2px rgba(16, 36, 62, 0.04);
+  --shadow-md: 0 4px 12px rgba(16, 36, 62, 0.06);
+  --shadow-lg: 0 10px 30px rgba(16, 36, 62, 0.08);
+}
+
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-html,
-body {
-  margin: 0;
-  min-height: 100%;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: #fff4ed;
-  color: #111827;
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Inter, sans-serif;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.inputBox {
+::-webkit-scrollbar-track {
+  background: #edf2f7;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Enterprise Containers */
+
+.gl-container {
   width: 100%;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
+  max-width: 1440px;
+  margin: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Premium Cards */
+
+.gl-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: 0.25s ease;
+}
+
+.gl-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Primary Button */
+
+.gl-btn-primary {
+  background: var(--primary);
+  color: white;
+  border-radius: 14px;
+  padding: 12px 22px;
+  font-weight: 600;
+  border: none;
+  transition: 0.25s ease;
+}
+
+.gl-btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+/* Secondary Button */
+
+.gl-btn-secondary {
   background: white;
-  padding: 13px 16px;
-  font-size: 14px;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+  border-radius: 14px;
+  padding: 12px 22px;
+  font-weight: 600;
+  transition: 0.25s ease;
+}
+
+.gl-btn-secondary:hover {
+  background: #f3f4f6;
+}
+
+/* Inputs */
+
+.gl-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 14px;
+  padding: 14px 16px;
   outline: none;
-  transition: 0.2s;
+  transition: 0.2s ease;
 }
 
-.inputBox:focus {
-  border-color: #8b5cf6;
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+.gl-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
 }
 
-.fileBox {
-  width: 100%;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  background: white;
-  padding: 10px;
+/* Headings */
+
+.gl-heading-xl {
+  font-size: 52px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.gl-heading-lg {
+  font-size: 36px;
+  line-height: 1.2;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.gl-heading-md {
+  font-size: 24px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Paragraph */
+
+.gl-text {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* Premium Section */
+
+.gl-section {
+  padding-top: 90px;
+  padding-bottom: 90px;
+}
+
+/* Verified Badge */
+
+.gl-badge-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--success);
+  border-radius: 999px;
+  padding: 8px 14px;
   font-size: 14px;
+  font-weight: 600;
+}
+
+/* Enterprise Table */
+
+.gl-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.gl-table th {
+  text-align: left;
+  padding: 16px;
+  background: #f9fafb;
+  border-bottom: 1px solid var(--border);
+  color: var(--primary);
+}
+
+.gl-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Smooth Fade */
+
+.gl-fade {
+  transition: all 0.25s ease;
 }
