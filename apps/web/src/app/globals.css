@@ -2,48 +2,114 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg: #f8fafc;
+  --bg-soft: #eef7ff;
+  --primary: #1b3554;
+  --primary-dark: #000f22;
+  --primary-mid: #3f6593;
+  --accent: #5b86b6;
+  --accent-light: #c0e6fd;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #d6e2f0;
+  --card: #ffffff;
+  --success: #16a34a;
+}
+
 * {
   box-sizing: border-box;
 }
 
-html,
-body {
-  margin: 0;
-  min-height: 100%;
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: #fff4ed;
-  color: #111827;
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, sans-serif;
 }
 
 a {
-  color: inherit;
   text-decoration: none;
 }
 
-.inputBox {
+.page-container {
   width: 100%;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.gl-card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(27, 53, 84, 0.06);
+}
+
+.gl-btn-primary {
+  background: var(--primary);
+  color: white;
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.gl-btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.gl-btn-secondary {
   background: white;
-  padding: 13px 16px;
-  font-size: 14px;
+  border: 1px solid var(--border);
+  color: var(--primary);
+  border-radius: 14px;
+  padding: 12px 20px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.gl-btn-secondary:hover {
+  background: var(--bg-soft);
+}
+
+.gl-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: white;
+  padding: 14px 16px;
   outline: none;
-  transition: 0.2s;
 }
 
-.inputBox:focus {
-  border-color: #8b5cf6;
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+.gl-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(91, 134, 182, 0.15);
 }
 
-.fileBox {
-  width: 100%;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  background: white;
-  padding: 10px;
-  font-size: 14px;
+.gl-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #eef7ff;
+  color: var(--primary);
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gl-success-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(22, 163, 74, 0.1);
+  color: var(--success);
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 700;
 }
