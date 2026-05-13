@@ -30,38 +30,40 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <div className="mx-auto max-w-7xl px-5 py-6">
-        <header className="flex flex-col gap-4 rounded-[26px] border border-[#D6E2F0] bg-white px-6 py-5 shadow-sm md:flex-row md:items-center md:justify-between">
-          <div>
-            <h1 className="text-3xl font-extrabold text-[#000F22]">
-              Globalink
-            </h1>
-            <p className="mt-1 text-sm text-[#6B7280]">
-              Government-grade consultant, lab & compliance marketplace.
-            </p>
-          </div>
+        <header className="rounded-[26px] border border-[#D6E2F0] bg-white px-6 py-5 shadow-sm">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <h1 className="text-3xl font-extrabold text-[#000F22]">
+                Globalink
+              </h1>
+              <p className="mt-1 text-sm text-[#6B7280]">
+                Government-grade consultant, lab & compliance marketplace.
+              </p>
+            </div>
 
-          <nav className="flex flex-wrap items-center gap-3 text-sm font-bold text-[#1F2937]">
-            <Link href="/consultants">Consultants</Link>
-            <Link href="/labs">Labs</Link>
-            <Link href="/marketplace">Marketplace</Link>
-            <Link href="/compliance">Compliance</Link>
-            <Link
-              href="/login"
-              className="rounded-xl border border-[#D6E2F0] px-4 py-2 text-[#1B3554]"
-            >
-              Login
-            </Link>
-            <Link
-              href="/join"
-              className="rounded-xl bg-[#1B3554] px-4 py-2 text-white"
-            >
-              Join Globalink
-            </Link>
-          </nav>
+            <nav className="flex flex-wrap items-center gap-3 text-sm font-bold text-[#1F2937]">
+              <Link href="/consultants">Consultants</Link>
+              <Link href="/labs">Labs</Link>
+              <Link href="/marketplace">Marketplace</Link>
+              <Link href="/compliance">Compliance</Link>
+              <Link
+                href="/login"
+                className="rounded-xl border border-[#D6E2F0] px-4 py-2 text-[#1B3554]"
+              >
+                Login
+              </Link>
+              <Link
+                href="/join"
+                className="rounded-xl bg-[#1B3554] px-4 py-2 text-white"
+              >
+                Join Globalink
+              </Link>
+            </nav>
+          </div>
         </header>
 
         <section className="mt-8 rounded-[30px] border border-[#D6E2F0] bg-white p-3 shadow-sm">
-          <div className="rounded-[24px] bg-gradient-to-br from-[#000F22] via-[#1B3554] to-[#3F6593] px-8 py-14 text-white md:px-12">
+          <div className="rounded-[24px] bg-[#000F22] px-8 py-14 text-white md:px-12">
             <p className="text-sm font-bold uppercase tracking-[0.3em] text-[#C0E6FD]">
               Globalink Platform
             </p>
