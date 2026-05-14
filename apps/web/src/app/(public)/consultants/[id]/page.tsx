@@ -1,35 +1,9 @@
-import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
 
-const prisma = new PrismaClient();
-
-interface Props {
-  params: {
-    id: string;
-  };
-}
-
-export default async function ConsultantProfilePage({ params }: Props) {
-  const consultant = await prisma.user.findUnique({
-    where: {
-      id: params.id,
-    },
-    include: {
-      consultantProfile: true,
-    },
-  });
-
-  if (!consultant) {
-    return (
-      <div className="min-h-screen flex items-center justify-center text-3xl font-bold">
-        Consultant not found
-      </div>
-    );
-  }
-
+export default function ConsultantProfilePage() {
   return (
     <main className="min-h-screen bg-[#f5f7fb]">
-      {/* TOP NAV */}
+      {/* NAVBAR */}
       <div className="border-b bg-white">
         <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
           <Link
@@ -54,22 +28,27 @@ export default async function ConsultantProfilePage({ params }: Props) {
       {/* HERO */}
       <section className="max-w-7xl mx-auto px-6 py-10">
         <div className="bg-white rounded-[36px] border border-[#dbe4f0] overflow-hidden shadow-sm">
+
           {/* Banner */}
           <div className="h-56 bg-gradient-to-r from-[#07162d] to-[#19345c]" />
 
           <div className="px-10 pb-10">
-            {/* Top Info */}
+
+            {/* TOP SECTION */}
             <div className="-mt-20 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+
               <div className="flex gap-6">
-                {/* Logo */}
+
+                {/* LOGO */}
                 <div className="w-40 h-40 rounded-[32px] bg-[#eef3f9] border-8 border-white flex items-center justify-center text-5xl font-black text-[#19345c] shadow-lg">
-                  {consultant.name?.charAt(0)}
+                  RK
                 </div>
 
                 <div className="pt-16">
+
                   <div className="flex items-center gap-4 flex-wrap">
                     <h1 className="text-5xl font-black text-[#07162d]">
-                      {consultant.company || consultant.name}
+                      RK Compliance Solutions
                     </h1>
 
                     <div className="bg-[#dff7e8] text-[#14804a] px-4 py-2 rounded-full text-sm font-bold tracking-wide">
@@ -78,8 +57,7 @@ export default async function ConsultantProfilePage({ params }: Props) {
                   </div>
 
                   <p className="mt-4 text-xl text-[#5c6f91] font-medium">
-                    {consultant.consultantProfile?.services ||
-                      "Compliance Consultant"}
+                    BIS & Product Certification Expert
                   </p>
 
                   <div className="mt-6 flex flex-wrap gap-3">
@@ -102,8 +80,9 @@ export default async function ConsultantProfilePage({ params }: Props) {
                 </div>
               </div>
 
-              {/* Trust Score */}
+              {/* TRUST SCORE */}
               <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[28px] p-8 min-w-[280px]">
+
                 <p className="text-sm tracking-[4px] text-[#4e74b8] font-bold uppercase">
                   Trust Score
                 </p>
@@ -113,16 +92,17 @@ export default async function ConsultantProfilePage({ params }: Props) {
                 </h2>
 
                 <p className="mt-4 text-[#5c6f91] leading-8">
-                  Verified documents, business validation and marketplace trust
-                  score.
+                  Verified documents, business validation and marketplace trust score.
                 </p>
               </div>
             </div>
 
-            {/* GRID */}
+            {/* MAIN GRID */}
             <div className="grid lg:grid-cols-3 gap-8 mt-12">
-              {/* LEFT */}
+
+              {/* LEFT SIDE */}
               <div className="lg:col-span-2 space-y-8">
+
                 {/* ABOUT */}
                 <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[30px] p-8">
                   <h2 className="text-3xl font-black text-[#07162d]">
@@ -130,18 +110,19 @@ export default async function ConsultantProfilePage({ params }: Props) {
                   </h2>
 
                   <p className="mt-6 text-[#5c6f91] leading-9 text-lg">
-                    {consultant.consultantProfile?.shortBio ||
-                      "Professional compliance consultant helping manufacturers and importers with BIS certification, ISO systems, CDSCO approvals and regulatory compliance services across India."}
+                    Professional compliance consultant helping manufacturers and importers with BIS certification, ISO systems, CDSCO approvals and regulatory compliance services across India.
                   </p>
                 </div>
 
                 {/* SERVICES */}
                 <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[30px] p-8">
+
                   <h2 className="text-3xl font-black text-[#07162d]">
                     Services
                   </h2>
 
                   <div className="grid md:grid-cols-2 gap-4 mt-8">
+
                     {[
                       "BIS Certification",
                       "ISO Certification",
@@ -160,20 +141,22 @@ export default async function ConsultantProfilePage({ params }: Props) {
                   </div>
                 </div>
 
-                {/* BUSINESS DETAILS */}
+                {/* BUSINESS INFO */}
                 <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[30px] p-8">
+
                   <h2 className="text-3xl font-black text-[#07162d]">
                     Business Information
                   </h2>
 
                   <div className="grid md:grid-cols-2 gap-6 mt-8">
+
                     <div>
                       <p className="text-sm text-[#6b7b98] font-semibold">
                         Company
                       </p>
 
                       <h3 className="text-xl font-bold mt-2">
-                        {consultant.company || "Not available"}
+                        RK Compliance Solutions
                       </h3>
                     </div>
 
@@ -183,7 +166,7 @@ export default async function ConsultantProfilePage({ params }: Props) {
                       </p>
 
                       <h3 className="text-xl font-bold mt-2">
-                        {consultant.country || "India"}
+                        India
                       </h3>
                     </div>
 
@@ -193,7 +176,7 @@ export default async function ConsultantProfilePage({ params }: Props) {
                       </p>
 
                       <h3 className="text-xl font-bold mt-2">
-                        {consultant.city || "Ahmedabad"}
+                        Ahmedabad
                       </h3>
                     </div>
 
@@ -203,18 +186,19 @@ export default async function ConsultantProfilePage({ params }: Props) {
                       </p>
 
                       <h3 className="text-xl font-bold mt-2">
-                        {consultant.consultantProfile?.experience ||
-                          "5+ Years"}
+                        8+ Years
                       </h3>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* RIGHT */}
+              {/* RIGHT SIDE */}
               <div className="space-y-8">
+
                 {/* CONTACT */}
                 <div className="bg-[#19345c] text-white rounded-[30px] p-8">
+
                   <p className="tracking-[4px] uppercase text-sm font-bold text-[#9fc0ff]">
                     Contact Consultant
                   </p>
@@ -224,6 +208,7 @@ export default async function ConsultantProfilePage({ params }: Props) {
                   </h2>
 
                   <div className="space-y-4 mt-8">
+
                     <button className="w-full bg-white text-[#19345c] py-4 rounded-2xl font-bold text-lg">
                       Send Inquiry
                     </button>
@@ -234,13 +219,15 @@ export default async function ConsultantProfilePage({ params }: Props) {
                   </div>
                 </div>
 
-                {/* TRUST */}
+                {/* VERIFICATION */}
                 <div className="bg-white border border-[#dbe4f0] rounded-[30px] p-8">
+
                   <h2 className="text-2xl font-black text-[#07162d]">
                     Verification Status
                   </h2>
 
                   <div className="space-y-4 mt-8">
+
                     {[
                       "Business verified",
                       "GST verified",
@@ -261,6 +248,7 @@ export default async function ConsultantProfilePage({ params }: Props) {
                     ))}
                   </div>
                 </div>
+
               </div>
             </div>
           </div>
