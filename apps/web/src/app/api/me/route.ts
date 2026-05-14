@@ -1,30 +1,30 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { verifyAuthToken } from "@/lib/auth";
+import { cookies } from "next/headers";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const cookieStore = cookies();
-    const token = cookieStore.get("globalink_token")?.value;
+    const cookieStore = await cookies();
+    const userCookie = cookieStore.get("globalink_user");
 
-    if (!token) {
-      return NextResponse.json({ user: null }, { status: 200 });
+    if (!userCookie?.value) {
+      return NextResponse.json({
+        success: false,
+        user: null,
+      });
     }
 
-    const user = await verifyAuthToken(token);
+    const user = JSON.parse(userCookie.value);
 
-    return NextResponse.json(
-      {
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        },
-      },
-      { status: 200 }
-    );
+    return NextResponse.json({
+      success: true,
+      user,
+    });
   } catch {
-    return NextResponse.json({ user: null }, { status: 200 });
+    return NextResponse.json({
+      success: false,
+      user: null,
+    });
   }
 }

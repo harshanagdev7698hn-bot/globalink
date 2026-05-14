@@ -1,28 +1,17 @@
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export async function POST() {
-  const res = NextResponse.json({
+  const response = NextResponse.json({
     success: true,
-    message: "Logged out",
+    message: "Logged out successfully",
   });
 
-  res.cookies.set("globalink_token", "", {
-    httpOnly: true,
+  response.cookies.set("globalink_user", "", {
     path: "/",
     maxAge: 0,
   });
 
-  return res;
-}
-
-export async function GET() {
-  const res = NextResponse.redirect(new URL("/", "http://localhost:3000"));
-
-  res.cookies.set("globalink_token", "", {
-    httpOnly: true,
-    path: "/",
-    maxAge: 0,
-  });
-
-  return res;
+  return response;
 }
