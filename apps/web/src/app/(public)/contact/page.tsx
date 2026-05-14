@@ -1,6 +1,6 @@
 import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
-
+import PublicFooter from "@/components/PublicFooter";
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
@@ -91,6 +91,7 @@ export default function ContactPage() {
           </Link>
         </section>
       </div>
+      <PublicFooter />
     </main>
   );
 }

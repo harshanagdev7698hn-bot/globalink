@@ -1,6 +1,6 @@
 import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
-
+import PublicFooter from "@/components/PublicFooter";
 const labs = [
   {
     name: "NABL TestLab India",
@@ -143,6 +143,7 @@ export default function LabsPage() {
           ))}
         </section>
       </div>
+     <PublicFooter /> 
     </main>
   );
 }

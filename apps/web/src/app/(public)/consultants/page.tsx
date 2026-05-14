@@ -1,6 +1,6 @@
 import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
-
+import PublicFooter from "@/components/PublicFooter";
 const consultants = [
   {
     name: "RK Compliance Solutions",
@@ -144,6 +144,7 @@ export default function ConsultantsPage() {
           ))}
         </section>
       </div>
+      <PublicFooter />
     </main>
   );
 }

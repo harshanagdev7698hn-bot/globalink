@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
+import PublicFooter from "@/components/PublicFooter";
 
 const products = [
   {
@@ -122,6 +123,7 @@ export default function ProductsPage() {
           ))}
         </section>
       </div>
+      <PublicFooter />
     </main>
   );
 }

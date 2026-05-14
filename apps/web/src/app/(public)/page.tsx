@@ -1,5 +1,5 @@
 import Link from "next/link";
-
+import PublicFooter from "@/components/PublicFooter";
 const stats = [
   { value: "500+", label: "Verified Experts" },
   { value: "100+", label: "Trusted Labs" },
@@ -274,6 +274,7 @@ export default function HomePage() {
           </div>
         </footer>
       </div>
+      <PublicFooter />
     </main>
   );
 }

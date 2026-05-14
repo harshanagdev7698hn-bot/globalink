@@ -1,6 +1,6 @@
 import PublicNavbar from "@/components/PublicNavbar";
 import Link from "next/link";
-
+import PublicFooter from "@/components/PublicFooter";
 const values = [
   {
     title: "Trust First",
@@ -152,6 +152,7 @@ export default function AboutPage() {
           </div>
         </section>
       </div>
+      <PublicFooter />
     </main>
   );
 }
