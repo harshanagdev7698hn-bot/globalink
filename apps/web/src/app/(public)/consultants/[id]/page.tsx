@@ -1,287 +1,271 @@
+import { PrismaClient } from "@prisma/client";
 import Link from "next/link";
-import PublicNavbar from "@/components/PublicNavbar";
-import PublicFooter from "@/components/PublicFooter";
 
-const services = [
-  "BIS ISI Certification",
-  "CRS Registration",
-  "FMCS Support",
-  "Factory Audit Preparation",
-  "QCO Compliance",
-  "Lab Testing Coordination",
-];
+const prisma = new PrismaClient();
 
-const industries = [
-  "Toys",
-  "Electronics",
-  "Steel Products",
-  "Furniture",
-  "Packaging",
-  "Consumer Goods",
-];
+interface Props {
+  params: {
+    id: string;
+  };
+}
 
-const reviews = [
-  {
-    name: "Manufacturing Client",
-    text: "Professional support for BIS documentation and lab coordination. Clear guidance and fast response.",
-  },
-  {
-    name: "Importer",
-    text: "Helped us understand CRS requirements and prepare the required documents properly.",
-  },
-];
+export default async function ConsultantProfilePage({ params }: Props) {
+  const consultant = await prisma.user.findUnique({
+    where: {
+      id: params.id,
+    },
+    include: {
+      consultantProfile: true,
+    },
+  });
 
-export default function ConsultantProfilePage() {
+  if (!consultant) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-3xl font-bold">
+        Consultant not found
+      </div>
+    );
+  }
+
   return (
-    <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
-      <PublicNavbar />
+    <main className="min-h-screen bg-[#f5f7fb]">
+      {/* TOP NAV */}
+      <div className="border-b bg-white">
+        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+          <Link
+            href="/"
+            className="text-4xl font-black text-[#0b1b34]"
+          >
+            Globalink
+          </Link>
 
-      <div className="mx-auto max-w-7xl px-5 py-10">
-        <Link
-          href="/consultants"
-          className="inline-flex rounded-2xl border border-[#D6E2F0] bg-white px-5 py-3 text-sm font-black text-[#1B3554] hover:bg-[#EEF7FF]"
-        >
-          ← Back to Consultants
-        </Link>
+          <div className="flex items-center gap-4">
+            <button className="border border-[#dbe4f0] px-6 py-3 rounded-2xl font-semibold text-[#0b1b34]">
+              Share
+            </button>
 
-        <section className="mt-6 overflow-hidden rounded-[40px] bg-[#000F22] text-white shadow-2xl">
-          <div className="grid gap-10 p-8 lg:grid-cols-[1.2fr_0.8fr] lg:p-14">
-            <div>
-              <p className="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.28em] text-[#C0E6FD]">
-                Verified Consultant Profile
-              </p>
-
-              <div className="mt-7 flex flex-col gap-5 sm:flex-row sm:items-center">
-                <div className="flex h-24 w-24 items-center justify-center rounded-[30px] bg-white text-4xl font-black text-[#1B3554]">
-                  RK
-                </div>
-
-                <div>
-                  <h1 className="text-4xl font-black leading-tight md:text-6xl">
-                    RK Compliance Solutions
-                  </h1>
-
-                  <p className="mt-3 text-lg font-bold text-[#C0E6FD]">
-                    BIS & Product Certification Expert
-                  </p>
-                </div>
-              </div>
-
-              <p className="mt-7 max-w-3xl text-base leading-8 text-[#DCEBFA]">
-                Trusted consultant for BIS ISI, CRS, QCO compliance, factory
-                audit preparation, lab testing coordination and product
-                certification support for Indian manufacturers and importers.
-              </p>
-
-              <div className="mt-7 flex flex-wrap gap-3">
-                <TrustPill text="GST Verified" />
-                <TrustPill text="Admin Approved" />
-                <TrustPill text="BIS Specialist" />
-                <TrustPill text="Fast Response" />
-              </div>
-            </div>
-
-            <div className="rounded-[34px] border border-white/10 bg-white/10 p-5 backdrop-blur">
-              <div className="rounded-[28px] bg-white p-5 text-[#1F2937]">
-                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#5B86B6]">
-                  Trust Overview
-                </p>
-
-                <div className="mt-5 grid gap-3">
-                  <ProfileStat label="Trust Score" value="96%" />
-                  <ProfileStat label="Rating" value="★ 4.9 / 5" />
-                  <ProfileStat label="Completed Projects" value="240+" />
-                  <ProfileStat label="Response Time" value="< 2 Hours" />
-                </div>
-              </div>
-            </div>
+            <button className="bg-[#19345c] text-white px-6 py-3 rounded-2xl font-semibold">
+              Contact
+            </button>
           </div>
-        </section>
-
-        <section className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="space-y-6">
-            <Card label="Service Scope" title="Compliance services offered">
-              <div className="grid gap-3 md:grid-cols-2">
-                {services.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl border border-[#D6E2F0] bg-[#F8FAFC] p-4 text-sm font-black text-[#1B3554]"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            <Card label="Industries Served" title="Industry expertise">
-              <div className="grid gap-3 md:grid-cols-3">
-                {industries.map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl bg-[#EEF7FF] p-4 text-sm font-black text-[#1B3554]"
-                  >
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </Card>
-
-            <Card label="About Consultant" title="Professional background">
-              <p className="text-sm leading-8 text-[#6B7280]">
-                RK Compliance Solutions helps manufacturers, importers and
-                exporters understand certification requirements and complete
-                compliance workflows. The consultant supports documentation,
-                product testing coordination, factory readiness and technical
-                compliance planning.
-              </p>
-            </Card>
-
-            <Card label="Client Reviews" title="What businesses say">
-              <div className="grid gap-4 md:grid-cols-2">
-                {reviews.map((review) => (
-                  <div
-                    key={review.name}
-                    className="rounded-[24px] border border-[#D6E2F0] bg-[#F8FAFC] p-5"
-                  >
-                    <p className="text-sm font-black text-[#000F22]">
-                      ★★★★★
-                    </p>
-                    <p className="mt-3 text-sm leading-7 text-[#6B7280]">
-                      “{review.text}”
-                    </p>
-                    <p className="mt-4 text-sm font-black text-[#1B3554]">
-                      {review.name}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          </div>
-
-          <aside className="space-y-6">
-            <div className="rounded-[34px] border border-[#D6E2F0] bg-white p-7 shadow-sm">
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#5B86B6]">
-                Contact Consultant
-              </p>
-
-              <h2 className="mt-4 text-3xl font-black text-[#000F22]">
-                Send requirement
-              </h2>
-
-              <p className="mt-3 text-sm leading-7 text-[#6B7280]">
-                Share your certification requirement and connect with this
-                verified consultant.
-              </p>
-
-              <div className="mt-6 grid gap-3">
-                <Link
-                  href="/join"
-                  className="rounded-2xl bg-[#1B3554] px-5 py-4 text-center text-sm font-black text-white hover:bg-[#000F22]"
-                >
-                  Send Inquiry
-                </Link>
-
-                <button className="rounded-2xl border border-[#D6E2F0] px-5 py-4 text-sm font-black text-[#1B3554] hover:bg-[#EEF7FF]">
-                  Request Callback
-                </button>
-
-                <button className="rounded-2xl border border-[#D6E2F0] px-5 py-4 text-sm font-black text-[#1B3554] hover:bg-[#EEF7FF]">
-                  Save Consultant
-                </button>
-              </div>
-            </div>
-
-            <div className="rounded-[34px] bg-[#1B3554] p-7 text-white shadow-xl">
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#C0E6FD]">
-                Verification Checklist
-              </p>
-
-              <div className="mt-5 space-y-3">
-                <CheckItem text="GST profile checked" />
-                <CheckItem text="Business documents reviewed" />
-                <CheckItem text="Service scope verified" />
-                <CheckItem text="Admin approval completed" />
-              </div>
-            </div>
-
-            <div className="rounded-[34px] border border-[#D6E2F0] bg-white p-7 shadow-sm">
-              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#5B86B6]">
-                Business Details
-              </p>
-
-              <div className="mt-5 space-y-4">
-                <Detail label="Location" value="Ahmedabad, India" />
-                <Detail label="Experience" value="8+ Years" />
-                <Detail label="Pricing" value="₹15,000 onwards" />
-                <Detail label="Language" value="English, Hindi, Gujarati" />
-              </div>
-            </div>
-          </aside>
-        </section>
+        </div>
       </div>
 
-      <PublicFooter />
+      {/* HERO */}
+      <section className="max-w-7xl mx-auto px-6 py-10">
+        <div className="bg-white rounded-[36px] border border-[#dbe4f0] overflow-hidden shadow-sm">
+          {/* Banner */}
+          <div className="h-56 bg-gradient-to-r from-[#07162d] to-[#19345c]" />
+
+          <div className="px-10 pb-10">
+            {/* Top Info */}
+            <div className="-mt-20 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+              <div className="flex gap-6">
+                {/* Logo */}
+                <div className="w-40 h-40 rounded-[32px] bg-[#eef3f9] border-8 border-white flex items-center justify-center text-5xl font-black text-[#19345c] shadow-lg">
+                  {consultant.name?.charAt(0)}
+                </div>
+
+                <div className="pt-16">
+                  <div className="flex items-center gap-4 flex-wrap">
+                    <h1 className="text-5xl font-black text-[#07162d]">
+                      {consultant.company || consultant.name}
+                    </h1>
+
+                    <div className="bg-[#dff7e8] text-[#14804a] px-4 py-2 rounded-full text-sm font-bold tracking-wide">
+                      VERIFIED
+                    </div>
+                  </div>
+
+                  <p className="mt-4 text-xl text-[#5c6f91] font-medium">
+                    {consultant.consultantProfile?.services ||
+                      "Compliance Consultant"}
+                  </p>
+
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <div className="bg-[#eef3f9] px-5 py-3 rounded-full text-sm font-semibold">
+                      BIS
+                    </div>
+
+                    <div className="bg-[#eef3f9] px-5 py-3 rounded-full text-sm font-semibold">
+                      ISO
+                    </div>
+
+                    <div className="bg-[#eef3f9] px-5 py-3 rounded-full text-sm font-semibold">
+                      CDSCO
+                    </div>
+
+                    <div className="bg-[#eef3f9] px-5 py-3 rounded-full text-sm font-semibold">
+                      EPR
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Trust Score */}
+              <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[28px] p-8 min-w-[280px]">
+                <p className="text-sm tracking-[4px] text-[#4e74b8] font-bold uppercase">
+                  Trust Score
+                </p>
+
+                <h2 className="text-7xl font-black text-[#07162d] mt-2">
+                  96%
+                </h2>
+
+                <p className="mt-4 text-[#5c6f91] leading-8">
+                  Verified documents, business validation and marketplace trust
+                  score.
+                </p>
+              </div>
+            </div>
+
+            {/* GRID */}
+            <div className="grid lg:grid-cols-3 gap-8 mt-12">
+              {/* LEFT */}
+              <div className="lg:col-span-2 space-y-8">
+                {/* ABOUT */}
+                <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[30px] p-8">
+                  <h2 className="text-3xl font-black text-[#07162d]">
+                    About Consultant
+                  </h2>
+
+                  <p className="mt-6 text-[#5c6f91] leading-9 text-lg">
+                    {consultant.consultantProfile?.shortBio ||
+                      "Professional compliance consultant helping manufacturers and importers with BIS certification, ISO systems, CDSCO approvals and regulatory compliance services across India."}
+                  </p>
+                </div>
+
+                {/* SERVICES */}
+                <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[30px] p-8">
+                  <h2 className="text-3xl font-black text-[#07162d]">
+                    Services
+                  </h2>
+
+                  <div className="grid md:grid-cols-2 gap-4 mt-8">
+                    {[
+                      "BIS Certification",
+                      "ISO Certification",
+                      "CDSCO Registration",
+                      "Factory Audit",
+                      "Technical Documentation",
+                      "Compliance Consulting",
+                    ].map((service) => (
+                      <div
+                        key={service}
+                        className="bg-white border border-[#dbe4f0] rounded-2xl px-5 py-4 font-semibold"
+                      >
+                        {service}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* BUSINESS DETAILS */}
+                <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[30px] p-8">
+                  <h2 className="text-3xl font-black text-[#07162d]">
+                    Business Information
+                  </h2>
+
+                  <div className="grid md:grid-cols-2 gap-6 mt-8">
+                    <div>
+                      <p className="text-sm text-[#6b7b98] font-semibold">
+                        Company
+                      </p>
+
+                      <h3 className="text-xl font-bold mt-2">
+                        {consultant.company || "Not available"}
+                      </h3>
+                    </div>
+
+                    <div>
+                      <p className="text-sm text-[#6b7b98] font-semibold">
+                        Country
+                      </p>
+
+                      <h3 className="text-xl font-bold mt-2">
+                        {consultant.country || "India"}
+                      </h3>
+                    </div>
+
+                    <div>
+                      <p className="text-sm text-[#6b7b98] font-semibold">
+                        City
+                      </p>
+
+                      <h3 className="text-xl font-bold mt-2">
+                        {consultant.city || "Ahmedabad"}
+                      </h3>
+                    </div>
+
+                    <div>
+                      <p className="text-sm text-[#6b7b98] font-semibold">
+                        Experience
+                      </p>
+
+                      <h3 className="text-xl font-bold mt-2">
+                        {consultant.consultantProfile?.experience ||
+                          "5+ Years"}
+                      </h3>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* RIGHT */}
+              <div className="space-y-8">
+                {/* CONTACT */}
+                <div className="bg-[#19345c] text-white rounded-[30px] p-8">
+                  <p className="tracking-[4px] uppercase text-sm font-bold text-[#9fc0ff]">
+                    Contact Consultant
+                  </p>
+
+                  <h2 className="text-3xl font-black mt-4">
+                    Start your compliance journey
+                  </h2>
+
+                  <div className="space-y-4 mt-8">
+                    <button className="w-full bg-white text-[#19345c] py-4 rounded-2xl font-bold text-lg">
+                      Send Inquiry
+                    </button>
+
+                    <button className="w-full border border-white/20 py-4 rounded-2xl font-bold text-lg">
+                      WhatsApp
+                    </button>
+                  </div>
+                </div>
+
+                {/* TRUST */}
+                <div className="bg-white border border-[#dbe4f0] rounded-[30px] p-8">
+                  <h2 className="text-2xl font-black text-[#07162d]">
+                    Verification Status
+                  </h2>
+
+                  <div className="space-y-4 mt-8">
+                    {[
+                      "Business verified",
+                      "GST verified",
+                      "Admin approved",
+                      "Documents checked",
+                      "Marketplace active",
+                    ].map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-center gap-4 bg-[#f8fbff] border border-[#dbe4f0] rounded-2xl p-4"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-[#dff7e8] flex items-center justify-center text-[#14804a] font-black">
+                          ✓
+                        </div>
+
+                        <p className="font-semibold">{item}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
-  );
-}
-
-function TrustPill({ text }: { text: string }) {
-  return (
-    <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-black text-[#C0E6FD]">
-      {text}
-    </span>
-  );
-}
-
-function ProfileStat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl bg-[#F8FAFC] p-4">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#6B7280]">
-        {label}
-      </p>
-      <p className="mt-2 text-xl font-black text-[#000F22]">{value}</p>
-    </div>
-  );
-}
-
-function Card({
-  label,
-  title,
-  children,
-}: {
-  label: string;
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="rounded-[34px] border border-[#D6E2F0] bg-white p-7 shadow-sm">
-      <p className="text-sm font-black uppercase tracking-[0.25em] text-[#5B86B6]">
-        {label}
-      </p>
-      <h2 className="mt-4 text-3xl font-black text-[#000F22]">{title}</h2>
-      <div className="mt-6">{children}</div>
-    </div>
-  );
-}
-
-function CheckItem({ text }: { text: string }) {
-  return (
-    <div className="flex items-center gap-3 rounded-2xl bg-white/10 p-4">
-      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#DCFCE7] text-sm font-black text-[#166534]">
-        ✓
-      </span>
-      <p className="text-sm font-black text-white">{text}</p>
-    </div>
-  );
-}
-
-function Detail({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl bg-[#F8FAFC] p-4">
-      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#6B7280]">
-        {label}
-      </p>
-      <p className="mt-2 text-sm font-black text-[#000F22]">{value}</p>
-    </div>
   );
 }
