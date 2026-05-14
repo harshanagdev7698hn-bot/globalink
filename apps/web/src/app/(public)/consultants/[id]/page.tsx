@@ -1,259 +1,312 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import PublicNavbar from "@/components/PublicNavbar";
+import PublicFooter from "@/components/PublicFooter";
 
-export default function ConsultantProfilePage() {
-  return (
-    <main className="min-h-screen bg-[#f5f7fb]">
-      {/* NAVBAR */}
-      <div className="border-b bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-4xl font-black text-[#0b1b34]"
-          >
-            Globalink
-          </Link>
+type Consultant = {
+  id: string;
+  name: string;
+  company?: string | null;
+  email?: string;
+  phone?: string | null;
+  city?: string | null;
+  country?: string | null;
+  status?: string;
+  gstNumber?: string | null;
+  gstFile?: string | null;
+  consultantProfile?: {
+    services?: string | null;
+    experience?: string | null;
+    pricing?: string | null;
+    msmeNumber?: string | null;
+    msmeFile?: string | null;
+    shortBio?: string | null;
+  } | null;
+};
 
-          <div className="flex items-center gap-4">
-            <button className="border border-[#dbe4f0] px-6 py-3 rounded-2xl font-semibold text-[#0b1b34]">
-              Share
-            </button>
+export default function ConsultantProfilePage({
+  params,
+}: {
+  params: { id: string };
+}) {
+  const [consultant, setConsultant] = useState<Consultant | null>(null);
+  const [loading, setLoading] = useState(true);
 
-            <button className="bg-[#19345c] text-white px-6 py-3 rounded-2xl font-semibold">
-              Contact
-            </button>
-          </div>
+  useEffect(() => {
+    async function loadConsultant() {
+      try {
+        const res = await fetch(`/api/consultants/${params.id}`, {
+          cache: "no-store",
+        });
+
+        const data = await res.json();
+
+        if (data?.consultant) {
+          setConsultant(data.consultant);
+        }
+      } catch {
+        setConsultant(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadConsultant();
+  }, [params.id]);
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-[#F8FAFC] text-[#000F22]">
+        <PublicNavbar />
+        <div className="mx-auto max-w-7xl px-5 py-20 text-center text-2xl font-black">
+          Loading consultant profile...
         </div>
-      </div>
+      </main>
+    );
+  }
 
-      {/* HERO */}
-      <section className="max-w-7xl mx-auto px-6 py-10">
-        <div className="bg-white rounded-[36px] border border-[#dbe4f0] overflow-hidden shadow-sm">
+  if (!consultant) {
+    return (
+      <main className="min-h-screen bg-[#F8FAFC] text-[#000F22]">
+        <PublicNavbar />
+        <div className="mx-auto max-w-7xl px-5 py-20 text-center">
+          <h1 className="text-4xl font-black">Consultant not found</h1>
+          <Link
+            href="/consultants"
+            className="mt-6 inline-flex rounded-2xl bg-[#1B3554] px-6 py-4 text-sm font-black text-white"
+          >
+            Back to Consultants
+          </Link>
+        </div>
+      </main>
+    );
+  }
 
-          {/* Banner */}
-          <div className="h-56 bg-gradient-to-r from-[#07162d] to-[#19345c]" />
+  const company = consultant.company || consultant.name;
+  const services =
+    consultant.consultantProfile?.services ||
+    "BIS Certification, ISO, CRS, Factory Audit";
+  const serviceList = services.split(",").map((s) => s.trim()).filter(Boolean);
 
-          <div className="px-10 pb-10">
+  return (
+    <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
+      <PublicNavbar />
 
-            {/* TOP SECTION */}
-            <div className="-mt-20 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8">
+      <div className="mx-auto max-w-7xl px-5 py-10">
+        <Link
+          href="/consultants"
+          className="inline-flex rounded-2xl border border-[#D6E2F0] bg-white px-5 py-3 text-sm font-black text-[#1B3554]"
+        >
+          ← Back to Consultants
+        </Link>
 
-              <div className="flex gap-6">
+        <section className="mt-6 overflow-hidden rounded-[40px] bg-[#000F22] text-white shadow-2xl">
+          <div className="grid gap-10 p-8 lg:grid-cols-[1.2fr_0.8fr] lg:p-14">
+            <div>
+              <p className="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.28em] text-[#C0E6FD]">
+                Database Connected Consultant Profile
+              </p>
 
-                {/* LOGO */}
-                <div className="w-40 h-40 rounded-[32px] bg-[#eef3f9] border-8 border-white flex items-center justify-center text-5xl font-black text-[#19345c] shadow-lg">
-                  RK
+              <div className="mt-7 flex flex-col gap-5 sm:flex-row sm:items-center">
+                <div className="flex h-24 w-24 items-center justify-center rounded-[30px] bg-white text-4xl font-black text-[#1B3554]">
+                  {company.slice(0, 2).toUpperCase()}
                 </div>
 
-                <div className="pt-16">
+                <div>
+                  <h1 className="text-4xl font-black leading-tight md:text-6xl">
+                    {company}
+                  </h1>
 
-                  <div className="flex items-center gap-4 flex-wrap">
-                    <h1 className="text-5xl font-black text-[#07162d]">
-                      RK Compliance Solutions
-                    </h1>
-
-                    <div className="bg-[#dff7e8] text-[#14804a] px-4 py-2 rounded-full text-sm font-bold tracking-wide">
-                      VERIFIED
-                    </div>
-                  </div>
-
-                  <p className="mt-4 text-xl text-[#5c6f91] font-medium">
-                    BIS & Product Certification Expert
+                  <p className="mt-3 text-lg font-bold text-[#C0E6FD]">
+                    {services}
                   </p>
-
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <div className="bg-[#eef3f9] px-5 py-3 rounded-full text-sm font-semibold">
-                      BIS
-                    </div>
-
-                    <div className="bg-[#eef3f9] px-5 py-3 rounded-full text-sm font-semibold">
-                      ISO
-                    </div>
-
-                    <div className="bg-[#eef3f9] px-5 py-3 rounded-full text-sm font-semibold">
-                      CDSCO
-                    </div>
-
-                    <div className="bg-[#eef3f9] px-5 py-3 rounded-full text-sm font-semibold">
-                      EPR
-                    </div>
-                  </div>
                 </div>
               </div>
 
-              {/* TRUST SCORE */}
-              <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[28px] p-8 min-w-[280px]">
+              <p className="mt-7 max-w-3xl text-base leading-8 text-[#DCEBFA]">
+                {consultant.consultantProfile?.shortBio ||
+                  "Verified compliance consultant helping companies with certification, documentation, testing and regulatory workflows."}
+              </p>
 
-                <p className="text-sm tracking-[4px] text-[#4e74b8] font-bold uppercase">
+              <div className="mt-7 flex flex-wrap gap-3">
+                <TrustPill text={consultant.status || "PENDING"} />
+                <TrustPill text="Admin Reviewed" />
+                <TrustPill text="Business Profile" />
+                <TrustPill text="Marketplace Active" />
+              </div>
+            </div>
+
+            <div className="rounded-[34px] border border-white/10 bg-white/10 p-5 backdrop-blur">
+              <div className="rounded-[28px] bg-white p-5 text-[#1F2937]">
+                <p className="text-xs font-black uppercase tracking-[0.22em] text-[#5B86B6]">
                   Trust Score
                 </p>
 
-                <h2 className="text-7xl font-black text-[#07162d] mt-2">
-                  96%
-                </h2>
+                <p className="mt-4 text-7xl font-black text-[#000F22]">96%</p>
 
-                <p className="mt-4 text-[#5c6f91] leading-8">
-                  Verified documents, business validation and marketplace trust score.
+                <p className="mt-4 text-sm leading-7 text-[#6B7280]">
+                  Based on profile quality, verification status, documents and
+                  marketplace readiness.
                 </p>
-              </div>
-            </div>
 
-            {/* MAIN GRID */}
-            <div className="grid lg:grid-cols-3 gap-8 mt-12">
-
-              {/* LEFT SIDE */}
-              <div className="lg:col-span-2 space-y-8">
-
-                {/* ABOUT */}
-                <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[30px] p-8">
-                  <h2 className="text-3xl font-black text-[#07162d]">
-                    About Consultant
-                  </h2>
-
-                  <p className="mt-6 text-[#5c6f91] leading-9 text-lg">
-                    Professional compliance consultant helping manufacturers and importers with BIS certification, ISO systems, CDSCO approvals and regulatory compliance services across India.
-                  </p>
+                <div className="mt-6 grid gap-3">
+                  <ProfileStat label="Experience" value={consultant.consultantProfile?.experience || "5+ Years"} />
+                  <ProfileStat label="Location" value={`${consultant.city || "Ahmedabad"}, ${consultant.country || "India"}`} />
+                  <ProfileStat label="Pricing" value={consultant.consultantProfile?.pricing || "On Request"} />
                 </div>
-
-                {/* SERVICES */}
-                <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[30px] p-8">
-
-                  <h2 className="text-3xl font-black text-[#07162d]">
-                    Services
-                  </h2>
-
-                  <div className="grid md:grid-cols-2 gap-4 mt-8">
-
-                    {[
-                      "BIS Certification",
-                      "ISO Certification",
-                      "CDSCO Registration",
-                      "Factory Audit",
-                      "Technical Documentation",
-                      "Compliance Consulting",
-                    ].map((service) => (
-                      <div
-                        key={service}
-                        className="bg-white border border-[#dbe4f0] rounded-2xl px-5 py-4 font-semibold"
-                      >
-                        {service}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* BUSINESS INFO */}
-                <div className="bg-[#f8fbff] border border-[#dbe4f0] rounded-[30px] p-8">
-
-                  <h2 className="text-3xl font-black text-[#07162d]">
-                    Business Information
-                  </h2>
-
-                  <div className="grid md:grid-cols-2 gap-6 mt-8">
-
-                    <div>
-                      <p className="text-sm text-[#6b7b98] font-semibold">
-                        Company
-                      </p>
-
-                      <h3 className="text-xl font-bold mt-2">
-                        RK Compliance Solutions
-                      </h3>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-[#6b7b98] font-semibold">
-                        Country
-                      </p>
-
-                      <h3 className="text-xl font-bold mt-2">
-                        India
-                      </h3>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-[#6b7b98] font-semibold">
-                        City
-                      </p>
-
-                      <h3 className="text-xl font-bold mt-2">
-                        Ahmedabad
-                      </h3>
-                    </div>
-
-                    <div>
-                      <p className="text-sm text-[#6b7b98] font-semibold">
-                        Experience
-                      </p>
-
-                      <h3 className="text-xl font-bold mt-2">
-                        8+ Years
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* RIGHT SIDE */}
-              <div className="space-y-8">
-
-                {/* CONTACT */}
-                <div className="bg-[#19345c] text-white rounded-[30px] p-8">
-
-                  <p className="tracking-[4px] uppercase text-sm font-bold text-[#9fc0ff]">
-                    Contact Consultant
-                  </p>
-
-                  <h2 className="text-3xl font-black mt-4">
-                    Start your compliance journey
-                  </h2>
-
-                  <div className="space-y-4 mt-8">
-
-                    <button className="w-full bg-white text-[#19345c] py-4 rounded-2xl font-bold text-lg">
-                      Send Inquiry
-                    </button>
-
-                    <button className="w-full border border-white/20 py-4 rounded-2xl font-bold text-lg">
-                      WhatsApp
-                    </button>
-                  </div>
-                </div>
-
-                {/* VERIFICATION */}
-                <div className="bg-white border border-[#dbe4f0] rounded-[30px] p-8">
-
-                  <h2 className="text-2xl font-black text-[#07162d]">
-                    Verification Status
-                  </h2>
-
-                  <div className="space-y-4 mt-8">
-
-                    {[
-                      "Business verified",
-                      "GST verified",
-                      "Admin approved",
-                      "Documents checked",
-                      "Marketplace active",
-                    ].map((item) => (
-                      <div
-                        key={item}
-                        className="flex items-center gap-4 bg-[#f8fbff] border border-[#dbe4f0] rounded-2xl p-4"
-                      >
-                        <div className="w-10 h-10 rounded-full bg-[#dff7e8] flex items-center justify-center text-[#14804a] font-black">
-                          ✓
-                        </div>
-
-                        <p className="font-semibold">{item}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <section className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="space-y-6">
+            <Card label="Image Gallery" title="Consultant workspace preview">
+              <div className="grid gap-4 md:grid-cols-3">
+                <GalleryCard title="Certification Desk" />
+                <GalleryCard title="Audit Preparation" />
+                <GalleryCard title="Document Review" />
+              </div>
+            </Card>
+
+            <Card label="Services" title="Compliance services offered">
+              <div className="grid gap-3 md:grid-cols-2">
+                {serviceList.map((service) => (
+                  <div
+                    key={service}
+                    className="rounded-2xl border border-[#D6E2F0] bg-[#F8FAFC] p-4 text-sm font-black text-[#1B3554]"
+                  >
+                    {service}
+                  </div>
+                ))}
+              </div>
+            </Card>
+
+            <Card label="Documents" title="Verification documents">
+              <div className="grid gap-3 md:grid-cols-2">
+                <DocItem text={consultant.gstNumber ? "GST Number Available" : "GST Pending"} />
+                <DocItem text={consultant.gstFile ? "GST File Uploaded" : "GST File Pending"} />
+                <DocItem text={consultant.consultantProfile?.msmeNumber ? "MSME / Registration Available" : "MSME Pending"} />
+                <DocItem text={consultant.consultantProfile?.msmeFile ? "MSME File Uploaded" : "MSME File Pending"} />
+              </div>
+            </Card>
+
+            <Card label="About" title="Professional background">
+              <p className="text-sm leading-8 text-[#6B7280]">
+                {consultant.consultantProfile?.shortBio ||
+                  "This consultant supports businesses with compliance planning, documentation, certification guidance and regulatory workflows."}
+              </p>
+            </Card>
+          </div>
+
+          <aside className="space-y-6">
+            <div className="rounded-[34px] border border-[#D6E2F0] bg-white p-7 shadow-sm">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#5B86B6]">
+                Contact
+              </p>
+
+              <h2 className="mt-4 text-3xl font-black text-[#000F22]">
+                Send inquiry
+              </h2>
+
+              <div className="mt-6 grid gap-3">
+                <button className="rounded-2xl bg-[#1B3554] px-5 py-4 text-sm font-black text-white">
+                  Send Inquiry
+                </button>
+
+                <button className="rounded-2xl border border-[#D6E2F0] px-5 py-4 text-sm font-black text-[#1B3554]">
+                  Request Callback
+                </button>
+
+                <button className="rounded-2xl border border-[#D6E2F0] px-5 py-4 text-sm font-black text-[#1B3554]">
+                  WhatsApp
+                </button>
+              </div>
+            </div>
+
+            <div className="rounded-[34px] bg-[#1B3554] p-7 text-white shadow-xl">
+              <p className="text-sm font-black uppercase tracking-[0.25em] text-[#C0E6FD]">
+                Verification Checklist
+              </p>
+
+              <div className="mt-5 space-y-3">
+                <CheckItem text="Business profile checked" />
+                <CheckItem text="Service scope reviewed" />
+                <CheckItem text="Documents mapped" />
+                <CheckItem text="Admin verification status available" />
+              </div>
+            </div>
+          </aside>
+        </section>
+      </div>
+
+      <PublicFooter />
     </main>
+  );
+}
+
+function TrustPill({ text }: { text: string }) {
+  return (
+    <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-black text-[#C0E6FD]">
+      {text}
+    </span>
+  );
+}
+
+function ProfileStat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-2xl bg-[#F8FAFC] p-4">
+      <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#6B7280]">
+        {label}
+      </p>
+      <p className="mt-2 text-sm font-black text-[#000F22]">{value}</p>
+    </div>
+  );
+}
+
+function GalleryCard({ title }: { title: string }) {
+  return (
+    <div className="rounded-[26px] bg-[#000F22] p-5 text-white">
+      <div className="h-32 rounded-2xl bg-gradient-to-br from-[#C0E6FD] to-[#1B3554]" />
+      <p className="mt-4 text-sm font-black">{title}</p>
+    </div>
+  );
+}
+
+function DocItem({ text }: { text: string }) {
+  return (
+    <div className="rounded-2xl border border-[#D6E2F0] bg-[#F8FAFC] p-4 text-sm font-black text-[#000F22]">
+      ✓ {text}
+    </div>
+  );
+}
+
+function CheckItem({ text }: { text: string }) {
+  return (
+    <div className="rounded-2xl bg-white/10 p-4 text-sm font-black">
+      ✓ {text}
+    </div>
+  );
+}
+
+function Card({
+  label,
+  title,
+  children,
+}: {
+  label: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-[34px] border border-[#D6E2F0] bg-white p-7 shadow-sm">
+      <p className="text-sm font-black uppercase tracking-[0.25em] text-[#5B86B6]">
+        {label}
+      </p>
+      <h2 className="mt-4 text-3xl font-black text-[#000F22]">{title}</h2>
+      <div className="mt-6">{children}</div>
+    </div>
   );
 }
