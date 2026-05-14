@@ -1,31 +1,32 @@
+import Link from "next/link";
+
 const labs = [
   {
     name: "National Testing Labs",
-    category: "NABL Accredited",
+    type: "NABL Accredited Lab",
     location: "Ahmedabad, India",
     scope: "Electrical & Electronics",
-    verified: true,
+    rating: "4.8",
+    reports: "1,200+",
+    badges: ["NABL", "BIS Testing", "Calibration"],
   },
   {
     name: "Precision Calibration Center",
-    category: "Calibration Lab",
+    type: "Calibration & Testing Lab",
     location: "Pune, India",
     scope: "Industrial Equipment",
-    verified: true,
+    rating: "4.7",
+    reports: "850+",
+    badges: ["Calibration", "ISO", "Industrial"],
   },
   {
     name: "Global Compliance Labs",
-    category: "Product Testing",
+    type: "Product Testing Partner",
     location: "Delhi, India",
     scope: "Consumer Products",
-    verified: true,
-  },
-  {
-    name: "Industrial Safety Labs",
-    category: "Mechanical Testing",
-    location: "Mumbai, India",
-    scope: "Steel & Furniture",
-    verified: true,
+    rating: "4.9",
+    reports: "2,000+",
+    badges: ["Product Testing", "BIS", "Safety"],
   },
 ];
 
@@ -33,51 +34,40 @@ export default function LabsPage() {
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <div className="mx-auto max-w-7xl px-5 py-10">
-        {/* HERO */}
         <section className="rounded-[34px] bg-[#000F22] px-8 py-14 text-white shadow-xl md:px-14">
           <p className="text-sm font-bold uppercase tracking-[0.35em] text-[#C0E6FD]">
-            Trusted Testing Ecosystem
+            Verified Lab Network
           </p>
 
           <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">
-            Discover verified NABL and compliance testing labs
+            Find trusted labs for testing, calibration and certification support
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-[#DCEBFA]">
-            Connect with accredited testing, calibration and product compliance
-            labs for BIS, ISO, CDSCO and industrial certification workflows.
+            Connect with verified NABL, BIS and testing labs for product
+            compliance, reports and industrial approvals.
           </p>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            <button className="rounded-2xl bg-white px-6 py-4 text-sm font-extrabold text-[#000F22]">
-              Explore Labs
-            </button>
-
-            <button className="rounded-2xl border border-white/25 px-6 py-4 text-sm font-extrabold text-white">
-              Register Lab
-            </button>
-          </div>
         </section>
 
-        {/* SEARCH */}
-        <section className="mt-8 rounded-[30px] border border-[#D6E2F0] bg-white p-6 shadow-sm">
+        <section className="mt-8 rounded-[28px] border border-[#D6E2F0] bg-white p-6 shadow-sm">
           <div className="grid gap-4 md:grid-cols-4">
             <input
-              placeholder="Search labs"
+              placeholder="Search lab or scope"
               className="rounded-2xl border border-[#D6E2F0] px-4 py-4 outline-none focus:border-[#5B86B6]"
             />
 
             <select className="rounded-2xl border border-[#D6E2F0] px-4 py-4 font-bold outline-none">
-              <option>NABL Labs</option>
+              <option>All Lab Types</option>
+              <option>NABL</option>
               <option>Calibration</option>
-              <option>Mechanical</option>
-              <option>Electronics</option>
+              <option>BIS Testing</option>
             </select>
 
             <select className="rounded-2xl border border-[#D6E2F0] px-4 py-4 font-bold outline-none">
-              <option>India</option>
+              <option>All Locations</option>
               <option>Ahmedabad</option>
               <option>Delhi</option>
+              <option>Pune</option>
             </select>
 
             <button className="rounded-2xl bg-[#1B3554] px-5 py-4 text-sm font-extrabold text-white hover:bg-[#000F22]">
@@ -86,59 +76,76 @@ export default function LabsPage() {
           </div>
         </section>
 
-        {/* LABS */}
-        <section className="mt-8 grid gap-6 md:grid-cols-2">
-          {labs.map((lab) => (
-            <div
-              key={lab.name}
-              className="rounded-[28px] border border-[#D6E2F0] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+        <section className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {labs.map((item) => (
+            <article
+              key={item.name}
+              className="rounded-[30px] border border-[#D6E2F0] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="flex flex-wrap items-center justify-between gap-4">
-                <div>
-                  <p className="text-sm font-bold uppercase tracking-[0.25em] text-[#5B86B6]">
-                    {lab.category}
-                  </p>
-
-                  <h2 className="mt-3 text-3xl font-extrabold text-[#000F22]">
-                    {lab.name}
-                  </h2>
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF7FF] text-xl font-black text-[#1B3554]">
+                  {item.name.charAt(0)}
                 </div>
 
-                {lab.verified && (
-                  <div className="rounded-full bg-[#DCFCE7] px-4 py-2 text-xs font-extrabold text-[#166534]">
-                    VERIFIED
-                  </div>
-                )}
+                <span className="rounded-full bg-[#DCFCE7] px-4 py-2 text-xs font-extrabold text-[#166534]">
+                  VERIFIED
+                </span>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                <div className="rounded-full bg-[#EEF7FF] px-4 py-2 text-sm font-bold text-[#1B3554]">
-                  {lab.location}
-                </div>
+              <h2 className="mt-6 text-2xl font-black text-[#000F22]">
+                {item.name}
+              </h2>
 
-                <div className="rounded-full bg-[#EEF7FF] px-4 py-2 text-sm font-bold text-[#1B3554]">
-                  {lab.scope}
-                </div>
-              </div>
-
-              <p className="mt-6 text-sm leading-7 text-[#6B7280]">
-                Trusted lab partner for testing, calibration and certification
-                support with enterprise-grade compliance workflows.
+              <p className="mt-2 text-sm font-bold text-[#5B86B6]">
+                {item.type}
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-4">
-                <button className="rounded-2xl bg-[#1B3554] px-5 py-4 text-sm font-extrabold text-white hover:bg-[#000F22]">
-                  View Lab
-                </button>
+              <p className="mt-4 text-sm leading-7 text-[#6B7280]">
+                {item.location}
+              </p>
+
+              <div className="mt-5 grid grid-cols-3 gap-3">
+                <Info label="Rating" value={`★ ${item.rating}`} />
+                <Info label="Reports" value={item.reports} />
+                <Info label="Scope" value={item.scope} />
+              </div>
+
+              <div className="mt-6 flex flex-wrap gap-2">
+                {item.badges.map((badge) => (
+                  <span
+                    key={badge}
+                    className="rounded-full bg-[#F3F8FD] px-3 py-2 text-xs font-extrabold text-[#1B3554]"
+                  >
+                    {badge}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-8 flex gap-3">
+                <Link
+                  href="/join"
+                  className="flex-1 rounded-2xl bg-[#1B3554] px-5 py-4 text-center text-sm font-extrabold text-white hover:bg-[#000F22]"
+                >
+                  Send Inquiry
+                </Link>
 
                 <button className="rounded-2xl border border-[#D6E2F0] px-5 py-4 text-sm font-extrabold text-[#1B3554] hover:bg-[#EEF7FF]">
-                  Send Inquiry
+                  View
                 </button>
               </div>
-            </div>
+            </article>
           ))}
         </section>
       </div>
     </main>
+  );
+}
+
+function Info({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="rounded-2xl bg-[#F8FAFC] p-3">
+      <p className="text-xs font-bold text-[#6B7280]">{label}</p>
+      <p className="mt-1 text-sm font-black text-[#000F22]">{value}</p>
+    </div>
   );
 }
