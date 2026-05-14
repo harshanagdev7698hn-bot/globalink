@@ -1,4 +1,5 @@
 import Link from "next/link";
+import PublicNavbar from "@/components/PublicNavbar";
 
 const consultants = [
   {
@@ -33,7 +34,10 @@ const consultants = [
 export default function ConsultantsPage() {
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
+      <PublicNavbar />
+
       <div className="mx-auto max-w-7xl px-5 py-10">
+        {/* HERO */}
         <section className="rounded-[34px] bg-[#000F22] px-8 py-14 text-white shadow-xl md:px-14">
           <p className="text-sm font-bold uppercase tracking-[0.35em] text-[#C0E6FD]">
             Verified Consultant Marketplace
@@ -49,6 +53,7 @@ export default function ConsultantsPage() {
           </p>
         </section>
 
+        {/* SEARCH */}
         <section className="mt-8 rounded-[28px] border border-[#D6E2F0] bg-white p-6 shadow-sm">
           <div className="grid gap-4 md:grid-cols-4">
             <input
@@ -77,6 +82,7 @@ export default function ConsultantsPage() {
           </div>
         </section>
 
+        {/* CONSULTANT CARDS */}
         <section className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {consultants.map((item) => (
             <article
