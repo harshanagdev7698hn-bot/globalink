@@ -1,4 +1,18 @@
 import Link from "next/link";
+import {
+  ShieldCheck,
+  Stethoscope,
+  Radio,
+  Recycle,
+  Factory,
+  Scale,
+  Globe2,
+  FlaskConical,
+  FileCheck2,
+  Sparkles,
+  LockKeyhole,
+  ArrowRight,
+} from "lucide-react";
 import PublicNavbar from "@/components/PublicNavbar";
 import PublicFooter from "@/components/PublicFooter";
 
@@ -10,32 +24,53 @@ const stats = [
 ];
 
 const services = [
-  "BIS Certification",
-  "CDSCO Registration",
-  "WPC Approval",
-  "TEC / MTCTE",
-  "EPR Registration",
-  "Legal Metrology",
-  "Pollution Control",
-  "ISO Certification",
-];
-
-const features = [
   {
-    title: "Verified Consultants",
-    desc: "Find trusted experts for BIS, CDSCO, ISO, EPR and industrial approvals.",
+    icon: ShieldCheck,
+    title: "BIS Certification",
+    desc: "ISI, CRS and FMCS certification support.",
+    tag: "ISI / CRS / FMCS",
   },
   {
-    title: "Trusted Labs",
-    desc: "Connect with verified testing and calibration labs.",
+    icon: Stethoscope,
+    title: "CDSCO Registration",
+    desc: "Medical device licensing and regulatory approvals.",
+    tag: "Medical Devices",
   },
   {
-    title: "Compliance Marketplace",
-    desc: "Explore certified products and compliance services.",
+    icon: Radio,
+    title: "WPC / TEC Approval",
+    desc: "Wireless, telecom and MTCTE compliance.",
+    tag: "Telecom",
   },
   {
-    title: "AI Compliance Assistant",
-    desc: "Get AI-powered compliance guidance and recommendations.",
+    icon: Recycle,
+    title: "EPR Registration",
+    desc: "Battery, plastic, e-waste and tyre EPR support.",
+    tag: "Environment",
+  },
+  {
+    icon: Scale,
+    title: "Legal Metrology",
+    desc: "LMPC and packaged commodity compliance.",
+    tag: "Legal",
+  },
+  {
+    icon: Factory,
+    title: "Factory Approvals",
+    desc: "Factory license, CTE, CTO and industrial approvals.",
+    tag: "Industrial",
+  },
+  {
+    icon: Globe2,
+    title: "Import Export Compliance",
+    desc: "IEC, customs and import-export documentation.",
+    tag: "Global Trade",
+  },
+  {
+    icon: FileCheck2,
+    title: "ISO Certifications",
+    desc: "ISO 9001, 14001, 22000, 27001 and audit support.",
+    tag: "Standards",
   },
 ];
 
@@ -46,10 +81,13 @@ export default function HomePage() {
 
       <div className="mx-auto max-w-7xl px-5 py-10">
         {/* HERO */}
-        <section className="overflow-hidden rounded-[40px] bg-[#000F22] text-white shadow-2xl">
-          <div className="grid gap-10 p-8 md:grid-cols-[1.05fr_0.95fr] md:p-14">
+        <section className="relative overflow-hidden rounded-[44px] bg-[#000F22] text-white shadow-2xl">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#2F80ED55,transparent_38%),radial-gradient(circle_at_bottom_left,#C0E6FD30,transparent_35%)]" />
+
+          <div className="relative grid gap-12 p-8 md:p-14 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
-              <p className="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.28em] text-[#C0E6FD]">
+              <p className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.28em] text-[#C0E6FD]">
+                <Sparkles size={14} />
                 AI-powered compliance marketplace
               </p>
 
@@ -58,15 +96,15 @@ export default function HomePage() {
               </h1>
 
               <p className="mt-6 max-w-3xl text-base leading-8 text-[#DCEBFA] md:text-lg">
-                Globalink helps manufacturers, exporters and industry owners connect with trusted experts for BIS, CDSCO, WPC, EPR, ISO, testing and industrial approvals.
+                Globalink connects manufacturers, exporters and industries with verified experts for BIS, CDSCO, WPC, EPR, ISO, testing and industrial approvals.
               </p>
 
               <div className="mt-9 flex flex-wrap gap-4">
                 <Link
                   href="/consultants"
-                  className="rounded-2xl bg-white px-6 py-4 text-sm font-black text-[#000F22]"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-white px-6 py-4 text-sm font-black text-[#000F22]"
                 >
-                  Find Verified Experts
+                  Find Verified Experts <ArrowRight size={16} />
                 </Link>
 
                 <Link
@@ -84,20 +122,19 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* DASHBOARD VISUAL */}
+            {/* PREMIUM VISUAL */}
             <div className="relative">
-              <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-[#5B86B6]/30 blur-3xl" />
-              <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-[#C0E6FD]/20 blur-3xl" />
+              <div className="absolute -right-8 -top-8 h-52 w-52 rounded-full bg-[#5B86B6]/40 blur-3xl" />
+              <div className="absolute -bottom-10 -left-10 h-44 w-44 rounded-full bg-[#C0E6FD]/25 blur-3xl" />
 
-              <div className="relative rounded-[34px] border border-white/10 bg-white/10 p-4 shadow-2xl backdrop-blur">
-                <div className="rounded-[28px] bg-white p-5 text-[#1F2937]">
+              <div className="relative rounded-[36px] border border-white/10 bg-white/10 p-5 shadow-2xl backdrop-blur">
+                <div className="rounded-[30px] bg-white p-5 text-[#1F2937]">
                   <div className="flex items-center justify-between border-b border-[#D6E2F0] pb-4">
                     <div>
-                      <p className="text-xs font-black uppercase tracking-[0.2em] text-[#5B86B6]">
+                      <p className="text-xs font-black uppercase tracking-[0.22em] text-[#5B86B6]">
                         Globalink Trust Console
                       </p>
-
-                      <h3 className="mt-2 text-xl font-black text-[#000F22]">
+                      <h3 className="mt-2 text-2xl font-black text-[#000F22]">
                         Compliance Overview
                       </h3>
                     </div>
@@ -118,7 +155,6 @@ export default function HomePage() {
                       <p className="text-sm font-black text-[#000F22]">
                         Verified Consultant Match
                       </p>
-
                       <span className="rounded-full bg-[#EEF7FF] px-3 py-1 text-xs font-black text-[#1B3554]">
                         AI
                       </span>
@@ -132,33 +168,18 @@ export default function HomePage() {
                   </div>
 
                   <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-3xl bg-[#1B3554] p-5 text-white">
-                      <p className="text-xs font-black uppercase tracking-[0.2em] text-[#C0E6FD]">
-                        Verification
-                      </p>
+                    <VisualCard
+                      dark
+                      icon={<LockKeyhole size={22} />}
+                      title="Admin Approved"
+                      desc="GST, profile, service scope and trust documents reviewed."
+                    />
 
-                      <p className="mt-3 text-2xl font-black">
-                        Admin Approved
-                      </p>
-
-                      <p className="mt-2 text-xs leading-5 text-[#DCEBFA]">
-                        GST, profile, service scope and trust documents reviewed.
-                      </p>
-                    </div>
-
-                    <div className="rounded-3xl border border-[#D6E2F0] bg-white p-5">
-                      <p className="text-xs font-black uppercase tracking-[0.2em] text-[#5B86B6]">
-                        Workflow
-                      </p>
-
-                      <p className="mt-3 text-2xl font-black text-[#000F22]">
-                        4 Steps
-                      </p>
-
-                      <p className="mt-2 text-xs leading-5 text-[#6B7280]">
-                        Register → Verify → Match → Connect
-                      </p>
-                    </div>
+                    <VisualCard
+                      icon={<FlaskConical size={22} />}
+                      title="Lab Ready"
+                      desc="Testing and certification partners mapped by category."
+                    />
                   </div>
                 </div>
               </div>
@@ -171,12 +192,9 @@ export default function HomePage() {
           {stats.map((item) => (
             <div
               key={item.label}
-              className="rounded-[26px] border border-[#D6E2F0] bg-white p-6 shadow-sm"
+              className="rounded-[28px] border border-[#D6E2F0] bg-white p-6 shadow-sm"
             >
-              <p className="text-4xl font-black text-[#000F22]">
-                {item.value}
-              </p>
-
+              <p className="text-4xl font-black text-[#000F22]">{item.value}</p>
               <p className="mt-2 text-sm font-bold text-[#6B7280]">
                 {item.label}
               </p>
@@ -184,27 +202,31 @@ export default function HomePage() {
           ))}
         </section>
 
-        {/* FEATURES */}
-        <section className="mt-8 rounded-[34px] border border-[#D6E2F0] bg-white p-8 shadow-sm">
+        {/* SERVICES */}
+        <section className="mt-8 rounded-[40px] border border-[#D6E2F0] bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-[#5B86B6]">
-            Why Globalink
+            Compliance Ecosystem
           </p>
 
           <h2 className="mt-4 max-w-4xl text-4xl font-black tracking-tight text-[#000F22]">
-            Built for companies who need trust and verified compliance support
+            One marketplace for certifications, labs, consultants and compliance support
           </h2>
 
-          <div className="mt-9 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {features.map((item) => (
+          <div className="mt-9 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+            {services.map((item) => (
               <div
                 key={item.title}
-                className="rounded-[28px] border border-[#D6E2F0] bg-[#F8FAFC] p-6"
+                className="group rounded-[30px] border border-[#D6E2F0] bg-[#F8FAFC] p-6 transition hover:-translate-y-1 hover:bg-white hover:shadow-xl"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1B3554] text-lg font-black text-white">
-                  ✓
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#1B3554] text-white shadow-lg">
+                  <item.icon size={24} />
                 </div>
 
-                <h3 className="mt-5 text-xl font-black text-[#000F22]">
+                <span className="mt-5 inline-flex rounded-full bg-[#EEF7FF] px-3 py-1.5 text-xs font-black text-[#1B3554]">
+                  {item.tag}
+                </span>
+
+                <h3 className="mt-4 text-xl font-black text-[#000F22]">
                   {item.title}
                 </h3>
 
@@ -216,25 +238,36 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* SERVICES */}
-        <section className="mt-8 rounded-[34px] border border-[#D6E2F0] bg-white p-8 shadow-sm">
-          <p className="text-sm font-black uppercase tracking-[0.28em] text-[#5B86B6]">
-            Compliance Services
-          </p>
+        {/* IMAGE STYLE SECTION */}
+        <section className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="overflow-hidden rounded-[40px] bg-[#1B3554] p-8 text-white shadow-xl md:p-10">
+            <p className="text-sm font-black uppercase tracking-[0.28em] text-[#C0E6FD]">
+              Trust-first platform
+            </p>
 
-          <h2 className="mt-4 text-4xl font-black text-[#000F22]">
-            Popular categories available on Globalink
-          </h2>
+            <h2 className="mt-4 text-4xl font-black leading-tight">
+              Built to reduce fraud and confusion in compliance markets
+            </h2>
 
-          <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {services.map((service) => (
-              <div
-                key={service}
-                className="rounded-2xl border border-[#D6E2F0] bg-[#F8FAFC] p-5 text-sm font-black text-[#1B3554]"
-              >
-                {service}
-              </div>
-            ))}
+            <p className="mt-5 text-sm leading-8 text-[#DCEBFA]">
+              Globalink helps businesses compare verified consultants, connect with testing labs and manage compliance requirements through a professional trust layer.
+            </p>
+
+            <div className="mt-8 grid gap-4">
+              <TrustLine text="Verified consultant profiles" />
+              <TrustLine text="Admin reviewed business details" />
+              <TrustLine text="Clear service scope and pricing signals" />
+              <TrustLine text="Inquiry and marketplace workflow ready" />
+            </div>
+          </div>
+
+          <div className="rounded-[40px] border border-[#D6E2F0] bg-white p-6 shadow-sm">
+            <div className="grid gap-4 md:grid-cols-2">
+              <VisualPanel title="Consultant Verification" icon={ShieldCheck} />
+              <VisualPanel title="Lab Testing Network" icon={FlaskConical} />
+              <VisualPanel title="Product Compliance" icon={FileCheck2} />
+              <VisualPanel title="Global Trade Support" icon={Globe2} />
+            </div>
           </div>
         </section>
       </div>
@@ -266,6 +299,63 @@ function MatchRow({ title, score }: { title: string; score: string }) {
     <div className="flex items-center justify-between rounded-2xl bg-white px-4 py-3">
       <p className="text-sm font-bold text-[#1F2937]">{title}</p>
       <p className="text-sm font-black text-[#16A34A]">{score}</p>
+    </div>
+  );
+}
+
+function VisualCard({
+  title,
+  desc,
+  icon,
+  dark = false,
+}: {
+  title: string;
+  desc: string;
+  icon: React.ReactNode;
+  dark?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-3xl p-5 ${
+        dark ? "bg-[#1B3554] text-white" : "border border-[#D6E2F0] bg-white"
+      }`}
+    >
+      <div className={dark ? "text-[#C0E6FD]" : "text-[#1B3554]"}>{icon}</div>
+      <p className="mt-4 text-xl font-black">{title}</p>
+      <p className={`mt-2 text-xs leading-5 ${dark ? "text-[#DCEBFA]" : "text-[#6B7280]"}`}>
+        {desc}
+      </p>
+    </div>
+  );
+}
+
+function TrustLine({ text }: { text: string }) {
+  return (
+    <div className="flex items-center gap-3 rounded-2xl bg-white/10 p-4">
+      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#DCFCE7] text-sm font-black text-[#166534]">
+        ✓
+      </span>
+      <p className="text-sm font-black text-white">{text}</p>
+    </div>
+  );
+}
+
+function VisualPanel({
+  title,
+  icon: Icon,
+}: {
+  title: string;
+  icon: React.ElementType;
+}) {
+  return (
+    <div className="rounded-[30px] bg-[#F8FAFC] p-6">
+      <div className="h-36 rounded-[24px] bg-[radial-gradient(circle_at_top_left,#C0E6FD,transparent_35%),linear-gradient(135deg,#000F22,#1B3554)] p-5 text-white">
+        <Icon size={34} />
+      </div>
+      <p className="mt-5 text-lg font-black text-[#000F22]">{title}</p>
+      <p className="mt-2 text-sm leading-6 text-[#6B7280]">
+        Premium visual workflow for Globalink compliance marketplace.
+      </p>
     </div>
   );
 }
