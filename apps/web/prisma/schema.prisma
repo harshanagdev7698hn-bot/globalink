@@ -35,6 +35,9 @@ model User {
   gstNumber String?
   gstFile   String?
 
+  profilePhoto String?
+  companyLogo  String?
+
   status VerificationStatus @default(PENDING)
 
   consultantProfile ConsultantProfile?
@@ -55,6 +58,10 @@ model ConsultantProfile {
   msmeNumber String?
   msmeFile   String?
   shortBio   String?
+
+  officeImage1 String?
+  officeImage2 String?
+  officeImage3 String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -108,6 +115,7 @@ model Certification {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 model Inquiry {
   id          String   @id @default(cuid())
   fullName    String
