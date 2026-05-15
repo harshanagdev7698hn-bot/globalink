@@ -12,6 +12,9 @@ import {
   Sparkles,
   LockKeyhole,
   ArrowRight,
+  Building2,
+  BadgeCheck,
+  FileSearch,
 } from "lucide-react";
 import PublicNavbar from "@/components/PublicNavbar";
 import PublicFooter from "@/components/PublicFooter";
@@ -24,54 +27,14 @@ const stats = [
 ];
 
 const services = [
-  {
-    icon: ShieldCheck,
-    title: "BIS Certification",
-    desc: "ISI, CRS and FMCS certification support.",
-    tag: "ISI / CRS / FMCS",
-  },
-  {
-    icon: Stethoscope,
-    title: "CDSCO Registration",
-    desc: "Medical device licensing and regulatory approvals.",
-    tag: "Medical Devices",
-  },
-  {
-    icon: Radio,
-    title: "WPC / TEC Approval",
-    desc: "Wireless, telecom and MTCTE compliance.",
-    tag: "Telecom",
-  },
-  {
-    icon: Recycle,
-    title: "EPR Registration",
-    desc: "Battery, plastic, e-waste and tyre EPR support.",
-    tag: "Environment",
-  },
-  {
-    icon: Scale,
-    title: "Legal Metrology",
-    desc: "LMPC and packaged commodity compliance.",
-    tag: "Legal",
-  },
-  {
-    icon: Factory,
-    title: "Factory Approvals",
-    desc: "Factory license, CTE, CTO and industrial approvals.",
-    tag: "Industrial",
-  },
-  {
-    icon: Globe2,
-    title: "Import Export Compliance",
-    desc: "IEC, customs and import-export documentation.",
-    tag: "Global Trade",
-  },
-  {
-    icon: FileCheck2,
-    title: "ISO Certifications",
-    desc: "ISO 9001, 14001, 22000, 27001 and audit support.",
-    tag: "Standards",
-  },
+  { icon: ShieldCheck, title: "BIS Certification", desc: "ISI, CRS and FMCS certification support.", tag: "ISI / CRS / FMCS" },
+  { icon: Stethoscope, title: "CDSCO Registration", desc: "Medical device licensing and regulatory approvals.", tag: "Medical Devices" },
+  { icon: Radio, title: "WPC / TEC Approval", desc: "Wireless, telecom and MTCTE compliance.", tag: "Telecom" },
+  { icon: Recycle, title: "EPR Registration", desc: "Battery, plastic, e-waste and tyre EPR support.", tag: "Environment" },
+  { icon: Scale, title: "Legal Metrology", desc: "LMPC and packaged commodity compliance.", tag: "Legal" },
+  { icon: Factory, title: "Factory Approvals", desc: "Factory license, CTE, CTO and industrial approvals.", tag: "Industrial" },
+  { icon: Globe2, title: "Import Export Compliance", desc: "IEC, customs and import-export documentation.", tag: "Global Trade" },
+  { icon: FileCheck2, title: "ISO Certifications", desc: "ISO 9001, 14001, 22000, 27001 and audit support.", tag: "Standards" },
 ];
 
 export default function HomePage() {
@@ -80,9 +43,8 @@ export default function HomePage() {
       <PublicNavbar />
 
       <div className="mx-auto max-w-7xl px-5 py-10">
-        {/* HERO */}
-        <section className="relative overflow-hidden rounded-[44px] bg-[#000F22] text-white shadow-2xl">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#2F80ED55,transparent_38%),radial-gradient(circle_at_bottom_left,#C0E6FD30,transparent_35%)]" />
+        <section className="relative overflow-hidden rounded-[46px] bg-[#000F22] text-white shadow-2xl">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#5B86B655,transparent_38%),radial-gradient(circle_at_bottom_left,#C0E6FD33,transparent_35%)]" />
 
           <div className="relative grid gap-12 p-8 md:p-14 lg:grid-cols-[1.05fr_0.95fr]">
             <div>
@@ -122,7 +84,6 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* PREMIUM VISUAL */}
             <div className="relative">
               <div className="absolute -right-8 -top-8 h-52 w-52 rounded-full bg-[#5B86B6]/40 blur-3xl" />
               <div className="absolute -bottom-10 -left-10 h-44 w-44 rounded-full bg-[#C0E6FD]/25 blur-3xl" />
@@ -187,7 +148,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* STATS */}
         <section className="mt-8 grid gap-5 md:grid-cols-4">
           {stats.map((item) => (
             <div
@@ -202,7 +162,39 @@ export default function HomePage() {
           ))}
         </section>
 
-        {/* SERVICES */}
+        <section className="mt-8 rounded-[42px] border border-[#D6E2F0] bg-white p-8 shadow-sm md:p-10">
+          <p className="text-sm font-black uppercase tracking-[0.28em] text-[#5B86B6]">
+            Visual Compliance Journey
+          </p>
+
+          <h2 className="mt-4 max-w-4xl text-4xl font-black tracking-tight text-[#000F22]">
+            From requirement to verified expert — Globalink makes the process clear
+          </h2>
+
+          <div className="mt-9 grid gap-6 lg:grid-cols-3">
+            <StoryCard
+              icon={Building2}
+              title="Business Requirement"
+              desc="Manufacturer or importer submits product and compliance need."
+              visual="Factory"
+            />
+
+            <StoryCard
+              icon={FileSearch}
+              title="AI + Expert Matching"
+              desc="Globalink maps service category, documents, lab and consultant fit."
+              visual="AI"
+            />
+
+            <StoryCard
+              icon={BadgeCheck}
+              title="Verified Support"
+              desc="Buyer connects only with reviewed consultants, labs and sellers."
+              visual="Trust"
+            />
+          </div>
+        </section>
+
         <section className="mt-8 rounded-[40px] border border-[#D6E2F0] bg-white p-8 shadow-sm md:p-10">
           <p className="text-sm font-black uppercase tracking-[0.28em] text-[#5B86B6]">
             Compliance Ecosystem
@@ -238,9 +230,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* IMAGE STYLE SECTION */}
         <section className="mt-8 grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="overflow-hidden rounded-[40px] bg-[#1B3554] p-8 text-white shadow-xl md:p-10">
+          <div className="overflow-hidden rounded-[42px] bg-[#1B3554] p-8 text-white shadow-xl md:p-10">
             <p className="text-sm font-black uppercase tracking-[0.28em] text-[#C0E6FD]">
               Trust-first platform
             </p>
@@ -261,7 +252,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="rounded-[40px] border border-[#D6E2F0] bg-white p-6 shadow-sm">
+          <div className="rounded-[42px] border border-[#D6E2F0] bg-white p-6 shadow-sm">
             <div className="grid gap-4 md:grid-cols-2">
               <VisualPanel title="Consultant Verification" icon={ShieldCheck} />
               <VisualPanel title="Lab Testing Network" icon={FlaskConical} />
@@ -325,6 +316,39 @@ function VisualCard({
       <p className={`mt-2 text-xs leading-5 ${dark ? "text-[#DCEBFA]" : "text-[#6B7280]"}`}>
         {desc}
       </p>
+    </div>
+  );
+}
+
+function StoryCard({
+  icon: Icon,
+  title,
+  desc,
+  visual,
+}: {
+  icon: React.ElementType;
+  title: string;
+  desc: string;
+  visual: string;
+}) {
+  return (
+    <div className="overflow-hidden rounded-[34px] border border-[#D6E2F0] bg-[#F8FAFC] p-5">
+      <div className="relative h-56 overflow-hidden rounded-[28px] bg-[#000F22]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#C0E6FD99,transparent_35%),linear-gradient(135deg,#000F22,#1B3554)]" />
+        <div className="absolute left-6 top-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15 text-white backdrop-blur">
+          <Icon size={28} />
+        </div>
+
+        <div className="absolute bottom-6 left-6 right-6 rounded-2xl border border-white/10 bg-white/15 p-4 text-white backdrop-blur">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#C0E6FD]">
+            {visual}
+          </p>
+          <p className="mt-2 text-2xl font-black">Verified Flow</p>
+        </div>
+      </div>
+
+      <h3 className="mt-6 text-2xl font-black text-[#000F22]">{title}</h3>
+      <p className="mt-3 text-sm leading-7 text-[#6B7280]">{desc}</p>
     </div>
   );
 }
