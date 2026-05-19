@@ -20,22 +20,54 @@ export default function JoinPage() {
     const form = new FormData(e.currentTarget);
 
     const payload = {
-      role,
-      name: String(form.get("name") || ""),
-      email: String(form.get("email") || ""),
-      password: String(form.get("password") || ""),
-      phone: String(form.get("phone") || ""),
-      whatsapp: String(form.get("whatsapp") || ""),
-      company: String(form.get("company") || ""),
-      country: String(form.get("country") || ""),
-      city: String(form.get("city") || ""),
-      gstNumber: String(form.get("gstNumber") || ""),
-      services: String(form.get("services") || ""),
-      experience: String(form.get("experience") || ""),
-      pricing: String(form.get("pricing") || ""),
-      msmeNumber: String(form.get("msmeNumber") || ""),
-      shortBio: String(form.get("shortBio") || ""),
-    };
+role,
+
+name: String(form.get("name") || ""),
+
+email: String(form.get("email") || ""),
+
+password: String(form.get("password") || ""),
+
+phone: String(form.get("phone") || ""),
+
+whatsapp: String(form.get("whatsapp") || ""),
+
+company: String(form.get("company") || ""),
+
+country: String(form.get("country") || ""),
+
+city: String(form.get("city") || ""),
+
+gstNumber: String(form.get("gstNumber") || ""),
+
+services: String(form.get("services") || ""),
+
+experience: String(form.get("experience") || ""),
+
+pricing: String(form.get("pricing") || ""),
+
+msmeNumber: String(form.get("msmeNumber") || ""),
+
+bio: String(form.get("shortBio") || ""),
+
+profileImage:
+String(form.get("profileImage") || ""),
+
+companyLogo:
+String(form.get("companyLogo") || ""),
+
+officeGallery: [
+String(form.get("office1") || ""),
+String(form.get("office2") || ""),
+String(form.get("office3") || ""),
+].filter(Boolean),
+
+gstDocument:
+String(form.get("gstDocument") || ""),
+
+msmeDocument:
+String(form.get("msmeDocument") || "")
+};
 
     try {
       const res = await fetch("/api/auth/signup", {
@@ -180,12 +212,20 @@ export default function JoinPage() {
 
                   <div className="mt-6 grid gap-5 md:grid-cols-2">
                     <Input name="gstNumber" label="GST Number" placeholder="Enter GST number" />
-                    <FileBox label="Upload GST Certificate" />
+                    <Input
+name="gstDocument"
+label="GST Document"
+placeholder="/uploads/gst.pdf"
+/>
 
                     {role === "CONSULTANT" && (
                       <>
                         <Input name="msmeNumber" label="MSME / Registration" placeholder="Optional" />
-                        <FileBox label="Upload MSME / Registration" />
+                        <Input
+name="msmeDocument"
+label="MSME Document"
+placeholder="/uploads/msme.pdf"
+/>
                         <Input name="services" label="Services" placeholder="BIS, ISO, EPR, WPC" required />
                         <Input name="experience" label="Experience" placeholder="5+ years" required />
                         <Input name="pricing" label="Starting Price" placeholder="₹15,000 onwards" />
@@ -201,8 +241,33 @@ export default function JoinPage() {
                           />
                         </div>
 
-                        <FileBox label="Upload Profile Photo / Logo" />
-                        <FileBox label="Upload Office / Work Image" />
+                        <Input
+name="profileImage"
+label="Profile Photo URL"
+placeholder="/uploads/profile.jpg"
+/>
+<Input
+name="companyLogo"
+label="Company Logo"
+placeholder="/uploads/logo.png"
+/>
+                        <Input
+name="office1"
+label="Office Image 1"
+placeholder="/uploads/office1.jpg"
+/>
+
+<Input
+name="office2"
+label="Office Image 2"
+placeholder="/uploads/office2.jpg"
+/>
+
+<Input
+name="office3"
+label="Office Image 3"
+placeholder="/uploads/office3.jpg"
+/>
                       </>
                     )}
 
