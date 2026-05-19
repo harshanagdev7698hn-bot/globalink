@@ -6,55 +6,93 @@ export const dynamic = "force-dynamic";
 const demoConsultants: Record<string, any> = {
   "rk-compliance": {
     id: "rk-compliance",
+    role: "CONSULTANT",
+
     name: "RK Compliance Solutions",
     company: "RK Compliance Solutions",
+
     email: "rk@example.com",
-    phone: "+91 98765 43210",
+    phone: "+91 9876543210",
+
     city: "Ahmedabad",
     country: "India",
+
     status: "VERIFIED",
+
     consultantProfile: {
-      services: "BIS ISI, CRS, QCO, Factory Audit, Lab Testing",
+      services:
+        "BIS Certification, ISI Mark, CRS Registration, QCO, Factory Audit, Lab Testing",
+
       experience: "8+ Years",
+
       pricing: "₹15,000 onwards",
+
       shortBio:
-        "Professional compliance consultant helping manufacturers and importers with BIS certification, CRS registration, factory audit preparation and regulatory documentation.",
-      msmeNumber: "MSME Verified",
+        "Professional compliance consultant helping manufacturers with BIS, ISI, CRS, testing and documentation support.",
+
+      msmeNumber: "MSME-VERIFIED",
       msmeFile: null,
     },
   },
 };
 
 export async function GET(
-  _req: Request,
-  { params }: { params: { id: string } }
+  request: Request,
+  context: { params: { id: string } }
 ) {
   try {
-    const demo = demoConsultants[params.id];
+    const id = context.params.id;
 
-    if (demo) {
-      return NextResponse.json({ success: true, consultant: demo });
+    console.log("CONSULTANT REQUEST:", id);
+
+    if (demoConsultants[id]) {
+      return NextResponse.json({
+        success: true,
+        consultant: demoConsultants[id],
+      });
     }
 
-    const consultant = await prisma.user.findUnique({
-      where: { id: params.id },
-      include: { consultantProfile: true },
+    const consultant = await prisma.user.findFirst({
+      where: {
+        OR: [
+          { id: id },
+          { name: { contains: id, mode: "insensitive" } },
+          { company: { contains: id, mode: "insensitive" } },
+        ],
+      },
+
+      include: {
+        consultantProfile: true,
+      },
     });
 
-    if (!consultant || consultant.role !== "CONSULTANT") {
+    if (!consultant) {
       return NextResponse.json(
-        { success: false, message: "Consultant not found" },
-        { status: 404 }
+        {
+          success: false,
+          message: "Consultant not found",
+        },
+        {
+          status: 404,
+        }
       );
     }
 
-    return NextResponse.json({ success: true, consultant });
+    return NextResponse.json({
+      success: true,
+      consultant,
+    });
   } catch (error) {
-    console.error("CONSULTANT_PROFILE_ERROR", error);
+    console.error(error);
 
     return NextResponse.json(
-      { success: false, message: "Failed to load consultant profile" },
-      { status: 500 }
+      {
+        success: false,
+        message: "Server error",
+      },
+      {
+        status: 500,
+      }
     );
   }
 }
