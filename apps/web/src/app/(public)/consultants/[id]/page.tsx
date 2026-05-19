@@ -165,9 +165,20 @@ export default function ConsultantProfilePage({
           <div className="space-y-6">
             <Card label="Image Gallery" title="Consultant workspace preview">
               <div className="grid gap-4 md:grid-cols-3">
-                <GalleryCard title="Certification Desk" />
-                <GalleryCard title="Audit Preparation" />
-                <GalleryCard title="Document Review" />
+                <GalleryCard
+title="Certification Desk"
+image="/gallery/certification.jpg"
+/>
+
+<GalleryCard
+title="Audit Preparation"
+image="/gallery/audit.jpg"
+/>
+
+<GalleryCard
+title="Document Review"
+image="/gallery/document.jpg"
+/>
               </div>
             </Card>
 
@@ -266,11 +277,39 @@ function ProfileStat({ label, value }: { label: string; value: string }) {
   );
 }
 
-function GalleryCard({ title }: { title: string }) {
+import Image from "next/image";
+
+function GalleryCard({
+  title,
+  image,
+}: {
+  title: string;
+  image: string;
+}) {
   return (
-    <div className="rounded-[26px] bg-[#000F22] p-5 text-white">
-      <div className="h-32 rounded-2xl bg-gradient-to-br from-[#C0E6FD] to-[#1B3554]" />
-      <p className="mt-4 text-sm font-black">{title}</p>
+    <div className="overflow-hidden rounded-[26px] bg-white shadow-xl border border-[#D6E2F0]">
+
+      <div className="relative h-48">
+
+        <Image
+          src={image}
+          alt={title}
+          fill
+          className="object-cover"
+        />
+
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+
+        <div className="absolute bottom-4 left-4 text-white">
+
+          <p className="text-sm font-black">
+            {title}
+          </p>
+
+        </div>
+
+      </div>
+
     </div>
   );
 }
