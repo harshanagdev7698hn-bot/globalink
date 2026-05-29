@@ -30,14 +30,14 @@ export default function LabsPage() {
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <PublicNavbar />
 
-      <div className="mx-auto max-w-7xl px-5 py-10">
+      <div className="mx-auto max-w-7xl px-5 py-6">
         {/* HERO */}
-        <section className="rounded-[34px] bg-[#1B3554] px-8 py-14 text-white shadow-xl md:px-14">
+        <section className="rounded-[28px] bg-[#1B3554] px-7 py-8 text-white shadow-xl md:px-10">
           <p className="text-sm font-bold uppercase tracking-[0.35em] text-[#C0E6FD]">
             Verified Testing Labs
           </p>
 
-          <h1 className="mt-6 max-w-4xl text-4xl font-extrabold leading-tight md:text-6xl">
+          <h1 className="mt-6 max-w-4xl text-3xl font-extrabold leading-tight md:text-5xl">
             Trusted labs for testing, certification and validation
           </h1>
 
@@ -48,7 +48,7 @@ export default function LabsPage() {
         </section>
 
         {/* SEARCH */}
-        <section className="mt-8 rounded-[28px] border border-[#D6E2F0] bg-white p-6 shadow-sm">
+        <section className="mt-5 rounded-[22px] border border-[#D6E2F0] bg-white p-4 shadow-sm">
           <div className="grid gap-4 md:grid-cols-4">
             <input
               placeholder="Search labs or category"
@@ -76,11 +76,11 @@ export default function LabsPage() {
         </section>
 
         {/* LAB CARDS */}
-        <section className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <section className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {labs.map((lab) => (
             <article
               key={lab.name}
-              className="rounded-[30px] border border-[#D6E2F0] bg-white p-7 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+              className="rounded-[24px] border border-[#D6E2F0] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
             >
               <div className="flex items-start justify-between">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF7FF] text-xl font-black text-[#1B3554]">
@@ -127,7 +127,7 @@ export default function LabsPage() {
                 ))}
               </div>
 
-              <div className="mt-8 flex gap-3">
+              <div className="mt-5 flex gap-2">
                 <Link
                   href="/join"
                   className="flex-1 rounded-2xl bg-[#1B3554] px-5 py-4 text-center text-sm font-extrabold text-white hover:bg-[#000F22]"

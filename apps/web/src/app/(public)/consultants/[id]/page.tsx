@@ -94,7 +94,7 @@ export default function ConsultantProfilePage({
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <PublicNavbar />
 
-      <div className="mx-auto max-w-7xl px-5 py-10">
+      <div className="mx-auto max-w-7xl px-5 py-6">
         <Link
           href="/consultants"
           className="inline-flex rounded-2xl border border-[#D6E2F0] bg-white px-5 py-3 text-sm font-black text-[#1B3554]"
@@ -102,20 +102,20 @@ export default function ConsultantProfilePage({
           ← Back to Consultants
         </Link>
 
-        <section className="mt-6 overflow-hidden rounded-[40px] bg-[#000F22] text-white shadow-2xl">
-          <div className="grid gap-10 p-8 lg:grid-cols-[1.2fr_0.8fr] lg:p-14">
+        <section className="mt-6 overflow-hidden rounded-[20px] bg-[#000F22] text-white shadow-2xl">
+          <div className="grid gap-8 p-6 lg:grid-cols-[1.2fr_0.8fr] lg:p-10">
             <div>
               <p className="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.28em] text-[#C0E6FD]">
                 Database Connected Consultant Profile
               </p>
 
               <div className="mt-7 flex flex-col gap-5 sm:flex-row sm:items-center">
-                <div className="flex h-24 w-24 items-center justify-center rounded-[30px] bg-white text-4xl font-black text-[#1B3554]">
+                <div className="flex h-20 w-20 items-center justify-center rounded-[24px] bg-white text-2xl font-black text-[#1B3554]">
                   {company.slice(0, 2).toUpperCase()}
                 </div>
 
                 <div>
-                  <h1 className="text-4xl font-black leading-tight md:text-6xl">
+                  <h1 className="text-2xl font-black leading-tight md:text-5xl">
                     {company}
                   </h1>
 
@@ -125,7 +125,7 @@ export default function ConsultantProfilePage({
                 </div>
               </div>
 
-              <p className="mt-7 max-w-3xl text-base leading-8 text-[#DCEBFA]">
+              <p className="mt-5 max-w-3xl text-sm leading-7 text-[#DCEBFA]">
                 {consultant.consultantProfile?.shortBio ||
                   "Verified compliance consultant helping companies with certification, documentation, testing and regulatory workflows."}
               </p>
@@ -138,13 +138,13 @@ export default function ConsultantProfilePage({
               </div>
             </div>
 
-            <div className="rounded-[34px] border border-white/10 bg-white/10 p-5 backdrop-blur">
-              <div className="rounded-[28px] bg-white p-5 text-[#1F2937]">
+            <div className="rounded-[24px] border border-white/10 bg-white/10 p-5 backdrop-blur">
+              <div className="rounded-[20px] bg-white p-5 text-[#1F2937]">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#5B86B6]">
                   Trust Score
                 </p>
 
-                <p className="mt-4 text-7xl font-black text-[#000F22]">96%</p>
+                <p className="mt-3 text-6xl font-black text-[#000F22]">96%</p>
 
                 <p className="mt-4 text-sm leading-7 text-[#6B7280]">
                   Based on profile quality, verification status, documents and
@@ -161,7 +161,7 @@ export default function ConsultantProfilePage({
           </div>
         </section>
 
-        <section className="mt-8 grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+        <section className="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-6">
             <Card label="Image Gallery" title="Consultant workspace preview">
               <div className="grid gap-4 md:grid-cols-3">
@@ -213,12 +213,12 @@ image="/gallery/document.jpg"
           </div>
 
           <aside className="space-y-6">
-            <div className="rounded-[34px] border border-[#D6E2F0] bg-white p-7 shadow-sm">
+            <div className="rounded-[34px] border border-[#D6E2F0] bg-white p-5 shadow-sm">
               <p className="text-sm font-black uppercase tracking-[0.25em] text-[#5B86B6]">
                 Contact
               </p>
 
-              <h2 className="mt-4 text-3xl font-black text-[#000F22]">
+              <h2 className="mt-4 text-2xl font-black text-[#000F22]">
                 Send inquiry
               </h2>
 
@@ -237,7 +237,7 @@ image="/gallery/document.jpg"
               </div>
             </div>
 
-            <div className="rounded-[34px] bg-[#1B3554] p-7 text-white shadow-xl">
+            <div className="rounded-[34px] bg-[#1B3554] p-5 text-white shadow-xl">
               <p className="text-sm font-black uppercase tracking-[0.25em] text-[#C0E6FD]">
                 Verification Checklist
               </p>
@@ -287,9 +287,9 @@ function GalleryCard({
   image: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-[26px] bg-white shadow-xl border border-[#D6E2F0]">
+    <div className="overflow-hidden rounded-[18px] bg-white shadow-xl border border-[#D6E2F0]">
 
-      <div className="relative h-48">
+      <div className="relative h-36">
 
         <Image
           src={image}
@@ -340,11 +340,11 @@ function Card({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-[34px] border border-[#D6E2F0] bg-white p-7 shadow-sm">
+    <div className="rounded-[34px] border border-[#D6E2F0] bg-white p-5 shadow-sm">
       <p className="text-sm font-black uppercase tracking-[0.25em] text-[#5B86B6]">
         {label}
       </p>
-      <h2 className="mt-4 text-3xl font-black text-[#000F22]">{title}</h2>
+      <h2 className="mt-4 text-2xl font-black text-[#000F22]">{title}</h2>
       <div className="mt-6">{children}</div>
     </div>
   );
