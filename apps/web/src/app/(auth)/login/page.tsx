@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -62,7 +63,7 @@ export default function LoginPage() {
         </header>
 
         <div className="grid overflow-hidden rounded-[28px] border border-[#D6E2F0] bg-white shadow-xl lg:min-h-[calc(100vh-110px)] lg:grid-cols-[320px_minmax(0,1fr)]">
-          <section className="hidden bg-[#020817] px-6 py-6 text-white lg:flex lg:flex-col lg:w-[320px]">
+          <section className="hidden bg-[#020817] px-6 py-6 text-white lg:flex lg:w-[320px] lg:flex-col">
             <p className="text-xs font-black uppercase tracking-[0.26em] text-[#9CCCF2]">
               Secure Compliance Workspace
             </p>
@@ -178,7 +179,7 @@ export default function LoginPage() {
                         type="checkbox"
                         checked={remember}
                         onChange={(e) => setRemember(e.target.checked)}
-                        className="h-4 w-4 cursor-pointer rounded border-[#D6E2F0] accent-[#1B3554] appearance-auto"
+                        className="h-4 w-4 cursor-pointer appearance-auto rounded border-[#D6E2F0] accent-[#1B3554]"
                       />
                       Remember me
                     </label>
@@ -194,20 +195,36 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                   className="h-14 w-full rounded-xl bg-[#1B3554] px-8 py-3 text-sm font-bold text-white shadow-[0_10px_24px_rgba(27,53,84,0.12)] transition hover:bg-[#10213F] disabled:opacity-60"
+                    className="h-14 w-full rounded-xl bg-[#1B3554] px-8 py-3 text-sm font-bold text-white shadow-[0_10px_24px_rgba(27,53,84,0.12)] transition hover:bg-[#10213F] disabled:opacity-60"
                   >
                     {loading ? "Signing in..." : "Login"}
                   </button>
                 </form>
 
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  <button className="h-12 rounded-xl border border-[#D6E2F0] bg-white text-sm font-black text-[#000F22] transition hover:bg-[#F8FAFC]">
+                  <button
+                    type="button"
+                    className="h-12 rounded-xl border border-[#D6E2F0] bg-white text-sm font-black text-[#000F22] transition hover:bg-[#F8FAFC]"
+                  >
                     Microsoft / Azure AD
                   </button>
 
-                  <button className="h-12 rounded-xl border border-[#D6E2F0] bg-white text-sm font-black text-[#000F22] transition hover:bg-[#F8FAFC]">
-                    Google
-                  </button>
+                  <button
+  type="button"
+  onClick={() =>
+    signIn("google", {
+      callbackUrl: "/dashboard",
+    })
+  }
+  className="flex h-12 items-center justify-center gap-3 rounded-xl border border-[#D6E2F0] bg-white text-sm font-black text-[#000F22] transition hover:bg-[#F8FAFC]"
+>
+  <img
+    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+    alt="Google"
+    className="h-5 w-5"
+  />
+  Google
+</button>
                 </div>
 
                 <div className="mt-4 rounded-2xl border border-[#D6E2F0] bg-[#F8FAFC] p-4">

@@ -35,13 +35,13 @@ export default function DashboardPage() {
   return (
     <main className="min-h-screen bg-[#F5F7FB] p-6">
       {/* TOP BAR */}
-      <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div>
           <p className="text-sm font-black uppercase tracking-[0.28em] text-[#5B86B6]">
             Globalink Control Center
           </p>
 
-          <h1 className="mt-3 text-4xl font-black text-[#07162D]">
+          <h1 className="mt-3 text-3xl font-black text-[#07162D]">
             Enterprise Compliance Dashboard
           </h1>
 
@@ -63,14 +63,14 @@ export default function DashboardPage() {
       </div>
 
       {/* HERO VISUAL */}
-      <section className="mt-8 overflow-hidden rounded-[40px] bg-[#000F22] text-white shadow-2xl">
-        <div className="grid gap-10 p-8 lg:grid-cols-[1.05fr_0.95fr] lg:p-12">
+      <section className="mt-6 overflow-hidden rounded-[40px] bg-[#000F22] text-white shadow-2xl">
+        <div className="grid gap-6 p-6 lg:grid-cols-[1.05fr_0.95fr] lg:p-8">
           <div>
             <p className="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.28em] text-[#C0E6FD]">
               Live Marketplace Operations
             </p>
 
-            <h2 className="mt-6 text-4xl font-black leading-tight md:text-5xl">
+            <h2 className="mt-6 text-3xl font-black leading-tight md:text-4xl">
               Real-time compliance and trust monitoring
             </h2>
 
@@ -79,7 +79,7 @@ export default function DashboardPage() {
               requests and operational workflows with enterprise-grade controls.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <div className="mt-6 flex flex-wrap gap-2">
               <HeroBadge text="AI Monitoring" />
               <HeroBadge text="Trust Verification" />
               <HeroBadge text="Marketplace Active" />
@@ -92,7 +92,7 @@ export default function DashboardPage() {
 
             <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-[#C0E6FD]/20 blur-3xl" />
 
-            <div className="relative rounded-[34px] border border-white/10 bg-white/10 p-5 backdrop-blur">
+            <div className="relative rounded-[28px] border border-white/10 bg-white/10 p-4 backdrop-blur">
               <div className="rounded-[28px] bg-white p-5 text-[#1F2937]">
                 <div className="flex items-center justify-between border-b border-[#D6E2F0] pb-4">
                   <div>
