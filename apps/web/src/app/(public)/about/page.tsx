@@ -27,12 +27,12 @@ export default function AboutPage() {
 
       <div className="mx-auto max-w-7xl px-5 py-10">
         {/* HERO */}
-        <section className="rounded-[36px] bg-[#000F22] px-8 py-14 text-white shadow-2xl md:px-14">
+        <section className="rounded-[36px] bg-[#000F22] px-8 py-10 text-white shadow-2xl md:px-14">
           <p className="text-sm font-black uppercase tracking-[0.35em] text-[#C0E6FD]">
             About Globalink
           </p>
 
-          <h1 className="mt-6 max-w-5xl text-4xl font-black leading-tight md:text-6xl">
+          <h1 className="mt-5 max-w-5xl text-4xl font-black leading-tight md:text-5xl">
             Building a trusted compliance and consultant ecosystem
           </h1>
 
