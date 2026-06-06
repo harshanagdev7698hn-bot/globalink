@@ -1,7 +1,6 @@
 import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
 import PublicFooter from "@/components/PublicFooter";
-import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
