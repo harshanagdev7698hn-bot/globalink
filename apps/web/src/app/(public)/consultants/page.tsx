@@ -114,7 +114,7 @@ export default function ConsultantsPage() {
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
-                {item.services.map((service) => (
+                {item.services.map((service: string) => (
                   <span
                     key={service}
                     className="rounded-full bg-[#F3F8FD] px-3 py-1.5 text-[11px] font-black text-[#1B3554]"
