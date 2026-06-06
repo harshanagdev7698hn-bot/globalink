@@ -2,8 +2,6 @@ import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
 import PublicFooter from "@/components/PublicFooter";
 
-const consultants: any[] = [];
-
 const categories = ["All", "BIS", "CDSCO", "EPR", "ISO", "WPC", "Legal Metrology"];
 
 export default function ConsultantsPage() {
@@ -31,7 +29,7 @@ export default function ConsultantsPage() {
 
             <div className="grid grid-cols-3 gap-3">
               <MiniStat value="Verified" label="Experts" />
-              <MiniStat value="Verified" label="Profiles" />
+              <MiniStat value="Approved" label="Profiles" />
               <MiniStat value="Secure" label="Network" />
             </div>
           </div>
@@ -54,10 +52,6 @@ export default function ConsultantsPage() {
 
             <select className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold text-[#1B3554] outline-none">
               <option>All Locations</option>
-              <option>Ahmedabad</option>
-              <option>Delhi</option>
-              <option>Mumbai</option>
-              <option>Pune</option>
             </select>
 
             <button className="rounded-xl bg-[#1B3554] px-5 py-3 text-sm font-black text-white">
@@ -81,73 +75,23 @@ export default function ConsultantsPage() {
           </div>
         </section>
 
-        <section className="mt-4 grid gap-3 md:grid-cols-2">
-          {consultants.map((item) => (
-            <article
-              key={item.id}
-              className="rounded-2xl border border-[#D6E2F0] bg-white p-4 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+        <section className="mt-4">
+          <div className="rounded-2xl border border-[#D6E2F0] bg-white p-10 text-center shadow-sm">
+            <h2 className="text-2xl font-black text-[#000F22]">
+              No verified consultants available yet
+            </h2>
+
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#6B7280]">
+              Verified consultant profiles will appear here only after admin approval.
+            </p>
+
+            <Link
+              href="/join"
+              className="mt-6 inline-flex rounded-xl bg-[#1B3554] px-6 py-3 text-sm font-black text-white"
             >
-              <div className="flex gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-[#EEF7FF] text-lg font-black text-[#1B3554]">
-                  {item.initials}
-                </div>
-
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h2 className="text-lg font-black text-[#000F22]">
-                      {item.name}
-                    </h2>
-
-                    <span className="rounded-full bg-[#DCFCE7] px-2.5 py-1 text-[10px] font-black text-[#166534]">
-                      VERIFIED
-                    </span>
-                  </div>
-
-                  <p className="mt-1 text-sm font-black text-[#5B86B6]">
-                    {item.role}
-                  </p>
-
-                  <p className="mt-1 text-sm font-bold text-[#6B7280]">
-                    {item.location}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.services.map((service: string) => (
-                  <span
-                    key={service}
-                    className="rounded-full bg-[#F3F8FD] px-3 py-1.5 text-[11px] font-black text-[#1B3554]"
-                  >
-                    {service}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-3 grid grid-cols-4 gap-2">
-                <Info label="Rating" value={`★ ${item.rating}`} />
-                <Info label="Exp." value={item.experience} />
-                <Info label="Projects" value={item.projects} />
-                <Info label="Trust" value={item.trust} />
-              </div>
-
-              <div className="mt-3 grid grid-cols-2 gap-3">
-                <Link
-                  href={`/consultants/${item.id}`}
-                  className="rounded-xl bg-[#1B3554] px-4 py-3 text-center text-sm font-black text-white"
-                >
-                  View Profile
-                </Link>
-
-                <Link
-                  href="/join"
-                  className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-center text-sm font-black text-[#1B3554]"
-                >
-                  Send Inquiry
-                </Link>
-              </div>
-            </article>
-          ))}
+              Become a Verified Consultant
+            </Link>
+          </div>
         </section>
 
         <section className="mt-4 rounded-2xl bg-[#1B3554] p-4 text-white shadow-lg">
@@ -156,9 +100,11 @@ export default function ConsultantsPage() {
               <p className="text-xs font-black uppercase tracking-[0.25em] text-[#C0E6FD]">
                 Need help?
               </p>
+
               <h3 className="mt-2 text-xl font-black">
                 Let Globalink suggest the right expert
               </h3>
+
               <p className="mt-2 text-sm text-[#DCEBFA]">
                 Share your product or certification requirement and get matched
                 with suitable verified consultants.
@@ -185,15 +131,6 @@ function MiniStat({ value, label }: { value: string; label: string }) {
     <div className="rounded-2xl bg-white/10 p-4">
       <p className="text-2xl font-black text-white">{value}</p>
       <p className="mt-1 text-xs font-bold text-[#C0E6FD]">{label}</p>
-    </div>
-  );
-}
-
-function Info({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-xl bg-[#F8FAFC] p-3">
-      <p className="text-[10px] font-bold text-[#6B7280]">{label}</p>
-      <p className="mt-1 text-xs font-black text-[#000F22]">{value}</p>
     </div>
   );
 }
