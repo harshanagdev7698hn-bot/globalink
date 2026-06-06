@@ -59,10 +59,10 @@ function Icon({
 }
 
 const stats = [
-  ["500+", "Verified Experts"],
-  ["120+", "Lab Partners"],
-  ["40+", "Certification Areas"],
-  ["25+", "Countries"],
+  ["Verified", "Expert Network"],
+  ["Trusted", "Lab Network"],
+  ["Compliance", "Coverage"],
+  ["Global", "Connections"],
 ];
 
 const authorityChips = [
@@ -153,7 +153,7 @@ export default function PublicHomePage() {
               PROCUREMENT-READY COMPLIANCE NETWORK
             </div>
 
-            <h1 className="mt-6 max-w-[620px] text-3xl font-extrabold leading-[0.95] tracking-tight text-white md:text-4xl lg:text-[54px]">
+            <h1 className="mt-6 max-w-[620px] text-[40px] md:text-4xl lg:text-[54px] font-extrabold leading-[0.95] tracking-tight text-white md:text-4xl lg:text-[54px]">
               Verified compliance partners for industry procurement.
             </h1>
 

@@ -2,60 +2,7 @@ import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
 import PublicFooter from "@/components/PublicFooter";
 
-const consultants = [
-  {
-    id: "rk-compliance",
-    name: "RK Compliance Solutions",
-    role: "BIS & Product Certification Expert",
-    location: "Ahmedabad, India",
-    experience: "8+ Years",
-    rating: "4.9",
-    response: "< 2 hrs",
-    projects: "240+",
-    trust: "96%",
-    initials: "RK",
-    services: ["BIS", "ISI", "CRS", "QCO"],
-  },
-  {
-    id: "global-regulatory",
-    name: "Global Regulatory Experts",
-    role: "CDSCO & Medical Device Consultant",
-    location: "Delhi, India",
-    experience: "12+ Years",
-    rating: "4.8",
-    response: "< 4 hrs",
-    projects: "310+",
-    trust: "94%",
-    initials: "GR",
-    services: ["CDSCO", "Medical Devices", "Import License"],
-  },
-  {
-    id: "epr-green",
-    name: "EPR Green Consultants",
-    role: "EPR & Environmental Compliance Expert",
-    location: "Mumbai, India",
-    experience: "6+ Years",
-    rating: "4.7",
-    response: "< 3 hrs",
-    projects: "180+",
-    trust: "91%",
-    initials: "EG",
-    services: ["EPR", "Plastic", "Battery", "E-Waste"],
-  },
-  {
-    id: "iso-tech",
-    name: "ISO Tech Advisors",
-    role: "ISO & Factory Compliance Consultant",
-    location: "Pune, India",
-    experience: "10+ Years",
-    rating: "4.8",
-    response: "< 5 hrs",
-    projects: "220+",
-    trust: "93%",
-    initials: "IT",
-    services: ["ISO 9001", "Audit", "Documentation"],
-  },
-];
+const consultants: any[] = [];
 
 const categories = ["All", "BIS", "CDSCO", "EPR", "ISO", "WPC", "Legal Metrology"];
 
@@ -83,9 +30,9 @@ export default function ConsultantsPage() {
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <MiniStat value="500+" label="Experts" />
-              <MiniStat value="4.8" label="Avg Rating" />
-              <MiniStat value="96%" label="Trust" />
+              <MiniStat value="Verified" label="Experts" />
+              <MiniStat value="Verified" label="Profiles" />
+              <MiniStat value="Secure" label="Network" />
             </div>
           </div>
         </section>
