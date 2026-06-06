@@ -121,7 +121,7 @@ export default function PublicHomePage() {
 
         <div className="border-t border-[#E6EEF6] bg-white px-6 py-2">
           <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 text-xs font-bold text-[#475569]">
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex overflow-x-auto whitespace-nowrap gap-2 pb-1 scrollbar-hide">
               <span className="text-[#6B7280]">Trust infrastructure:</span>
               {trustItems.map((item) => (
                 <span key={item} className="rounded-lg border border-[#E6EEF6] bg-white px-3 py-1 text-xs text-[#1B3554]">
@@ -137,7 +137,7 @@ export default function PublicHomePage() {
         </div>
       </header>
 
-      <section className="relative max-h-[470px] overflow-hidden bg-[#07223A]">
+      <section className="relative overflow-hidden bg-[#07223A]">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
@@ -147,7 +147,7 @@ export default function PublicHomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#071B34]/82 via-[#071B34]/68 to-[#071B34]/52" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-6 px-6 py-4 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+        <div className="relative mx-auto grid max-w-7xl gap-4 px-4 py-8 md:px-6 md:py-4 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           <div className="max-w-[600px] rounded-[12px] bg-[#02101E]/15 p-4">
             <div className="inline-flex rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#DDEBF9]">
               PROCUREMENT-READY COMPLIANCE NETWORK
