@@ -1,10 +1,35 @@
 import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
 import PublicFooter from "@/components/PublicFooter";
+import { prisma } from "@/lib/prisma";
+
+export const dynamic = "force-dynamic";
 
 const categories = ["All", "BIS", "CDSCO", "EPR", "ISO", "WPC", "Legal Metrology"];
 
-export default function ConsultantsPage() {
+async function getConsultants() {
+  try {
+    return await prisma.user.findMany({
+      where: {
+        role: "CONSULTANT",
+        status: "VERIFIED",
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        consultantProfile: true,
+      },
+    });
+  } catch (error) {
+    console.error("CONSULTANTS_PAGE_ERROR", error);
+    return [];
+  }
+}
+
+export default async function ConsultantsPage() {
+  const consultants = await getConsultants();
+
   return (
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <PublicNavbar />
@@ -28,7 +53,7 @@ export default function ConsultantsPage() {
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <MiniStat value="Verified" label="Experts" />
+              <MiniStat value={String(consultants.length)} label="Experts" />
               <MiniStat value="Approved" label="Profiles" />
               <MiniStat value="Secure" label="Network" />
             </div>
@@ -75,23 +100,91 @@ export default function ConsultantsPage() {
           </div>
         </section>
 
-        <section className="mt-4">
-          <div className="rounded-2xl border border-[#D6E2F0] bg-white p-10 text-center shadow-sm">
-            <h2 className="text-2xl font-black text-[#000F22]">
-              No verified consultants available yet
-            </h2>
+        <section className="mt-4 grid gap-4 md:grid-cols-2">
+          {consultants.length === 0 ? (
+            <div className="col-span-full rounded-2xl border border-[#D6E2F0] bg-white p-10 text-center shadow-sm">
+              <h2 className="text-2xl font-black text-[#000F22]">
+                No verified consultants available yet
+              </h2>
 
-            <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#6B7280]">
-              Verified consultant profiles will appear here only after admin approval.
-            </p>
+              <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#6B7280]">
+                Verified consultant profiles will appear here only after admin approval.
+              </p>
 
-            <Link
-              href="/join"
-              className="mt-6 inline-flex rounded-xl bg-[#1B3554] px-6 py-3 text-sm font-black text-white"
-            >
-              Become a Verified Consultant
-            </Link>
-          </div>
+              <Link
+                href="/join"
+                className="mt-6 inline-flex rounded-xl bg-[#1B3554] px-6 py-3 text-sm font-black text-white"
+              >
+                Become a Verified Consultant
+              </Link>
+            </div>
+          ) : (
+            consultants.map((consultant) => {
+              const profile = consultant.consultantProfile;
+              const services = profile?.services
+                ? profile.services.split(",").map((s) => s.trim()).filter(Boolean)
+                : [];
+
+              return (
+                <article
+                  key={consultant.id}
+                  className="rounded-2xl border border-[#D6E2F0] bg-white p-5 shadow-sm"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-black text-[#000F22]">
+                        {consultant.name}
+                      </h2>
+
+                      {consultant.company && (
+                        <p className="mt-1 text-sm font-bold text-[#5B86B6]">
+                          {consultant.company}
+                        </p>
+                      )}
+
+                      {(consultant.city || consultant.country) && (
+                        <p className="mt-1 text-sm font-bold text-[#6B7280]">
+                          {[consultant.city, consultant.country].filter(Boolean).join(", ")}
+                        </p>
+                      )}
+                    </div>
+
+                    <span className="rounded-full bg-[#DCFCE7] px-3 py-1 text-xs font-black text-[#166534]">
+                      VERIFIED
+                    </span>
+                  </div>
+
+                  {profile?.shortBio && (
+                    <p className="mt-4 text-sm leading-7 text-[#6B7280]">
+                      {profile.shortBio}
+                    </p>
+                  )}
+
+                  {services.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {services.map((service) => (
+                        <span
+                          key={service}
+                          className="rounded-full bg-[#EEF7FF] px-3 py-1.5 text-xs font-black text-[#1B3554]"
+                        >
+                          {service}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="mt-5">
+                    <Link
+                      href={`/consultants/${consultant.id}`}
+                      className="inline-flex rounded-xl bg-[#1B3554] px-5 py-3 text-sm font-black text-white"
+                    >
+                      View Profile
+                    </Link>
+                  </div>
+                </article>
+              );
+            })
+          )}
         </section>
 
         <section className="mt-4 rounded-2xl bg-[#1B3554] p-4 text-white shadow-lg">
