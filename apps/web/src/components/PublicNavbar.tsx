@@ -17,23 +17,12 @@ export default function PublicNavbar() {
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur-xl">
-        <div className="mx-auto flex h-[86px] max-w-7xl items-center justify-between px-5">
+        <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5">
 {/* LOGO */}
 <Link
   href="/"
   className="flex items-center gap-3"
 >
-
-  {/* SHIELD */}
-  <img
-    src="/images/globalink-shield.png.png"
-    alt="Shield"
-    className="
-      h-[50px]
-      w-[50px]
-      object-contain
-    "
-  />
 
   {/* MAIN LOGO */}
   <img
@@ -41,14 +30,14 @@ export default function PublicNavbar() {
     alt="Globalink"
     className="
       h-auto
-      w-[60px]
+      w-[120px]
       object-contain
     "
   />
 
 </Link>
           {/* DESKTOP MENU */}
-          <nav className="hidden items-center gap-8 lg:flex">
+          <nav className="hidden items-center gap-10 lg:flex">
             {links.map((item) => (
               <Link
                 key={item.href}
@@ -98,7 +87,7 @@ export default function PublicNavbar() {
               text-sm
               font-bold
               text-white
-              shadow-xl
+              shadow-lg
               shadow-blue-900/20
               transition
               hover:bg-[#10263E]

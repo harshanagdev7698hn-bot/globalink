@@ -85,7 +85,7 @@ export default function MarketplacePage() {
 
           <div className="flex items-center gap-3">
             <Link
-              href="/sign-in"
+              href="/login"
               className="rounded-xl border border-[#D6E2F0] px-5 py-3 text-sm font-black"
             >
               Sign In
