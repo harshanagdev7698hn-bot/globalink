@@ -2,29 +2,14 @@ import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
 import PublicFooter from "@/components/PublicFooter";
 
-const labs = [
-  {
-    name: "NABL TestLab India",
-    type: "Electrical & Electronics Testing",
-    city: "Ahmedabad",
-    approvals: ["NABL", "BIS", "ISO 17025"],
-    rating: "4.9",
-  },
-  {
-    name: "Global Compliance Labs",
-    type: "Plastic & Packaging Testing",
-    city: "Mumbai",
-    approvals: ["NABL", "CPCB"],
-    rating: "4.8",
-  },
-  {
-    name: "MedTech Validation Lab",
-    type: "Medical Device Testing",
-    city: "Delhi",
-    approvals: ["NABL", "CDSCO"],
-    rating: "4.7",
-  },
-];
+type Lab = {
+  name: string;
+  type?: string;
+  city?: string;
+  approvals?: string[];
+};
+
+const labs: Lab[] = [];
 
 export default function LabsPage() {
   return (
@@ -43,7 +28,7 @@ export default function LabsPage() {
           </h1>
 
           <p className="mt-6 max-w-3xl text-base leading-8 text-[#DCEBFA]">
-            Explore NABL approved testing labs for BIS, CDSCO, EPR, EMC,
+            Explore verified laboratories for BIS, CDSCO, EPR, EMC,
             electronics, plastic, toys and industrial compliance.
           </p>
         </section>
@@ -65,9 +50,6 @@ export default function LabsPage() {
 
             <select className="rounded-2xl border border-[#D6E2F0] px-4 py-4 font-bold outline-none">
               <option>All Cities</option>
-              <option>Ahmedabad</option>
-              <option>Mumbai</option>
-              <option>Delhi</option>
             </select>
 
             <button className="rounded-2xl bg-[#1B3554] px-5 py-4 text-sm font-extrabold text-white hover:bg-[#000F22]">
@@ -81,18 +63,18 @@ export default function LabsPage() {
           {labs.length === 0 ? (
             <div className="col-span-full rounded-[24px] border border-[#D6E2F0] bg-white p-10 text-center shadow-sm">
               <h2 className="text-2xl font-black text-[#000F22]">
-                No verified labs available yet.
+                No accredited laboratories available yet.
               </h2>
 
               <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#6B7280]">
-                Want to join as a verified lab? Join Globalink and submit your lab profile for admin review.
+                Join Globalink and submit your laboratory profile for verification.
               </p>
 
               <Link
                 href="/join"
                 className="mt-6 inline-flex rounded-2xl bg-[#1B3554] px-6 py-3 text-sm font-extrabold text-white hover:bg-[#000F22]"
               >
-                Join as Lab
+                Join as Laboratory
               </Link>
             </div>
           ) : (
@@ -115,36 +97,33 @@ export default function LabsPage() {
                   {lab.name}
                 </h2>
 
-                <p className="mt-2 text-sm font-bold text-[#5B86B6]">
-                  {lab.type}
-                </p>
+                {lab.type && (
+                  <p className="mt-2 text-sm font-bold text-[#5B86B6]">
+                    {lab.type}
+                  </p>
+                )}
 
-                <div className="mt-5 flex items-center justify-between">
-                  <div>
+                {lab.city && (
+                  <div className="mt-5">
                     <p className="text-xs font-bold text-[#6B7280]">Location</p>
                     <p className="mt-1 text-sm font-black text-[#000F22]">
                       {lab.city}
                     </p>
                   </div>
+                )}
 
-                  <div>
-                    <p className="text-xs font-bold text-[#6B7280]">Rating</p>
-                    <p className="mt-1 text-sm font-black text-[#000F22]">
-                      ★ {lab.rating}
-                    </p>
+                {lab.approvals && lab.approvals.length > 0 && (
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {lab.approvals.map((approval) => (
+                      <span
+                        key={approval}
+                        className="rounded-full bg-[#F3F8FD] px-3 py-2 text-xs font-extrabold text-[#1B3554]"
+                      >
+                        {approval}
+                      </span>
+                    ))}
                   </div>
-                </div>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {lab.approvals.map((approval) => (
-                    <span
-                      key={approval}
-                      className="rounded-full bg-[#F3F8FD] px-3 py-2 text-xs font-extrabold text-[#1B3554]"
-                    >
-                      {approval}
-                    </span>
-                  ))}
-                </div>
+                )}
 
                 <div className="mt-5 flex gap-2">
                   <Link
