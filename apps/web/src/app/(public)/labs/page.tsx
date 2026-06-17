@@ -16,7 +16,7 @@ export default function LabsPage() {
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <PublicNavbar />
 
-      <div className="mx-auto max-w-7xl px-5 py-6">
+      <div className="mx-auto max-w-7xl px-5 pb-6 pt-24">
         {/* HERO */}
         <section className="rounded-[28px] bg-[#1B3554] px-7 py-8 text-white shadow-xl md:px-10">
           <p className="text-sm font-bold uppercase tracking-[0.35em] text-[#C0E6FD]">
