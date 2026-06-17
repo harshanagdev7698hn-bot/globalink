@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PublicNavbar from "@/components/PublicNavbar";
 import PublicFooter from "@/components/PublicFooter";
+
 const labs = [
   {
     name: "NABL TestLab India",
@@ -77,73 +78,93 @@ export default function LabsPage() {
 
         {/* LAB CARDS */}
         <section className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {labs.map((lab) => (
-            <article
-              key={lab.name}
-              className="rounded-[24px] border border-[#D6E2F0] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
-            >
-              <div className="flex items-start justify-between">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF7FF] text-xl font-black text-[#1B3554]">
-                  {lab.name.charAt(0)}
-                </div>
-
-                <span className="rounded-full bg-[#DCFCE7] px-4 py-2 text-xs font-extrabold text-[#166534]">
-                  VERIFIED
-                </span>
-              </div>
-
-              <h2 className="mt-6 text-2xl font-black text-[#000F22]">
-                {lab.name}
+          {labs.length === 0 ? (
+            <div className="col-span-full rounded-[24px] border border-[#D6E2F0] bg-white p-10 text-center shadow-sm">
+              <h2 className="text-2xl font-black text-[#000F22]">
+                No verified labs available yet.
               </h2>
 
-              <p className="mt-2 text-sm font-bold text-[#5B86B6]">
-                {lab.type}
+              <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#6B7280]">
+                Want to join as a verified lab? Join Globalink and submit your lab profile for admin review.
               </p>
 
-              <div className="mt-5 flex items-center justify-between">
-                <div>
-                  <p className="text-xs font-bold text-[#6B7280]">Location</p>
-                  <p className="mt-1 text-sm font-black text-[#000F22]">
-                    {lab.city}
-                  </p>
-                </div>
+              <Link
+                href="/join"
+                className="mt-6 inline-flex rounded-2xl bg-[#1B3554] px-6 py-3 text-sm font-extrabold text-white hover:bg-[#000F22]"
+              >
+                Join as Lab
+              </Link>
+            </div>
+          ) : (
+            labs.map((lab) => (
+              <article
+                key={lab.name}
+                className="rounded-[24px] border border-[#D6E2F0] bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="flex items-start justify-between">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#EEF7FF] text-xl font-black text-[#1B3554]">
+                    {lab.name.charAt(0)}
+                  </div>
 
-                <div>
-                  <p className="text-xs font-bold text-[#6B7280]">Rating</p>
-                  <p className="mt-1 text-sm font-black text-[#000F22]">
-                    ★ {lab.rating}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {lab.approvals.map((approval) => (
-                  <span
-                    key={approval}
-                    className="rounded-full bg-[#F3F8FD] px-3 py-2 text-xs font-extrabold text-[#1B3554]"
-                  >
-                    {approval}
+                  <span className="rounded-full bg-[#DCFCE7] px-4 py-2 text-xs font-extrabold text-[#166534]">
+                    VERIFIED
                   </span>
-                ))}
-              </div>
+                </div>
 
-              <div className="mt-5 flex gap-2">
-                <Link
-                  href="/join"
-                  className="flex-1 rounded-2xl bg-[#1B3554] px-5 py-4 text-center text-sm font-extrabold text-white hover:bg-[#000F22]"
-                >
-                  Contact Lab
-                </Link>
+                <h2 className="mt-6 text-2xl font-black text-[#000F22]">
+                  {lab.name}
+                </h2>
 
-                <button className="rounded-2xl border border-[#D6E2F0] px-5 py-4 text-sm font-extrabold text-[#1B3554] hover:bg-[#EEF7FF]">
-                  View
-                </button>
-              </div>
-            </article>
-          ))}
+                <p className="mt-2 text-sm font-bold text-[#5B86B6]">
+                  {lab.type}
+                </p>
+
+                <div className="mt-5 flex items-center justify-between">
+                  <div>
+                    <p className="text-xs font-bold text-[#6B7280]">Location</p>
+                    <p className="mt-1 text-sm font-black text-[#000F22]">
+                      {lab.city}
+                    </p>
+                  </div>
+
+                  <div>
+                    <p className="text-xs font-bold text-[#6B7280]">Rating</p>
+                    <p className="mt-1 text-sm font-black text-[#000F22]">
+                      ★ {lab.rating}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {lab.approvals.map((approval) => (
+                    <span
+                      key={approval}
+                      className="rounded-full bg-[#F3F8FD] px-3 py-2 text-xs font-extrabold text-[#1B3554]"
+                    >
+                      {approval}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-5 flex gap-2">
+                  <Link
+                    href="/join"
+                    className="flex-1 rounded-2xl bg-[#1B3554] px-5 py-4 text-center text-sm font-extrabold text-white hover:bg-[#000F22]"
+                  >
+                    Contact Lab
+                  </Link>
+
+                  <button className="rounded-2xl border border-[#D6E2F0] px-5 py-4 text-sm font-extrabold text-[#1B3554] hover:bg-[#EEF7FF]">
+                    View
+                  </button>
+                </div>
+              </article>
+            ))
+          )}
         </section>
       </div>
-     <PublicFooter /> 
+
+      <PublicFooter />
     </main>
   );
 }

@@ -104,18 +104,18 @@ export default async function ConsultantsPage() {
           {consultants.length === 0 ? (
             <div className="col-span-full rounded-2xl border border-[#D6E2F0] bg-white p-10 text-center shadow-sm">
               <h2 className="text-2xl font-black text-[#000F22]">
-                No verified consultants available yet
+                No verified consultants available yet.
               </h2>
 
               <p className="mx-auto mt-3 max-w-2xl text-sm leading-7 text-[#6B7280]">
-                Verified consultant profiles will appear here only after admin approval.
+                Want to join as a verified consultant? Join Globalink and submit your profile for admin review.
               </p>
 
               <Link
                 href="/join"
                 className="mt-6 inline-flex rounded-xl bg-[#1B3554] px-6 py-3 text-sm font-black text-white"
               >
-                Become a Verified Consultant
+                Join as Consultant
               </Link>
             </div>
           ) : (
