@@ -69,7 +69,7 @@ export default function LoginPage() {
             </p>
 
             <h1 className="mt-4 text-[30px] font-black leading-[1.08]">
-              Trusted access for compliance teams
+              Verified access for compliance teams
             </h1>
 
             <p className="mt-4 text-sm leading-6 text-[#C8DDF2]">
@@ -79,9 +79,9 @@ export default function LoginPage() {
 
             <div className="mt-5 grid grid-cols-1 gap-3">
               {[
-                ["500+", "Experts"],
-                ["120+", "Labs"],
-                ["96%", "Trust"],
+                ["Verified", "Experts"],
+                ["Lab", "Discovery"],
+                ["Verified", "Network"],
               ].map(([value, label]) => (
                 <div
                   key={label}
@@ -108,10 +108,10 @@ export default function LoginPage() {
 
             <div className="mt-5 grid gap-3">
               <Link
-                href="/contact"
+                href="/join"
                 className="flex h-11 items-center justify-center rounded-xl bg-white px-5 text-sm font-black text-[#000F22] transition hover:bg-[#EAF4FF]"
               >
-                Request Demo
+                Join Globalink
               </Link>
 
               <Link

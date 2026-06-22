@@ -53,9 +53,9 @@ export default async function ConsultantsPage() {
             </div>
 
             <div className="grid grid-cols-3 gap-3">
-              <MiniStat value={String(consultants.length)} label="Experts" />
-              <MiniStat value="Approved" label="Profiles" />
-              <MiniStat value="Secure" label="Network" />
+              <MiniStat label="Verified Consultants" />
+              <MiniStat label="Compliance Categories" />
+              <MiniStat label="Secure Connections" />
             </div>
           </div>
         </section>
@@ -219,11 +219,10 @@ export default async function ConsultantsPage() {
   );
 }
 
-function MiniStat({ value, label }: { value: string; label: string }) {
+function MiniStat({ label }: { label: string }) {
   return (
     <div className="rounded-2xl bg-white/10 p-4">
-      <p className="text-2xl font-black text-white">{value}</p>
-      <p className="mt-1 text-xs font-bold text-[#C0E6FD]">{label}</p>
+      <p className="text-sm font-black leading-5 text-white">{label}</p>
     </div>
   );
 }

@@ -16,18 +16,18 @@ export default function LabsPage() {
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <PublicNavbar />
 
-      <div className="mx-auto max-w-7xl px-5 pb-6 pt-24">
+      <div className="mx-auto max-w-7xl px-5 py-4">
         {/* HERO */}
-        <section className="rounded-[28px] bg-[#1B3554] px-7 py-8 text-white shadow-xl md:px-10">
+        <section className="rounded-[28px] bg-[#1B3554] px-6 py-6 text-white shadow-xl">
           <p className="text-sm font-bold uppercase tracking-[0.35em] text-[#C0E6FD]">
             Verified Testing Labs
           </p>
 
-          <h1 className="mt-6 max-w-4xl text-3xl font-extrabold leading-tight md:text-5xl">
+          <h1 className="mt-2 max-w-2xl text-2xl font-black leading-tight md:text-3xl">
             Trusted labs for testing, certification and validation
           </h1>
 
-          <p className="mt-6 max-w-3xl text-base leading-8 text-[#DCEBFA]">
+          <p className="mt-2 max-w-xl text-sm leading-6 text-[#DCEBFA]">
             Explore verified laboratories for BIS, CDSCO, EPR, EMC,
             electronics, plastic, toys and industrial compliance.
           </p>
@@ -59,9 +59,9 @@ export default function LabsPage() {
         </section>
 
         {/* LAB CARDS */}
-        <section className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        <section className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {labs.length === 0 ? (
-            <div className="col-span-full rounded-[24px] border border-[#D6E2F0] bg-white p-10 text-center shadow-sm">
+            <div className="col-span-full mx-auto w-full max-w-3xl rounded-[24px] border border-[#D6E2F0] bg-white p-8 text-center shadow-sm">
               <h2 className="text-2xl font-black text-[#000F22]">
                 No accredited laboratories available yet.
               </h2>
@@ -72,7 +72,7 @@ export default function LabsPage() {
 
               <Link
                 href="/join"
-                className="mt-6 inline-flex rounded-2xl bg-[#1B3554] px-6 py-3 text-sm font-extrabold text-white hover:bg-[#000F22]"
+                className="mt-5 inline-flex rounded-2xl bg-[#1B3554] px-6 py-3 text-sm font-extrabold text-white hover:bg-[#000F22]"
               >
                 Join as Laboratory
               </Link>

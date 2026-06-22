@@ -110,13 +110,7 @@ export default function ConsultantProfilePage() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-white/15 bg-white/10 p-5 backdrop-blur">
-            <p className="text-sm text-purple-100">Trust Rating</p>
-            <p className="mt-1 text-3xl font-extrabold">⭐ 4.8</p>
-            <p className="mt-1 text-xs text-purple-100">
-              Admin verified consultant
-            </p>
-          </div>
+
         </div>
       </section>
 

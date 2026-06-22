@@ -131,24 +131,23 @@ export default function ConsultantProfilePage({
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
-                <TrustPill text={consultant.status || "PENDING"} />
-                <TrustPill text="Admin Reviewed" />
-                <TrustPill text="Business Profile" />
-                <TrustPill text="Marketplace Active" />
+                <VerifiedPill text={consultant.status || "PENDING"} />
+                <VerifiedPill text="Admin Reviewed" />
+                <VerifiedPill text="Business Profile" />
+                <VerifiedPill text="Marketplace Active" />
               </div>
             </div>
 
             <div className="rounded-[24px] border border-white/10 bg-white/10 p-5 backdrop-blur">
               <div className="rounded-[20px] bg-white p-5 text-[#1F2937]">
                 <p className="text-xs font-black uppercase tracking-[0.22em] text-[#5B86B6]">
-                  Trust Score
+                  Verified Profile
                 </p>
 
-                <p className="mt-3 text-6xl font-black text-[#000F22]">96%</p>
+                <p className="mt-3 text-6xl font-black text-[#000F22]">Verified</p>
 
                 <p className="mt-4 text-sm leading-7 text-[#6B7280]">
-                  Based on profile quality, verification status, documents and
-                  marketplace readiness.
+                  Based on profile verification, documents and marketplace readiness.
                 </p>
 
                 <div className="mt-6 grid gap-3">
@@ -258,7 +257,7 @@ image="/gallery/document.jpg"
   );
 }
 
-function TrustPill({ text }: { text: string }) {
+function VerifiedPill({ text }: { text: string }) {
   return (
     <span className="rounded-full bg-white/10 px-4 py-2 text-xs font-black text-[#C0E6FD]">
       {text}

@@ -172,8 +172,8 @@ const certs = [
 ];
 
 const networkStats = [
-  ["250+", "Profiles"],
-  ["80+", "Labs"],
+  ["Verified", "Profiles"],
+  ["Lab", "Discovery"],
   ["20+", "Categories"],
   ["1000+", "Connections"],
 ];

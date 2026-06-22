@@ -8,17 +8,9 @@ app.use(express.json());
 const PORT = process.env.PORT || 4000;
 
 // ---- In-memory data (later MongoDB) ----
-let consultants = [
-  { id: "c-1001", name: "Pramod Sir", domain: "BIS / ISI", country: "IN", price: 1500, verified: true, rating: 4.7 },
-  { id: "c-1002", name: "Nitin Patel", domain: "ISO 9001", country: "IN", price: 1200, verified: false, rating: 4.2 },
-  { id: "c-1003", name: "Ayesha Khan", domain: "Import/Export", country: "IN", price: 1800, verified: true, rating: 4.5 },
-];
+let consultants = [];
+let labs = [];
 
-let labs = [
-  { id: "l-2001", name: "Alpha Testing Lab", service: "ROHS / Safety", country: "IN", price: 2500, accredited: true, rating: 4.6 },
-  { id: "l-2002", name: "Prime Calibration", service: "Calibration", country: "IN", price: 1800, accredited: false, rating: 4.1 },
-  { id: "l-2003", name: "BIS Support Lab", service: "BIS Testing", country: "IN", price: 3000, accredited: true, rating: 4.8 },
-];
 
 let marketplace = [
   { id: "m-3001", title: "Digital Vernier Caliper", category: "Measuring Tool", price: 899, stock: 10 },
@@ -67,7 +59,7 @@ app.post("/consultants", (req, res) => {
     country: body.country || "IN",
     price: Number(body.price || 0),
     verified: Boolean(body.verified || false),
-    rating: Number(body.rating || 0),
+    rating: body.rating !== undefined ? Number(body.rating) : undefined,
   };
   consultants.unshift(item);
   res.json(item);
@@ -99,7 +91,7 @@ app.post("/labs", (req, res) => {
     country: body.country || "IN",
     price: Number(body.price || 0),
     accredited: Boolean(body.accredited || false),
-    rating: Number(body.rating || 0),
+    rating: body.rating !== undefined ? Number(body.rating) : undefined,
   };
   labs.unshift(item);
   res.json(item);

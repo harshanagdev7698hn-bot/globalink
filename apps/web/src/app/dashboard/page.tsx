@@ -17,8 +17,8 @@ const stats = [
     growth: "-4%",
   },
   {
-    title: "Marketplace Trust",
-    value: "96%",
+    title: "Verified Network",
+    value: "Verified",
     growth: "+2%",
   },
 ];
@@ -81,7 +81,7 @@ export default function DashboardPage() {
 
             <div className="mt-6 flex flex-wrap gap-2">
               <HeroBadge text="AI Monitoring" />
-              <HeroBadge text="Trust Verification" />
+              <HeroBadge text="Verified Profile" />
               <HeroBadge text="Marketplace Active" />
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function DashboardPage() {
                     </p>
 
                     <h3 className="mt-2 text-2xl font-black text-[#000F22]">
-                      Trust Activity
+                      Verification Activity
                     </h3>
                   </div>
 
@@ -160,15 +160,15 @@ export default function DashboardPage() {
 
                   <div className="rounded-3xl border border-[#D6E2F0] bg-white p-5">
                     <p className="text-xs font-black uppercase tracking-[0.2em] text-[#5B86B6]">
-                      Trust Index
+                      Verified Network
                     </p>
 
                     <p className="mt-3 text-4xl font-black text-[#000F22]">
-                      96%
+                      Verified
                     </p>
 
                     <p className="mt-2 text-xs leading-5 text-[#6B7280]">
-                      Marketplace trust and verification quality score.
+                      Marketplace verification and profile quality.
                     </p>
                   </div>
                 </div>
@@ -256,12 +256,12 @@ export default function DashboardPage() {
             </h2>
 
             <p className="mt-4 text-sm leading-8 text-[#DCEBFA]">
-              AI systems are monitoring consultant activity, marketplace trust,
-              operational workflows and verification quality.
+              AI systems are monitoring consultant activity, verified network
+              signals, operational workflows and verification quality.
             </p>
 
             <div className="mt-6 space-y-3">
-              <Insight text="Trust score increased this week" />
+              <Insight text="Verification activity increased this week" />
               <Insight text="12 new consultant approvals" />
               <Insight text="BIS category showing high demand" />
             </div>

@@ -217,10 +217,10 @@ export default function JoinPage() {
                 </p>
 
                 <div className="grid grid-cols-2 gap-2 pt-2 text-xs text-white/70">
-                  <span>500+ Experts</span>
-                  <span>120+ Labs</span>
-                  <span>40+ Categories</span>
-                  <span>96% Trust</span>
+                  <span>Verified Experts</span>
+                  <span>Lab Discovery</span>
+                  <span>Compliance Categories</span>
+                  <span>Verified Network</span>
                 </div>
               </div>
             </div>
@@ -311,7 +311,7 @@ export default function JoinPage() {
                 )}
 
                 {step === 3 && (
-                  <StepCard title="Verification details" subtitle="Add business and capability information for trust scoring.">
+                  <StepCard title="Verification details" subtitle="Add business and capability information for verification.">
                     <div className="grid gap-4 md:grid-cols-2">
                       <Input label="GST Number" value={form.gstNumber} onChange={(v) => updateForm("gstNumber", v)} />
                       <Input label="MSME / Registration" value={form.msmeNumber} onChange={(v) => updateForm("msmeNumber", v)} />
@@ -356,7 +356,7 @@ export default function JoinPage() {
                       <Review label="Location" value={`${form.city}, ${form.country}`} />
                       <Review label="Services" value={form.services || "Not added"} />
                       <Review label="Documents" value={`${Object.values(files).filter(Boolean).length} uploaded`} />
-                      <Review label="Trust Status" value="Pending Admin Review" />
+                      <Review label="Verification Status" value="Pending Admin Review" />
                     </div>
                   </StepCard>
                 )}

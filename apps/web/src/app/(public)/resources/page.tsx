@@ -1,4 +1,6 @@
-import Link from "next/link";
+﻿import Link from "next/link";
+import PublicNavbar from "@/components/PublicNavbar";
+import PublicFooter from "@/components/PublicFooter";
 
 const guides = [
   {
@@ -42,14 +44,16 @@ const faqs = [
 
 export default function ResourcesPage() {
   return (
-    <main className="bg-[#F6F8FB]">
-      <section className="mx-auto max-w-7xl px-6 py-16">
-        <div className="rounded-[36px] bg-[#1B3554] p-8 text-white shadow-xl md:p-10">
+    <main className="min-h-screen bg-[#F6F8FB] text-[#1F2937]">
+      <PublicNavbar />
+
+      <section className="mx-auto max-w-7xl px-6 pb-20 pt-10">
+        <div className="rounded-3xl bg-[#000F22] px-6 py-6 text-white shadow-lg md:px-10">
           <p className="text-xs font-black uppercase tracking-[0.28em] text-[#C0E6FD]">
             Globalink Resources
           </p>
 
-          <h1 className="mt-4 max-w-4xl text-4xl font-black leading-tight md:text-6xl">
+          <h1 className="mt-4 max-w-2xl text-3xl font-black leading-tight md:text-4xl">
             Compliance guides, standards and business resources.
           </h1>
 
@@ -73,7 +77,7 @@ export default function ResourcesPage() {
           </div>
         </div>
 
-        <div className="mt-10 rounded-[28px] border border-[#D6E2F0] bg-white p-4 shadow-sm md:p-5">
+        <div className="mt-6 rounded-[28px] border border-[#D6E2F0] bg-white p-4 shadow-sm md:p-5">
           <input
             type="text"
             placeholder="Search BIS, ISO, CDSCO, EPR, WPC resources..."
@@ -81,7 +85,7 @@ export default function ResourcesPage() {
           />
         </div>
 
-        <section className="mt-12">
+        <section className="mt-8">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.28em] text-[#5B86B6]">
@@ -189,6 +193,8 @@ export default function ResourcesPage() {
           </div>
         </section>
       </section>
+
+      <PublicFooter />
     </main>
   );
 }
