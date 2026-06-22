@@ -224,9 +224,10 @@ export default function PublicHomePage() {
                   type="search"
                   placeholder="Search BIS, ISI, ISO, labs or consultants"
                   className="h-12 w-full rounded-[14px] border border-white/10 bg-white px-4 text-sm font-medium text-[#04122A] outline-none"
+                  aria-label="Search consultants, labs, or compliance resources"
                 />
 
-                <Link href="/consultants" className="flex h-12 items-center justify-center rounded-[14px] bg-[#315EFB] px-5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(49,94,251,0.22)] hover:bg-[#2447D8]">
+                <Link href="/consultants" className="flex h-12 items-center justify-center rounded-[14px] bg-[#315EFB] px-5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(49,94,251,0.22)] hover:bg-[#2447D8]" aria-label="Search Globalink consultants">
                   Search
                 </Link>
               </div>

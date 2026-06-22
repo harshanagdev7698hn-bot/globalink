@@ -1,10 +1,10 @@
 import MainLayout from "@/components/MainLayout";
 
 const stats = [
-  { title: "Total Certifications", value: "214" },
-  { title: "Pending Approvals", value: "36" },
-  { title: "Expired Certificates", value: "12" },
-  { title: "Compliance Score", value: "92%" },
+  { title: "Total Certifications", value: "—", note: "Live tracking" },
+  { title: "Pending Approvals", value: "—", note: "In verification" },
+  { title: "Expired Certificates", value: "—", note: "Alert system" },
+  { title: "Compliance Score", value: "Active", note: "Platform status" },
 ];
 
 export default function CompliancePage() {
@@ -35,13 +35,10 @@ export default function CompliancePage() {
             className="rounded-[24px] border border-[#dfb6b2] bg-white p-6 shadow-sm"
           >
             <p className="text-sm text-[#854F6C]">{item.title}</p>
-            <h2
-              className={`mt-3 text-3xl font-bold ${
-                item.value === "92%" ? "text-green-600" : "text-[#190019]"
-              }`}
-            >
+            <h2 className="mt-3 text-3xl font-bold text-[#190019]">
               {item.value}
             </h2>
+            <p className="mt-2 text-xs text-[#6B7280]">{(item as any).note}</p>
           </div>
         ))}
       </section>

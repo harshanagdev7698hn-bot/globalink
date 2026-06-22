@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useState } from "react";
 import PublicNavbar from "@/components/PublicNavbar";
 import PublicFooter from "@/components/PublicFooter";
 import { prisma } from "@/lib/prisma";
@@ -65,9 +66,10 @@ export default async function ConsultantsPage() {
             <input
               placeholder="Search consultant, service or location"
               className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold outline-none"
+              aria-label="Search consultants by name, service, or location"
             />
 
-            <select className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold text-[#1B3554] outline-none">
+            <select className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold text-[#1B3554] outline-none" aria-label="Filter by service">
               <option>All Services</option>
               <option>BIS</option>
               <option>CDSCO</option>
@@ -75,11 +77,11 @@ export default async function ConsultantsPage() {
               <option>ISO</option>
             </select>
 
-            <select className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold text-[#1B3554] outline-none">
+            <select className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold text-[#1B3554] outline-none" aria-label="Filter by location">
               <option>All Locations</option>
             </select>
 
-            <button className="rounded-xl bg-[#1B3554] px-5 py-3 text-sm font-black text-white">
+            <button className="rounded-xl bg-[#1B3554] px-5 py-3 text-sm font-black text-white" aria-label="Search consultants">
               Search
             </button>
           </div>
@@ -93,6 +95,7 @@ export default async function ConsultantsPage() {
                     ? "bg-[#1B3554] text-white"
                     : "bg-[#EEF7FF] text-[#1B3554]"
                 }`}
+                aria-label={`Filter by ${item} compliance category`}
               >
                 {item}
               </button>

@@ -82,6 +82,7 @@ export default function ResourcesPage() {
             type="text"
             placeholder="Search BIS, ISO, CDSCO, EPR, WPC resources..."
             className="h-14 w-full rounded-2xl border border-[#D6E2F0] px-5 text-sm font-semibold outline-none focus:border-[#5B86B6] focus:ring-4 focus:ring-[#C0E6FD]/40"
+            aria-label="Search compliance resources and guides"
           />
         </div>
 

@@ -65,14 +65,15 @@ export default function MarketplacePage() {
             <input
               placeholder="Search product, supplier or certification"
               className="h-12 rounded-2xl border border-[#D6E2F0] px-5 text-sm font-bold outline-none focus:border-[#315EFB]"
+              aria-label="Search marketplace products or suppliers"
             />
-            <select className="h-12 rounded-2xl border border-[#D6E2F0] px-5 text-sm font-bold outline-none">
+            <select className="h-12 rounded-2xl border border-[#D6E2F0] px-5 text-sm font-bold outline-none" aria-label="Filter by product category">
               <option>All Categories</option>
               <option>Certified Products</option>
               <option>Lab Equipment</option>
               <option>Safety</option>
             </select>
-            <select className="h-12 rounded-2xl border border-[#D6E2F0] px-5 text-sm font-bold outline-none">
+            <select className="h-12 rounded-2xl border border-[#D6E2F0] px-5 text-sm font-bold outline-none" aria-label="Filter by certification">
               <option>All Certifications</option>
               <option>BIS</option>
               <option>ISI</option>

@@ -39,20 +39,21 @@ export default function LabsPage() {
             <input
               placeholder="Search labs or category"
               className="rounded-2xl border border-[#D6E2F0] px-4 py-4 outline-none focus:border-[#5B86B6]"
+              aria-label="Search laboratories by name or category"
             />
 
-            <select className="rounded-2xl border border-[#D6E2F0] px-4 py-4 font-bold outline-none">
+            <select className="rounded-2xl border border-[#D6E2F0] px-4 py-4 font-bold outline-none" aria-label="Filter by lab category">
               <option>All Categories</option>
               <option>Electrical</option>
               <option>Medical</option>
               <option>Plastic</option>
             </select>
 
-            <select className="rounded-2xl border border-[#D6E2F0] px-4 py-4 font-bold outline-none">
+            <select className="rounded-2xl border border-[#D6E2F0] px-4 py-4 font-bold outline-none" aria-label="Filter by city">
               <option>All Cities</option>
             </select>
 
-            <button className="rounded-2xl bg-[#1B3554] px-5 py-4 text-sm font-extrabold text-white hover:bg-[#000F22]">
+            <button className="rounded-2xl bg-[#1B3554] px-5 py-4 text-sm font-extrabold text-white hover:bg-[#000F22]" aria-label="Search laboratories">
               Search
             </button>
           </div>

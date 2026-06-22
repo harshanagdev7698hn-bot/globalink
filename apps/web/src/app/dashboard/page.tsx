@@ -3,23 +3,27 @@ import Link from "next/link";
 const stats = [
   {
     title: "Active Requests",
-    value: "128",
-    growth: "+18%",
+    value: "—",
+    growth: "Real-time data",
+    note: "Tracking compliance requests",
   },
   {
     title: "Verified Consultants",
-    value: "542",
-    growth: "+12%",
+    value: "—",
+    growth: "Live count",
+    note: "Admin-verified professionals",
   },
   {
     title: "Pending Reviews",
-    value: "19",
-    growth: "-4%",
+    value: "—",
+    growth: "In process",
+    note: "Awaiting verification",
   },
   {
     title: "Verified Network",
-    value: "Verified",
-    growth: "+2%",
+    value: "Active",
+    growth: "Production",
+    note: "Live discovery platform",
   },
 ];
 
