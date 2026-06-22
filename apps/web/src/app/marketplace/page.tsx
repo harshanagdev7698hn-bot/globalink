@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import PublicNavbar from "@/components/PublicNavbar";
+import PublicFooter from "@/components/PublicFooter";
 
 type Product = {
   name: string;
@@ -173,6 +173,7 @@ export default function MarketplacePage() {
           )}
         </section>
       </section>
+      <PublicFooter />
     </main>
   );
 }

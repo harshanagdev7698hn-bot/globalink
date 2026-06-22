@@ -140,6 +140,15 @@ export default function PublicFooter() {
           </Link>
         </div>
 
+        <div className="mt-8 rounded-[24px] border border-[#F3D1D1] bg-[#FFF7F7] p-6 text-[#7A271A] shadow-sm">
+          <p className="text-sm font-black uppercase tracking-[0.25em] text-[#B42318]">
+            Important Notice
+          </p>
+          <p className="mt-3 text-sm leading-6">
+            Globalink does not issue certificates, approvals, licenses or registrations. It is a discovery platform for verified compliance consultants, labs and sellers.
+          </p>
+        </div>
+
         <div className="mt-10 flex flex-col gap-4 border-t border-[#D6E2F0] pt-6 md:flex-row md:items-center md:justify-between">
           <p className="text-sm font-bold text-[#6B7280]">
             © 2026 Globalink Compliance Network. Government-grade compliance

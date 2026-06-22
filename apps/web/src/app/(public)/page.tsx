@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import PublicNavbar from "@/components/PublicNavbar";
+import PublicFooter from "@/components/PublicFooter";
 
 function Icon({
   type,
@@ -57,13 +59,6 @@ function Icon({
     </svg>
   );
 }
-
-const trustItems = [
-  "KYC review",
-  "Admin approved profiles",
-  "Document credential check",
-  "Partner discovery",
-];
 
 const whyGlobalink = [
   {
@@ -126,20 +121,20 @@ const marketplaceCards = [
 const featuredProfiles = [
   {
     title: "Verified Consultant",
-    badge: "Admin Reviewed",
-    meta: ["Ahmedabad", "8+ Years", "BIS / ISI / CRS"],
+    badge: "Professional network",
+    meta: ["Service discovery", "KYC-reviewed", "Business profiles"],
     icon: "users",
   },
   {
     title: "Accredited Lab",
-    badge: "Lab Discovery",
-    meta: ["NABL", "Testing Categories", "Credential Review"],
+    badge: "Lab discovery",
+    meta: ["Testing support", "Credential transparency", "Location-based partners"],
     icon: "lab",
   },
   {
-    title: "Seller",
-    badge: "Marketplace",
-    meta: ["Verified Supplier", "Product Discovery", "Inquiry Based"],
+    title: "Marketplace Seller",
+    badge: "Supplier network",
+    meta: ["Compliance-ready sourcing", "Verified products", "Inquiry-based contact"],
     icon: "market",
   },
 ] as const;
@@ -161,21 +156,21 @@ const users = [
 ];
 
 const certs = [
-  ["BIS", "25 Experts"],
-  ["ISI Mark", "18 Consultants"],
-  ["CDSCO", "12 Partners"],
-  ["WPC", "10 Partners"],
-  ["TEC", "8 Partners"],
-  ["EPR", "14 Consultants"],
-  ["Legal Metrology", "9 Partners"],
-  ["NABL", "12 Labs"],
+  ["BIS", "Compliance guidance"],
+  ["ISI Mark", "Certification support"],
+  ["CDSCO", "Partner discovery"],
+  ["WPC", "Regulatory review"],
+  ["TEC", "Industry approvals"],
+  ["EPR", "Environmental support"],
+  ["Legal Metrology", "Compliance testing"],
+  ["NABL", "Lab discovery"],
 ];
 
 const networkStats = [
-  ["Verified", "Profiles"],
+  ["Verified", "Discovery"],
   ["Lab", "Discovery"],
-  ["20+", "Categories"],
-  ["1000+", "Connections"],
+  ["Compliance", "Guidance"],
+  ["Secure", "Connections"],
 ];
 
 const successStories = [
@@ -190,52 +185,7 @@ export default function PublicHomePage() {
 
   return (
     <main className="min-h-screen bg-[#F4F7FB] text-[#04122A]">
-      <header className="sticky top-0 z-50 border-b border-[#E6EEF6] bg-white/95 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-8 lg:px-10">
-          <Link href="/" className="flex items-center">
-            <img
-              src="/images/globalink-main-logo.png.png"
-              alt="Globalink"
-              className="h-[56px] w-auto object-contain"
-            />
-          </Link>
-
-          <nav className="hidden items-center gap-7 text-sm font-semibold text-[#334155] lg:flex">
-            <Link href="/consultants" className="hover:text-[#315EFB]">Consultants</Link>
-            <Link href="/labs" className="hover:text-[#315EFB]">Labs</Link>
-            <Link href="/certifications" className="hover:text-[#315EFB]">Certifications</Link>
-            <Link href="/marketplace" className="hover:text-[#315EFB]">Marketplace</Link>
-            <Link href="/resources" className="hover:text-[#315EFB]">Resources</Link>
-            <Link href="/about" className="hover:text-[#315EFB]">About</Link>
-          </nav>
-
-          <div className="hidden items-center gap-2 md:flex">
-            <Link href="/login" className="flex h-10 items-center rounded-[12px] border border-[#E6EEF6] px-5 text-sm font-semibold text-[#1B3554] hover:bg-[#F8FAFC]">
-              Sign In
-            </Link>
-            <Link href="/join" className="flex h-10 items-center rounded-[14px] bg-[#1B3554] px-5 text-sm font-semibold text-white shadow-sm hover:bg-[#07223A]">
-              Join Globalink
-            </Link>
-          </div>
-        </div>
-
-        <div className="border-t border-[#E6EEF6] bg-white px-4 py-2 md:px-8">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 text-xs font-bold text-[#475569]">
-            <div className="flex gap-2 overflow-x-auto whitespace-nowrap pb-1">
-              <span className="text-[#6B7280]">Trust layer:</span>
-              {trustItems.map((item) => (
-                <span key={item} className="rounded-lg border border-[#E6EEF6] bg-white px-3 py-1 text-[#1B3554]">
-                  {item}
-                </span>
-              ))}
-            </div>
-
-            <button onClick={() => setOpen(true)} className="text-sm font-semibold text-[#315EFB] hover:underline">
-              How verification works
-            </button>
-          </div>
-        </div>
-      </header>
+      <PublicNavbar />
 
       <section className="relative overflow-hidden bg-[#07223A]">
         <div
@@ -428,10 +378,10 @@ export default function PublicHomePage() {
         <div className="mx-auto max-w-7xl">
           <div className="mb-7">
             <p className="text-sm font-black uppercase tracking-[0.25em] text-[#315EFB]">
-              Featured Profiles
+              Partner Networks
             </p>
             <h2 className="mt-2 text-[30px] font-black text-[#04122A] md:text-[38px]">
-              Preview trusted partner types
+              Explore verified partner types
             </h2>
           </div>
 
@@ -461,7 +411,7 @@ export default function PublicHomePage() {
                 </div>
 
                 <Link href="/marketplace" className="mt-5 inline-flex rounded-[12px] bg-[#10213F] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#071B34]">
-                  Explore Profile
+                  Explore Network
                 </Link>
               </div>
             ))}
@@ -662,38 +612,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      <section className="bg-white px-4 pb-10 md:px-8 lg:px-10">
-        <div className="mx-auto max-w-7xl rounded-[22px] border border-[#F3D1D1] bg-[#FFF7F7] p-6">
-          <p className="text-sm font-black uppercase tracking-[0.25em] text-[#B42318]">
-            Important Notice
-          </p>
-          <h2 className="mt-3 text-2xl font-black text-[#7A271A]">
-            Globalink does not issue certificates, approvals, licenses or registrations.
-          </h2>
-          <p className="mt-3 max-w-4xl text-sm leading-6 text-[#7A271A]">
-            Globalink helps users discover consultants, laboratories and compliance partners through a verified discovery and inquiry-based marketplace.
-          </p>
-        </div>
-      </section>
-
-      <footer className="bg-white px-4 pb-8 pt-2 text-center md:px-8">
-        <div className="mx-auto max-w-7xl border-t border-[#E6EEF6] pt-8">
-          <p className="font-bold text-[#1B3554]">Globalink Compliance Network</p>
-
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-3 text-sm font-semibold text-[#1B3554]">
-            {[
-              "Verified Discovery",
-              "Compliance Marketplace",
-              "Admin Reviewed Profiles",
-              "Inquiry Based Connections",
-            ].map((item) => (
-              <span key={item} className="rounded-full border border-[#E6EEF6] bg-[#F8FAFC] px-4 py-2">
-                ✓ {item}
-              </span>
-            ))}
-          </div>
-        </div>
-      </footer>
+      <PublicFooter />
 
       {open && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
