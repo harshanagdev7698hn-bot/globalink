@@ -1,7 +1,10 @@
+import Link from "next/link";
+
 type Card = {
   title: string;
   desc: string;
   tag?: string;
+  href?: string;
 };
 
 export function EnterprisePage({
@@ -21,9 +24,11 @@ export function EnterprisePage({
         <p className="text-sm font-bold uppercase tracking-[0.28em] text-[#5B86B6]">
           {label}
         </p>
+
         <h1 className="mt-4 text-4xl font-extrabold text-[#000F22]">
           {title}
         </h1>
+
         <p className="mt-4 max-w-3xl text-base leading-7 text-[#6B7280]">
           {desc}
         </p>
@@ -40,15 +45,30 @@ export function EnterprisePage({
                 {item.tag}
               </span>
             )}
+
             <h2 className="mt-5 text-2xl font-extrabold text-[#000F22]">
               {item.title}
             </h2>
+
             <p className="mt-3 text-sm leading-6 text-[#6B7280]">
               {item.desc}
             </p>
-            <button className="mt-6 rounded-xl bg-[#1B3554] px-5 py-3 text-sm font-bold text-white hover:bg-[#000F22]">
-              Open
-            </button>
+
+            {item.href ? (
+              <Link
+                href={item.href}
+                className="mt-6 inline-flex rounded-xl bg-[#1B3554] px-5 py-3 text-sm font-bold text-white hover:bg-[#000F22]"
+              >
+                Open
+              </Link>
+            ) : (
+              <button
+                type="button"
+                className="mt-6 rounded-xl bg-[#1B3554] px-5 py-3 text-sm font-bold text-white hover:bg-[#000F22]"
+              >
+                Open
+              </button>
+            )}
           </div>
         ))}
       </div>
