@@ -197,17 +197,17 @@ export default function PublicHomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#06172D] via-[#071B34]/90 to-[#071B34]/70" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-8 px-4 py-12 md:px-8 md:py-14 lg:grid-cols-[1fr_0.78fr] lg:items-center lg:px-10">
+        <div className="relative mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:py-10 md:px-8 md:py-14 lg:grid-cols-[1fr_0.78fr] lg:items-center lg:px-10">
           <div className="max-w-[680px]">
             <div className="inline-flex rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#DDEBF9]">
               Compliance marketplace for verified discovery
             </div>
 
-            <h1 className="mt-6 text-[38px] font-extrabold leading-[1.02] tracking-tight text-white md:text-[52px] lg:text-[60px]">
+            <h1 className="mt-6 text-[30px] font-extrabold leading-[1.05] tracking-tight text-white sm:text-[34px] md:text-[44px] lg:text-[60px]">
               Find verified compliance partners with confidence.
             </h1>
 
-            <p className="mt-5 max-w-[650px] text-base font-medium leading-7 text-[#DDEBF9]">
+            <p className="mt-5 max-w-[650px] text-sm leading-7 text-[#DDEBF9] sm:text-base">
               Globalink helps users discover verified consultants, labs and compliance partners. Globalink does not issue certificates or approvals.
             </p>
 
@@ -223,24 +223,24 @@ export default function PublicHomePage() {
                 <input
                   type="search"
                   placeholder="Search BIS, ISI, ISO, labs or consultants"
-                  className="h-12 w-full rounded-[14px] border border-white/10 bg-white px-4 text-sm font-medium text-[#04122A] outline-none"
+                  className="h-12 w-full min-w-0 rounded-[14px] border border-white/10 bg-white px-4 text-sm font-medium text-[#04122A] outline-none"
                   aria-label="Search consultants, labs, or compliance resources"
                 />
 
-                <Link href="/consultants" className="flex h-12 items-center justify-center rounded-[14px] bg-[#315EFB] px-5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(49,94,251,0.22)] hover:bg-[#2447D8]" aria-label="Search Globalink consultants">
+                <Link href="/consultants" className="flex h-12 shrink-0 items-center justify-center rounded-[14px] bg-[#315EFB] px-5 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(49,94,251,0.22)] hover:bg-[#2447D8]" aria-label="Search Globalink consultants">
                   Search
                 </Link>
               </div>
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link href="/consultants" className="flex h-11 items-center rounded-[14px] bg-white px-5 text-sm font-semibold text-[#04122A] hover:bg-[#EAF4FF]">
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+              <Link href="/consultants" className="flex h-11 w-full items-center justify-center rounded-[14px] bg-white px-5 text-sm font-semibold text-[#04122A] hover:bg-[#EAF4FF] sm:w-auto">
                 Explore Consultants
               </Link>
-              <Link href="/labs" className="flex h-11 items-center rounded-[14px] border border-white/20 px-5 text-sm font-semibold text-white hover:bg-white/10">
+              <Link href="/labs" className="flex h-11 w-full items-center justify-center rounded-[14px] border border-white/20 px-5 text-sm font-semibold text-white hover:bg-white/10 sm:w-auto">
                 Find Labs
               </Link>
-              <Link href="/join" className="flex h-11 items-center rounded-[14px] border border-white/20 px-5 text-sm font-semibold text-white hover:bg-white/10">
+              <Link href="/join" className="flex h-11 w-full items-center justify-center rounded-[14px] border border-white/20 px-5 text-sm font-semibold text-white hover:bg-white/10 sm:w-auto">
                 Become a Partner
               </Link>
             </div>

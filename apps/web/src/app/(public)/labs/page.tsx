@@ -16,9 +16,9 @@ export default function LabsPage() {
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <PublicNavbar />
 
-      <div className="mx-auto max-w-7xl px-5 py-4">
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-5 sm:py-5">
         {/* HERO */}
-        <section className="rounded-[28px] bg-[#1B3554] px-6 py-6 text-white shadow-xl">
+        <section className="rounded-[28px] bg-[#1B3554] px-5 py-5 text-white shadow-xl sm:px-6 sm:py-6">
           <p className="text-sm font-bold uppercase tracking-[0.35em] text-[#C0E6FD]">
             Verified Testing Labs
           </p>
@@ -38,7 +38,7 @@ export default function LabsPage() {
           <div className="grid gap-4 md:grid-cols-4">
             <input
               placeholder="Search labs or category"
-              className="rounded-2xl border border-[#D6E2F0] px-4 py-4 outline-none focus:border-[#5B86B6]"
+              className="w-full rounded-2xl border border-[#D6E2F0] px-4 py-4 outline-none focus:border-[#5B86B6]"
               aria-label="Search laboratories by name or category"
             />
 
@@ -73,7 +73,7 @@ export default function LabsPage() {
 
               <Link
                 href="/join"
-                className="mt-5 inline-flex rounded-2xl bg-[#1B3554] px-6 py-3 text-sm font-extrabold text-white hover:bg-[#000F22]"
+                className="mt-5 inline-flex w-full justify-center rounded-2xl bg-[#1B3554] px-6 py-3 text-sm font-extrabold text-white hover:bg-[#000F22] md:w-auto"
               >
                 Join as Laboratory
               </Link>

@@ -55,20 +55,19 @@ export default function DashboardPage() {
           </p>
         </div>
 
-        <div className="flex gap-3">
-          <button className="rounded-2xl border border-[#D6E2F0] bg-white px-5 py-4 text-sm font-black text-[#1B3554]">
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <button className="w-full rounded-2xl border border-[#D6E2F0] bg-white px-5 py-4 text-sm font-black text-[#1B3554] sm:w-auto">
             Export Report
           </button>
 
-          <button className="rounded-2xl bg-[#1B3554] px-5 py-4 text-sm font-black text-white hover:bg-[#000F22]">
+          <button className="w-full rounded-2xl bg-[#1B3554] px-5 py-4 text-sm font-black text-white hover:bg-[#000F22] sm:w-auto">
             Create Request
           </button>
-        </div>
       </div>
 
       {/* HERO VISUAL */}
       <section className="mt-6 overflow-hidden rounded-[40px] bg-[#000F22] text-white shadow-2xl">
-        <div className="grid gap-6 p-6 lg:grid-cols-[1.05fr_0.95fr] lg:p-8">
+        <div className="grid gap-6 p-4 sm:p-6 lg:grid-cols-[1.05fr_0.95fr] lg:p-8">
           <div>
             <p className="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.28em] text-[#C0E6FD]">
               Live Marketplace Operations
@@ -221,7 +220,7 @@ export default function DashboardPage() {
               </h2>
             </div>
 
-            <button className="rounded-2xl border border-[#D6E2F0] px-5 py-3 text-sm font-black text-[#1B3554]">
+            <button className="w-full rounded-2xl border border-[#D6E2F0] px-5 py-3 text-sm font-black text-[#1B3554] sm:w-auto">
               View All
             </button>
           </div>

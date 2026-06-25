@@ -35,19 +35,19 @@ export default async function ConsultantsPage() {
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <PublicNavbar />
 
-      <div className="mx-auto max-w-7xl px-5 py-4">
-        <section className="rounded-3xl bg-[#000F22] px-6 py-6 text-white shadow-lg">
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-5 sm:py-5">
+        <section className="rounded-3xl bg-[#000F22] px-5 py-5 text-white shadow-lg sm:px-6 sm:py-6">
           <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
               <p className="text-xs font-black uppercase tracking-[0.28em] text-[#C0E6FD]">
                 Verified Consultant Marketplace
               </p>
 
-              <h1 className="mt-2 max-w-2xl text-2xl font-black leading-tight md:text-3xl">
+              <h1 className="mt-2 max-w-2xl text-2xl font-black leading-tight sm:text-[2.25rem] md:text-3xl">
                 Find trusted compliance experts
               </h1>
 
-              <p className="mt-2 max-w-xl text-sm leading-6 text-[#DCEBFA]">
+              <p className="mt-2 max-w-xl text-sm leading-6 text-[#DCEBFA] sm:text-base">
                 Compare verified consultants for BIS, ISO, CDSCO, EPR, WPC and
                 industrial approvals before you connect.
               </p>
@@ -65,11 +65,11 @@ export default async function ConsultantsPage() {
           <div className="grid gap-3 lg:grid-cols-[1.4fr_0.8fr_0.8fr_0.5fr]">
             <input
               placeholder="Search consultant, service or location"
-              className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold outline-none"
+              className="w-full rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold outline-none"
               aria-label="Search consultants by name, service, or location"
             />
 
-            <select className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold text-[#1B3554] outline-none" aria-label="Filter by service">
+            <select className="w-full rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold text-[#1B3554] outline-none" aria-label="Filter by service">
               <option>All Services</option>
               <option>BIS</option>
               <option>CDSCO</option>
@@ -77,11 +77,11 @@ export default async function ConsultantsPage() {
               <option>ISO</option>
             </select>
 
-            <select className="rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold text-[#1B3554] outline-none" aria-label="Filter by location">
+            <select className="w-full rounded-xl border border-[#D6E2F0] bg-white px-4 py-3 text-sm font-bold text-[#1B3554] outline-none" aria-label="Filter by location">
               <option>All Locations</option>
             </select>
 
-            <button className="rounded-xl bg-[#1B3554] px-5 py-3 text-sm font-black text-white" aria-label="Search consultants">
+            <button className="w-full rounded-xl bg-[#1B3554] px-5 py-3 text-sm font-black text-white" aria-label="Search consultants">
               Search
             </button>
           </div>

@@ -37,8 +37,8 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen bg-[#F6F8FB] px-4 py-4">
-      <div className="mx-auto max-w-7xl">
-        <header className="mb-4 flex items-center justify-between rounded-2xl border border-[#D6E2F0] bg-white px-5 py-3 shadow-sm">
+      <div className="mx-auto max-w-7xl px-0 sm:px-2">
+        <header className="mb-4 flex flex-col gap-3 rounded-2xl border border-[#D6E2F0] bg-white px-4 py-4 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:px-5 sm:py-3">
           <Link href="/" className="text-3xl font-black text-[#000F22]">
             Globalink
           </Link>
@@ -204,7 +204,7 @@ export default function LoginPage() {
                 <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                   <button
                     type="button"
-                    className="h-12 rounded-xl border border-[#D6E2F0] bg-white text-sm font-black text-[#000F22] transition hover:bg-[#F8FAFC]"
+                    className="h-12 w-full rounded-xl border border-[#D6E2F0] bg-white text-sm font-black text-[#000F22] transition hover:bg-[#F8FAFC] sm:w-auto"
                   >
                     Microsoft / Azure AD
                   </button>
@@ -216,7 +216,7 @@ export default function LoginPage() {
       callbackUrl: "/dashboard",
     })
   }
-  className="flex h-12 items-center justify-center gap-3 rounded-xl border border-[#D6E2F0] bg-white text-sm font-black text-[#000F22] transition hover:bg-[#F8FAFC]"
+  className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-[#D6E2F0] bg-white text-sm font-black text-[#000F22] transition hover:bg-[#F8FAFC] sm:w-auto"
 >
   <img
     src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"

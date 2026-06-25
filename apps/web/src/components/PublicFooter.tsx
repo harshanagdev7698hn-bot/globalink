@@ -134,7 +134,7 @@ export default function PublicFooter() {
 
           <Link
             href="/join"
-            className="mt-6 inline-flex rounded-2xl bg-white px-6 py-4 text-sm font-black text-[#000F22] md:mt-0"
+            className="mt-6 inline-flex w-full justify-center rounded-2xl bg-white px-6 py-4 text-sm font-black text-[#000F22] md:w-auto md:mt-0"
           >
             Create Account
           </Link>

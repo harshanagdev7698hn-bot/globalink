@@ -21,20 +21,13 @@ export default function PublicNavbar() {
 {/* LOGO */}
 <Link
   href="/"
-  className="flex items-center gap-3"
+  className="flex min-w-0 items-center gap-3"
 >
-
-  {/* MAIN LOGO */}
   <img
     src="/images/globalink-main-logo.png.png"
     alt="Globalink"
-    className="
-      h-auto
-      w-[120px]
-      object-contain
-    "
+    className="h-auto max-w-[120px] min-w-0 object-contain sm:max-w-[140px]"
   />
-
 </Link>
           {/* DESKTOP MENU */}
           <nav className="hidden items-center gap-10 lg:flex">
@@ -118,33 +111,24 @@ export default function PublicNavbar() {
 
         {/* TRUST STRIP */}
         <div className="border-t border-slate-100 bg-slate-50">
-          <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-5 py-3">
-
-            {[
-              "BIS",
-              "ISO",
-              "CE",
-              "FDA",
-              "FSSAI",
-              "NABL",
-            ].map((item) => (
-              <div
-                key={item}
-                className="
-                rounded-full
-                border
-                border-slate-200
-                bg-white
-                px-4
-                py-2
-                text-xs
-                font-black
-                text-[#123A68]
-                "
-              >
-                {item}
-              </div>
-            ))}
+          <div className="mx-auto flex max-w-7xl overflow-x-auto px-5 py-3">
+            <div className="flex min-w-full gap-3">
+              {[
+                "BIS",
+                "ISO",
+                "CE",
+                "FDA",
+                "FSSAI",
+                "NABL",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-full border border-slate-200 bg-white px-4 py-2 text-xs font-black text-[#123A68]"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
 
             <div className="ml-auto hidden gap-3 xl:flex">
 
@@ -225,40 +209,21 @@ export default function PublicNavbar() {
             </nav>
 
             <div className="border-t p-5">
-
               <div className="grid gap-3">
-
                 <Link
                   href="/login"
-                  className="
-                  rounded-xl
-                  border
-                  px-5
-                  py-4
-                  text-center
-                  font-bold
-                  "
+                  className="rounded-xl border border-slate-300 px-5 py-4 text-center text-sm font-bold text-slate-700 transition hover:bg-slate-100"
                 >
                   Sign In
                 </Link>
 
                 <Link
                   href="/join"
-                  className="
-                  rounded-xl
-                  bg-[#1B3554]
-                  px-5
-                  py-4
-                  text-center
-                  font-bold
-                  text-white
-                  "
+                  className="rounded-xl bg-[#1B3554] px-5 py-4 text-center text-sm font-bold text-white transition hover:bg-[#10263E]"
                 >
                   Join Globalink
                 </Link>
-
               </div>
-
             </div>
 
           </div>

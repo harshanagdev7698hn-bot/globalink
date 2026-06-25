@@ -27,8 +27,8 @@ export default function MarketplacePage() {
     <main className="min-h-screen bg-[#F7F9FC] text-[#07162D]">
       <PublicNavbar />
 
-      <section className="mx-auto max-w-7xl px-6 py-4">
-        <div className="rounded-[20px] bg-[#020817] p-4 text-white shadow-xl">
+      <section className="mx-auto max-w-7xl px-4 py-4 sm:px-6 sm:py-5">
+        <div className="rounded-[20px] bg-[#020817] p-4 text-white shadow-xl sm:p-5">
           <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr] lg:items-center">
             <div>
               <p className="text-sm font-black uppercase tracking-[0.35em] text-[#9DB8F8]">
@@ -80,7 +80,7 @@ export default function MarketplacePage() {
               <option>NABL</option>
               <option>CE</option>
             </select>
-            <button className="h-12 rounded-2xl bg-[#0B1F3A] px-10 text-sm font-black text-white">
+            <button className="h-12 w-full rounded-2xl bg-[#0B1F3A] px-10 text-sm font-black text-white lg:w-auto">
               Search
             </button>
           </div>
@@ -114,7 +114,7 @@ export default function MarketplacePage() {
 
               <Link
                 href="/join"
-                className="mt-6 inline-flex rounded-xl bg-[#0B1F3A] px-6 py-3 text-sm font-black text-white"
+                className="mt-6 inline-flex w-full justify-center rounded-xl bg-[#0B1F3A] px-6 py-3 text-sm font-black text-white lg:w-auto"
               >
                 Join as Supplier
               </Link>

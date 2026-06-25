@@ -157,7 +157,7 @@ export default function JoinPage() {
 
   return (
     <main className="min-h-screen bg-[#F7F9FC] text-[#111827]">
-      <section className="mx-auto grid min-h-screen max-w-[1440px] lg:grid-cols-[300px_minmax(0,1fr)]">
+      <section className="mx-auto grid min-h-screen max-w-[1440px] lg:grid-cols-[300px_minmax(0,1fr)] px-4 py-4 sm:px-5 sm:py-5">
         <aside className="hidden bg-[#020817] px-8 py-8 text-white lg:flex lg:flex-col">
           <Link href="/" className="flex items-center gap-3">
             <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-[#9DB8F8]">
@@ -240,7 +240,7 @@ export default function JoinPage() {
             </Link>
           </header>
 
-          <div className="flex flex-1 items-start justify-center px-4 py-4 md:px-6 md:py-5">
+          <div className="flex flex-1 items-start justify-center px-2 py-4 md:px-6 md:py-5">
             <div className="w-full max-w-[760px]">
               <div className="mb-4 h-2 overflow-hidden rounded-full bg-slate-200">
                 <div
@@ -367,12 +367,12 @@ export default function JoinPage() {
                   </div>
                 )}
 
-                <div className="mt-5 flex items-center justify-between border-t border-slate-200 pt-4">
+                <div className="mt-5 flex flex-col gap-3 border-t border-slate-200 pt-4 sm:flex-row sm:items-center sm:justify-between">
                   <button
                     type="button"
                     onClick={prevStep}
                     disabled={step === 1}
-                    className="h-11 rounded-[14px] border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 disabled:opacity-40"
+                    className="h-11 w-full rounded-[14px] border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 disabled:opacity-40 sm:w-auto"
                   >
                     Back
                   </button>
@@ -381,7 +381,7 @@ export default function JoinPage() {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="h-12 rounded-[14px] bg-[#40598B] px-6 text-sm font-semibold leading-none text-white shadow-[0_8px_24px_rgba(49,94,251,0.06)] transition hover:bg-[#2447D8]"
+                      className="h-12 w-full rounded-[14px] bg-[#40598B] px-6 text-sm font-semibold leading-none text-white shadow-[0_8px_24px_rgba(49,94,251,0.06)] transition hover:bg-[#2447D8] sm:w-auto"
                     >
                       Continue
                     </button>

@@ -60,8 +60,8 @@ export default function CertificationsPage() {
     <main className="min-h-screen bg-[#F8FAFC] text-[#1F2937]">
       <PublicNavbar />
 
-      <div className="mx-auto max-w-7xl px-5 pb-20 pt-6">
-        <section className="overflow-hidden rounded-[32px] bg-[#061028] px-6 py-6 text-white shadow-2xl md:px-10">
+      <div className="mx-auto max-w-7xl px-4 pb-20 pt-6 sm:px-5">
+        <section className="overflow-hidden rounded-[32px] bg-[#061028] px-5 py-5 text-white shadow-2xl sm:px-6 sm:py-6 md:px-10">
           <div className="mx-auto max-w-4xl">
             <p className="text-xs font-black uppercase tracking-[0.28em] text-[#84C0F4]">
               Certification Support
@@ -79,7 +79,7 @@ export default function CertificationsPage() {
             <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Link
                 href="/consultants"
-                className="inline-flex items-center justify-center rounded-2xl bg-white px-6 py-4 text-sm font-black text-[#07162D] transition hover:bg-slate-100"
+                className="inline-flex w-full justify-center rounded-2xl bg-white px-6 py-4 text-sm font-black text-[#07162D] transition hover:bg-slate-100 sm:w-auto"
               >
                 Browse consultants
               </Link>
