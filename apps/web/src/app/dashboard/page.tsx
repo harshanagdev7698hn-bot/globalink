@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 const stats = [
   {
     title: "Active Requests",
@@ -50,9 +48,8 @@ export default function DashboardPage() {
           </h1>
 
           <p className="mt-3 max-w-3xl text-sm leading-7 text-[#6B7280]">
-            Manage compliance workflows, consultant activity,
-            marketplace trust verification and operational requests
-            from one unified platform.
+            Manage compliance workflows, consultant activity, marketplace trust
+            verification and operational requests from one unified platform.
           </p>
         </div>
 
@@ -64,6 +61,7 @@ export default function DashboardPage() {
           <button className="w-full rounded-2xl bg-[#1B3554] px-5 py-4 text-sm font-black text-white hover:bg-[#000F22] sm:w-auto">
             Create Request
           </button>
+        </div>
       </div>
 
       {/* HERO VISUAL */}
@@ -93,7 +91,6 @@ export default function DashboardPage() {
           {/* VISUAL CARD */}
           <div className="relative">
             <div className="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-[#5B86B6]/30 blur-3xl" />
-
             <div className="absolute -bottom-10 -left-10 h-40 w-40 rounded-full bg-[#C0E6FD]/20 blur-3xl" />
 
             <div className="relative rounded-[28px] border border-white/10 bg-white/10 p-4 backdrop-blur">
@@ -202,6 +199,10 @@ export default function DashboardPage() {
             <h2 className="mt-6 text-5xl font-black text-[#07162D]">
               {item.value}
             </h2>
+
+            <p className="mt-3 text-sm font-bold text-[#6B7280]">
+              {item.note}
+            </p>
           </div>
         ))}
       </section>
