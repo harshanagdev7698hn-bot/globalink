@@ -50,8 +50,9 @@ export default function DashboardPage() {
           </h1>
 
           <p className="mt-3 max-w-3xl text-sm leading-7 text-[#6B7280]">
-            Manage compliance workflows, consultant activity, marketplace trust
-            verification and operational requests from one unified platform.
+            Manage compliance workflows, consultant activity,
+            marketplace trust verification and operational requests
+            from one unified platform.
           </p>
         </div>
 
