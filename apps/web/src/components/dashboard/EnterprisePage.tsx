@@ -7,17 +7,19 @@ type Card = {
   href?: string;
 };
 
+type EnterprisePageProps = {
+  label: string;
+  title: string;
+  desc: string;
+  cards: Card[];
+};
+
 export function EnterprisePage({
   label,
   title,
   desc,
   cards,
-}: {
-  label: string;
-  title: string;
-  desc: string;
-  cards: Card[];
-}) {
+}: EnterprisePageProps) {
   return (
     <section className="space-y-8">
       <div className="rounded-[28px] border border-[#D6E2F0] bg-white p-8 shadow-sm">
