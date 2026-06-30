@@ -1,7 +1,8 @@
-export const dynamic = "force-dynamic";
+
 import { VerificationStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
+export const dynamic = "force-dynamic";
 
 type UserRow = {
   id: string;
