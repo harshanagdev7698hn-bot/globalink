@@ -1,3 +1,4 @@
+import { VerificationStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 
@@ -13,24 +14,26 @@ async function updateUserStatus(formData: FormData) {
   "use server";
 
   const userId = formData.get("userId");
-  const status = formData.get("status");
+const statusValue = formData.get("status");
 
-  if (
-    typeof userId !== "string" ||
-    typeof status !== "string" ||
-    !["VERIFIED", "REJECTED"].includes(status)
-  ) {
-    return;
-  }
+if (
+  typeof userId !== "string" ||
+  typeof statusValue !== "string" ||
+  !["VERIFIED", "REJECTED"].includes(statusValue)
+) {
+  return;
+}
 
-  await prisma.user.update({
-    where: {
-      id: userId,
-    },
-    data: {
-      status,
-    },
-  });
+const status = statusValue as VerificationStatus;
+
+await prisma.user.update({
+  where: {
+    id: userId,
+  },
+  data: {
+    status,
+  },
+});
 
   revalidatePath("/dashboard/admin/pending");
   revalidatePath("/dashboard/admin/verified");
