@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 
@@ -218,13 +219,15 @@ export default function LoginPage() {
   }
   className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-[#D6E2F0] bg-white text-sm font-black text-[#000F22] transition hover:bg-[#F8FAFC] sm:w-auto"
 >
-  <img
-    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-    alt="Google"
-    className="h-5 w-5"
-  />
-  Google
-</button>
+<Image
+                    src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                    alt="Google"
+                    width={20}
+                    height={20}
+                    className="h-5 w-5"
+                  />
+                  Google
+                </button>
                 </div>
 
                 <div className="mt-4 rounded-2xl border border-[#D6E2F0] bg-[#F8FAFC] p-4">

@@ -145,7 +145,10 @@ export default function PublicFooter() {
             Important Notice
           </p>
           <p className="mt-3 text-sm leading-6">
-            Globalink does not issue certificates, approvals, licenses or registrations. It is a discovery platform for verified compliance consultants, labs and sellers.
+            Globalink does not issue certificates, approvals, licenses or registrations.
+          </p>
+          <p className="mt-3 text-sm leading-6">
+            Globalink helps users discover verified consultants, laboratories, compliance partners and suppliers.
           </p>
         </div>
 

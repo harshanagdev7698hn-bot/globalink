@@ -197,7 +197,7 @@ export default function PublicHomePage() {
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#06172D] via-[#071B34]/90 to-[#071B34]/70" />
 
-        <div className="relative mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:py-10 md:px-8 md:py-14 lg:grid-cols-[1fr_0.78fr] lg:items-center lg:px-10">
+        <div className="relative mx-auto grid max-w-7xl gap-4 px-4 py-6 sm:py-8 md:px-8 md:py-14 lg:grid-cols-[1fr_0.78fr] lg:items-center lg:px-10">
           <div className="max-w-[680px]">
             <div className="inline-flex rounded-xl border border-white/10 bg-white/10 px-4 py-2 text-xs font-black uppercase tracking-[0.18em] text-[#DDEBF9]">
               Compliance marketplace for verified discovery
@@ -276,7 +276,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      <section className="px-4 py-10 md:px-8 lg:px-10">
+      <section className="px-4 py-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="mb-7">
             <p className="text-sm font-black uppercase tracking-[0.25em] text-[#315EFB]">
@@ -287,7 +287,7 @@ export default function PublicHomePage() {
             </h2>
           </div>
 
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {whyGlobalink.map((item) => (
               <div
                 key={item.title}
@@ -304,7 +304,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      <section className="bg-white px-4 py-10 md:px-8 lg:px-10">
+      <section className="bg-white px-4 py-8 md:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-[#315EFB]">
             Popular Searches
@@ -323,7 +323,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      <section className="px-4 py-12 md:px-8 lg:px-10">
+      <section className="px-4 py-10 md:py-12 md:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
           <div className="mb-7 flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -508,7 +508,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      <section className="bg-white px-4 py-12 md:px-8 lg:px-10">
+      <section className="bg-white px-4 py-10 md:py-10 md:py-12 md:px-8 lg:px-10">
         <div className="mx-auto max-w-7xl">
           <p className="text-sm font-black uppercase tracking-[0.25em] text-[#315EFB]">
             Network Statistics
@@ -553,7 +553,7 @@ export default function PublicHomePage() {
         </div>
       </section>
 
-      <section className="bg-[#07223A] px-4 py-12 text-white md:px-8 lg:px-10">
+      <section className="bg-[#07223A] px-4 py-10 text-white md:py-12 md:px-8 lg:px-10">
         <div className="mx-auto grid max-w-7xl gap-8 rounded-[24px] border border-white/10 bg-[#071B34] p-6 md:grid-cols-[1.25fr_0.75fr] md:items-center md:p-8">
           <div>
             <p className="text-sm font-black uppercase tracking-[0.25em] text-[#9DB8F8]">
@@ -616,7 +616,7 @@ export default function PublicHomePage() {
       <PublicFooter />
 
       {open && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-[#092031]/50 p-4">
           <div className="w-full max-w-xl rounded-[20px] bg-white p-6 shadow-xl">
             <h2 className="text-xl font-black text-[#04122A]">
               How verification works

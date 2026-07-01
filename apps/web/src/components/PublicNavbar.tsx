@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 const links = [
@@ -23,9 +24,11 @@ export default function PublicNavbar() {
   href="/"
   className="flex min-w-0 items-center gap-3"
 >
-  <img
+  <Image
     src="/images/globalink-main-logo.png.png"
     alt="Globalink"
+    width={140}
+    height={131}
     className="h-auto max-w-[120px] min-w-0 object-contain sm:max-w-[140px]"
   />
 </Link>
@@ -156,7 +159,7 @@ export default function PublicNavbar() {
 
       {/* MOBILE PANEL */}
       {open && (
-        <div className="fixed inset-0 z-[80] bg-black/50 lg:hidden">
+        <div className="fixed inset-0 z-[80] bg-[#092031]/50 lg:hidden">
 
           <div className="absolute right-0 top-0 h-full w-[88%] max-w-sm bg-white shadow-2xl">
 
